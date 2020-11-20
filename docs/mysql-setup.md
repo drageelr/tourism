@@ -125,7 +125,7 @@ CREATE TABLE `trip_request` (
   `id` int NOT NULL AUTO_INCREMENT,
   `tripID` int NOT NULL,
   `customerID` int NOT NULL,
-  `code` varchar(10) NOT NULL,
+  `code` varchar(10) DEFAULT NULL,
   `numberOfPeople` int NOT NULL,
   `amountDue` int NOT NULL,
   `accepted` tinyint NOT NULL,
@@ -133,7 +133,7 @@ CREATE TABLE `trip_request` (
   KEY `fk_trip_request_tripID_idx` (`tripID`),
   KEY `fk_trip_request_customerID_idx` (`customerID`),
   KEY `fk_trip_request_code_idx` (`code`),
-  CONSTRAINT `fk_trip_request_code` FOREIGN KEY (`code`) REFERENCES `promo_code` (`code`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_trip_request_code` FOREIGN KEY (`code`) REFERENCES `promo_code` (`code`),
   CONSTRAINT `fk_trip_request_customerID` FOREIGN KEY (`customerID`) REFERENCES `customer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_trip_request_tripID` FOREIGN KEY (`tripID`) REFERENCES `trip` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
