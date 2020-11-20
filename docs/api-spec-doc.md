@@ -1,0 +1,83 @@
+# Tourism App - API Specification Document
+
+## Important Notes
+- Every **Response Object** will contain `{statusCode: Number, statusName: "String", message: "String"}` in addition to the mentioned object.
+- All other APIs except **Authentication** API must send the `token`  as *"Authorization"* header with every request.
+
+## APIs
+
+### 1. Authentication
+|#|Name|Description|Route|Request Object|Request Type|Response Object (Success)|Access|
+|-|----|-----------|-----|------------|--------------|---------------|------|---------------|
+|1|CCA Login|Authentication for Admins|`/api/auth/admin/login`|`loginObj`|POST|`{token: "String", user: {id: Number, firstName: "String", lastName: "String", picture: "String", permissions: "String"}}`|-|
+|2|Society Login|Authentication for Customers|`/api/auth/customer/login`|`loginObj`|POST|`{token: "String", user: userObj}`|-|
+
+- **Note: * means the field mentioned is required (For `Request Object`)**
+
+#### Object Schema
+|#|Name|Object|
+|-|----|------|
+|1|`loginObj`|`{email*: "String - must be email", password*: "String-min(8)-max(30)-[a-zA-Z0-9]"}`|
+|2|`userObj`|`{id: Number, firstName: "String", lastName: "String"}`|
+
+## Status Codes
+**Note: These status codes have been altered for use in CMS. For further elaboration visit this [link.](https://restfulapi.net/http-status-codes/)**
+### 1. Sucess
+|#|Name|Code|Description|
+|-|----|----|-----------|
+|1|`OK`|`200`|<ul><li>Action requested by client successfully carried out.</li></ul> <ul><li>No other specific code in `2xx` series is appropriate.</li></ul> <ul><li>**Always has a response body** (apart from `status` and `message`).</li></ul>|
+|2|`CREATED`|`201`|<ul><li>A resource is created inside a collection.</li></ul> <ul><li>Always returns this code **only after** successful creation of the resource.</li></ul>|
+|3|`ACCEPTED`|`202`|<ul><li>Request has been accepted, but will be processed later on.</li></ul> <ul><li>Always returns this code **before execution** of requested process.</li></ul>|
+|4|`NO CONTENT`|`203`|<ul><li>Action requested by client successfuly carried out.</li></ul> <ul><li>**Never returns a response body** (apart from `status` and `message`).</li></ul>|
+
+### 2. Redirection
+|#|Name|Code|Description|
+|-|----|----|-----------|
+|1|`MOVED PERMANENTLY`|`301`|<ul><li>API shifted to **new URI**.</li></ul> <ul><li>Always returns **new URI** in response body(apart from `status` and `message`).</li></ul>|
+|2|`SEE OTHER`|`303`|<ul><li>Controller resource has finished it's work, but the **response is on some other URI** sent in response body (apart from `status` and `message`).</li></ul>|
+|3|`NOT MODIFIED`|`304`|<ul><li>Resource has not been modified since the version specified by the request.</li></ul> <ul><li>**Never returns a response body** (apart from `status` and `message`).</li></ul>|
+|4|`TEMPORARY REDIRECT`|`307`|<ul><li>Client's request woudl not be processed **since URI has temporarily been changed**.</li></ul> <ul><li>Always returns **temporary URI** in response body(apart from `status` and `message`).</li></ul>|
+
+### 3. Client Error
+|#|Name|Code|Description|
+|-|----|----|-----------|
+|1|`BAD REQUEST`|`400`|<ul><li>Generic client-side error status.</li></ul> <ul><li>No other specific code in `4xx` series is appropriate.</li></ul>|
+|2|`UNAUTHORIZED`|`401`|<ul><li>Client request to a resource without proper authorization - **either no or wrong credentials.**</li></ul>|
+|3|`FORBIDDEN`|`403`|<ul><li>Client doesn't have access to the requested resource.</li></ul>|
+|4|`NOT FOUND`|`404`|<ul><li>Invalid URI (API Route).</li></ul>|
+|5|`NOT ACCEPTABLE`|`406`|<ul><li>API can't generate client's preffered media type.</li></ul>|
+|6|`UNSUPPORTED MEDIA TYPE`|`415`|<ul><li>API can't process client's supplied media type.</li></ul>|
+
+### 4. Server Error
+|#|Name|Code|Description|
+|-|----|----|-----------|
+|1|`INTERNAL SERVER ERROR`|`500`|<ul><li>Error occured at sever side - not the client's fault.</li></ul>|
+|2|`NOT IMPLEMENTED`|`501`|<ul><li>API not implemented but exists.</li></ul>|
+
+### 5. Misc
+|#|Name|Code|Description|
+|-|----|----|-----------|
+|1|`NOT A STATUS CODE`|`any number apart from ones mentioned above`|<ul><li>Error Code not available.</li></ul>|
+
+## Error Objects
+### Introduction
+Error object standard:
+```javascript=1
+{
+name: "String",
+details: object/"String"/Number
+}
+```
+Hence, standard error output:
+```javascript=1
+{
+statusCode: Number, 
+statusName: "String", 
+message: "String", 
+error: {
+    name: "String", 
+    subName: "String", 
+    details: object/"String"/Number
+  }
+}
+```
