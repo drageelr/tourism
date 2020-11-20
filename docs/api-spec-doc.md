@@ -8,9 +8,9 @@
 
 ### 1. Authentication
 |#|Name|Description|Route|Request Object|Request Type|Response Object (Success)|Access|
-|-|----|-----------|-----|------------|--------------|---------------|------|---------------|
-|1|CCA Login|Authentication for Admins|`/api/auth/admin/login`|`loginObj`|POST|`{token: "String", user: {id: Number, firstName: "String", lastName: "String", picture: "String", permissions: "String"}}`|-|
-|2|Society Login|Authentication for Customers|`/api/auth/customer/login`|`loginObj`|POST|`{token: "String", user: userObj}`|-|
+|-|----|-----------|-----|------------|--------------|---------------|------|
+|1|Admin Login|Authentication for Admins|`/api/auth/admin/login`|`loginObj`|POST|`{token: "String", user: {id: Number, firstName: "String", lastName: "String", picture: "String", permissions: "String"}}`|-|
+|2|Customer Login|Authentication for Customers|`/api/auth/customer/login`|`loginObj`|POST|`{token: "String", user: userObj}`|-|
 
 - **Note: * means the field mentioned is required (For `Request Object`)**
 
