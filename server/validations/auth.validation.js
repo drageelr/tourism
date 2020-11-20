@@ -7,6 +7,6 @@ var Joi = require('@hapi/joi');
 exports.login = {
     body: Joi.object({
         email: Joi.string().email().required(),
-        password: Joi.string().regex(/[a-zA-Z0-9]/).min(8).max(30)
+        password: Joi.string().regex(/[a-zA-Z0-9]/).min(8).max(30).required()
     })
 };
