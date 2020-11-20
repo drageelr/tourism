@@ -121,7 +121,7 @@ CREATE TABLE `trip_request` (
   `customerID` int NOT NULL,
   `code` varchar(10) NOT NULL,
   `numberOfPeople` int NOT NULL,
-  `paidAmount` int NOT NULL,
+  `amountDue` int NOT NULL,
   `accepted` tinyint NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_trip_request_tripID_idx` (`tripID`),
