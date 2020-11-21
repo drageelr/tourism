@@ -20,4 +20,6 @@ app.use(errorHandler);
 
 db.con.connect();
 
+db.defaultAdmin();
+
 module.exports = app;
