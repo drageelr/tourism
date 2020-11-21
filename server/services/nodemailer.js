@@ -20,12 +20,23 @@ function sendEmail (mailOptions) {
     });
 }
 
-exports.sendAccountActivation = (emailTarget, name, accountType, link) => {
+exports.sendAdminSignUpEmail = (emailTarget, link) => {
     let mailOptions = {
         from: 'Tourism App <tourism.app2020@gmail.com>',
         to: emailTarget,
-        subject: 'Account Activation',
-        html: `<div><h1>Welcome to Tourism App</h1><br><p>Dear ${name},<br><br>Your account of type <strong>${accountType}</strong> has been created!<br>Click on the following link to activate your account: ${link}<br><strong>Note: The link is valid for 12 hours only!</strong><br><br>Regards,<br>Tourism App</p></div>`
+        subject: 'Admin Sign Up',
+        html: `<div><h1>Admin Sign Up</h1><br><p>Dear Sir/Madam,<br><br>Click on the following link to create your admin account: ${link}<br><br>Regards,<br>Tourism App</p></div>`
+    };
+  
+    sendEmail(mailOptions);
+}
+
+exports.sendForgotPasswordEmail = (emailTarget, name, accountType, link) => {
+    let mailOptions = {
+        from: 'Tourism App <tourism.app2020@gmail.com>',
+        to: emailTarget,
+        subject: 'Reset Password',
+        html: `<div><h1>Reset Password</h1><br><p>Dear ${name},<br><br>Your account of type <strong>${accountType}</strong> has requested for password to be reset!<br>Click on the following link to reset your password: ${link}<br><strong>Note: The link is valid for 12 hours only!</strong><br><br>Regards,<br>Tourism App</p></div>`
     };
   
     sendEmail(mailOptions);

@@ -3,14 +3,15 @@
 var jwt = require('jsonwebtoken');
 var db = require('../services/mysql');
 var customError = require('../errors/errors');
+var { vars } = require('../config/config');
 
 exports.signUser = (id, type, expiry = '12h') => {
-    return jwt.sign({id: id, type: type}, 'SECRET-KEY', {expiresIn: expiry});
+    return jwt.sign({id: id, type: type}, vars.secretKey, {expiresIn: expiry});
 }
 
 function decodeToken(token) {
     try {
-        return jwt.verify(token, 'SECRET-KEY');
+        return jwt.verify(token, vars.secretKey);
     } catch(e) {
         return {err: e};
     }

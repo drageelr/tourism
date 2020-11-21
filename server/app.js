@@ -6,6 +6,7 @@ var db = require('./services/mysql');
 var { errorHandler } = require('./errors/errorhandler');
 
 var authRouter = require('./routes/auth.route');
+var accountRouter = require('./routes/account.route');
 var locRouter = require('./routes/location.route');
 var app = express();
 
@@ -15,6 +16,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use('/api/auth', authRouter);
+app.use('/api/account', accountRouter);
 app.use('/api/location',locRouter);
 
 app.use(errorHandler);
