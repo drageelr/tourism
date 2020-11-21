@@ -1,16 +1,11 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { loginUser } from "../../actions/authActions";
-import classnames from "classnames";
 import {
     Button,
     Form,
     FormGroup,
     Input
 } from 'reactstrap';
-// import logo from '../../images/logo.png';
 
 class Login extends Component {
     state = {
@@ -49,7 +44,8 @@ class Login extends Component {
         return (
             <div className="home-page">
                 <div className="container main">
-                    <p className="brand-name">GUL FARMS</p>
+                    <p className="brand-name">BOOK MY TRIP</p>
+                    <p className="title">Login</p>
                     <Form className="reg-form" noValidate onSubmit={this.onSubmit}>
                         <FormGroup>
                             <Input
@@ -57,41 +53,23 @@ class Login extends Component {
                                 placeholder="Enter your email address"
                                 onChange={this.onChange}
                                 value={this.state.email}
-                                error={errors.email}
                                 id="email"
-                                className={classnames("input-field", {
-                                    invalid: errors.email || errors.emailnotfound
-                                })}
                             />
                         </FormGroup>
-                        <span className="red-text">
-                            {errors.email}
-                            {errors.emailnotfound}
-                        </span>
                         <FormGroup className="password-container">
                             <Input
                                 type="password"
                                 placeholder="Enter your password"
                                 onChange={this.onChange}
                                 value={this.state.password}
-                                error={errors.password}
                                 id="password"
-                                className={classnames("input-field", {
-                                    invalid: errors.password || errors.passwordincorrect
-                                })}
                             />
-                            <span className="red-text">
-                                {errors.password}
-                                {errors.passwordincorrect}
-                            </span>
-                            {/* <div className="pop-up">
-                                Password must be greater than 8 characters long and
-                                must contain atleast 1 digit and 1 special character
-                            </div> */}
+                            <p></p>
+                            <Link to="/forgot-password" className="link">Forgot Password? :(</Link>
+                            
                         </FormGroup>
-                        <Link to="/forgot-password" className="link">Forgot Password? :(</Link>
                         <div className="btn-handler">
-                            <Button className="login-btn">LOGIN</Button>
+                            <Button className="signup-btn">LOGIN</Button>
                         </div>
                     </Form>
                 </div>
@@ -100,11 +78,4 @@ class Login extends Component {
     }
 }
 
-const mapStateToProps = state => ({
-    loggedIn: state.authReducer.islogged,
-    errors: state.errorReducer.errors
-});
-export default connect(
-    mapStateToProps,
-    { loginUser }
-)(withRouter(Login));
+export default Login;

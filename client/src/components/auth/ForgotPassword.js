@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { withRouter } from "react-router-dom";
-import { connect } from "react-redux";
 import axios from "axios"
 import {
     Button,
@@ -8,7 +6,6 @@ import {
     FormGroup,
     Input
 } from 'reactstrap';
-// import logo from '../../images/logo.png';
 
 
 class ForgotPassword extends Component {
@@ -53,11 +50,8 @@ class ForgotPassword extends Component {
             <div className="home-page">
                 <div className="container main">
                     {/* <img src={ logo } alt={ "Logo" } /> */}
-                    <p className="text-heading mb-4">GUL FARMS</p>
-                    <p className="text">Forgot your password?</p>
-                    <p className="text">Nothing to worry about.</p>
-                    <p className="text">Enter the email you used to sign up</p>
-                    <p className="text mb-3">and a password-reset link will be emailed to you.</p>
+                    <p className="brand-name">BOOK MY TRIP</p>
+                    <p className="title">Forgot Password</p>
                     <Form className="reg-form" noValidate onSubmit={this.onSubmit}>
                         <FormGroup>
                             <Input
@@ -69,10 +63,15 @@ class ForgotPassword extends Component {
                                 error={errors.email}
                                 id="email"
                             />
+                            <div className="pop-up">
+                        Enter the email you used to sign up and a password-reset link will be emailed to you.
+                        </div>
                         </FormGroup>
+                        
+                        <p className="text"></p>
                         <span>{errors.email}</span>
                         <div className="btn-handler">
-                            <Button className="login-btn">Submit</Button>
+                            <Button className="signup-btn">Submit</Button>
                         </div>
                     </Form>
                 </div>
@@ -80,10 +79,4 @@ class ForgotPassword extends Component {
         )
     }
 }
-const mapStateToProps = state => ({
-    auth: state.authReducer.islogged
-});
-export default connect(
-    mapStateToProps,
-    {  }
-)(withRouter(ForgotPassword));
+export default ForgotPassword;

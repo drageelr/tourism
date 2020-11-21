@@ -18,7 +18,6 @@ import {
     Button
 } from 'reactstrap';
 
-import { logoutUser } from "../../actions/authActions";
 
 import { connect } from "react-redux";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -92,6 +91,6 @@ class AppNavbar extends Component{
                 </Navbar>
             </div>
         );
-    }
+    }   
 }
-export default connect(null,{ logoutUser })(AppNavbar);
+export default AppNavbar;

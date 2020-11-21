@@ -7,8 +7,9 @@ import {
     Input
 } from 'reactstrap';
 
-class ResetPassword extends Component {
+class ChangePassword extends Component {
     state = {
+        oldpassword: "",
         password: "",
         rePassword: "",
         errors: {}        
@@ -53,9 +54,21 @@ class ResetPassword extends Component {
             <div className="home-page">
                 <div className="container main">
                     <p className="brand-name">BOOK MY TRIP</p>
-                    <p className="title">Reset Password</p>
+                    <p className="title">Change Password</p>
                     <Form className="reg-form" noValidate onSubmit={this.onSubmit}>
-                    <FormGroup className="password-container">
+                        <FormGroup>
+                            <Input 
+                                className="input-field"
+                                type="password" 
+                                placeholder="Enter old password" 
+                                onChange={this.onChange}
+                                value={this.state.oldpassword} 
+                                error={errors.oldpassword} 
+                                id="password"
+                            />
+                        </FormGroup>
+                        <FormGroup className="password-container">
+                            
                             <Input 
                                 className="input-field"
                                 type="password" 
@@ -65,8 +78,7 @@ class ResetPassword extends Component {
                                 error={errors.password} 
                                 id="password"
                                 />
-                        </FormGroup>
-                        <FormGroup>
+                            <p></p>
                             <Input 
                                 className="input-field"
                                 type="password" 
@@ -90,4 +102,4 @@ class ResetPassword extends Component {
         )
     }
 }
-export default ResetPassword;
+export default ChangePassword;

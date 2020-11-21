@@ -30,7 +30,7 @@ FLUSH PRIVILEGES;
 - Create a new connection
   - Connection Name: Anything
   - Hostname: `127.0.0.1`
-  - Port: `3306`
+  - Port: `13306`
   - Username: `tourism`
   - Password: `tourism123`
     - This will be prompted to you when you run the connection

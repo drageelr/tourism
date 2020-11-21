@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { withRouter } from "react-router-dom";
-import { connect } from "react-redux";
 import axios from "axios"
 import {
     Button,
@@ -8,8 +6,6 @@ import {
     FormGroup,
     Input
 } from 'reactstrap';
-import logo from '../../images/logo.png';
-
 
 class AddUser extends Component {
     state = {
@@ -45,9 +41,9 @@ class AddUser extends Component {
         const { errors } = this.state;
         return (
             <div className="home-page">
-                    {/* <p className="text-heading mb-4">GUL FARMS</p> */}
-                    <p className="text">please enter email of new user</p>
-                    <p className="text">Ask them to follow instructions in email</p>
+                <div className="container main">
+                    <p className="brand-name">BOOK MY TRIP</p>
+                    <p className="title">Add User</p>
                     <Form className="reg-form" noValidate onSubmit={this.onSubmit}>
                         <FormGroup>
                             <Input
@@ -59,20 +55,20 @@ class AddUser extends Component {
                                 error={errors.email}
                                 id="email"
                             />
+                            <p></p>
+                            <p></p>
+                            <p className="text">Please enter email of new user and ask them to follow instructions in email</p>
+                    
                         </FormGroup>
                         <span>{errors.email}</span>
                         <div className="btn-handler">
-                            <Button className="login-btn">Submit</Button>
+                            <Button className="signup-btn">Submit</Button>
                         </div>
+                        
                     </Form>
                 </div>
+            </div>
         )
     }
 }
-const mapStateToProps = state => ({
-    auth: state.authReducer.islogged
-});
-export default connect(
-    mapStateToProps,
-    {  }
-)(withRouter(AddUser));
+export default AddUser;

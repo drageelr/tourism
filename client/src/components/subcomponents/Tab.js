@@ -15,7 +15,7 @@ class Tab extends Component {
     changeColor = () => {
         var tab = document.getElementById(this.state.name);
         tab.style.backgroundColor = "white";
-        tab.style.color = "green";
+        tab.style.color = "blue";
     }
     render() {
         return (

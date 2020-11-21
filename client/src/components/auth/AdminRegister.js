@@ -1,17 +1,11 @@
 import React, { Component } from "react";
-import { Link, withRouter } from "react-router-dom";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { registerUser } from "../../actions/authActions";
 import classnames from "classnames";
-import Errors from '../sub_components/Errors';
 import {
     Button,
     Form,
     FormGroup,
     Input
 } from 'reactstrap';
-// import logo from '../../images/logo.png';
 
 class Register extends Component {
     // Can Add Constructor
@@ -57,10 +51,9 @@ class Register extends Component {
         return (
             <div className="home-page">
                 <div className="container main">
-                    <h1 className="text">GUL FARMS</h1>
-                    <p className="text m-0">We are glad to have you join our team!</p>
-                    <p className="text">Please fill the form below to complete the sign up process.</p>
-                    <Form className="reg-form mt-3" noValidate onSubmit={this.onSubmit}>
+                <p className="brand-name">BOOK MY TRIP</p>
+                <p className="title">Admin Register</p>
+                   <Form className="reg-form mt-3" noValidate onSubmit={this.onSubmit}>
                         <FormGroup>
                             <div className="row">
                                 <div className="col-md-6 col-xs-12">
@@ -71,9 +64,6 @@ class Register extends Component {
                                         value={this.state.firstName}
                                         error={errors.firstName}
                                         id="firstName"
-                                        className={classnames("input-field", {
-                                            invalid: errors.name
-                                        })}
                                     />
                                 </div>
                                 <div className="col-md-6 col-xs-12">
@@ -84,12 +74,8 @@ class Register extends Component {
                                         value={this.state.lastName}
                                         error={errors.lastName}
                                         id="lastName"
-                                        className={classnames("input-field", {
-                                            invalid: errors.name
-                                        })}
                                     />
                                 </div>
-                                {/* <span className="red-text">{errors.name}</span> */}
                             </div>
                         </FormGroup>
                         <FormGroup>
@@ -119,11 +105,10 @@ class Register extends Component {
                                 })}
 
                             />
-                            {/* <span className="red-text">{errors.password}</span> */}
-                            {/* <div className="pop-up">
+                            <div className="pop-up">
                                 Password must be greater than 8 characters long and
                                 must contain atleast 1 digit and 1 special character
-                            </div> */}
+                            </div>
                         </FormGroup>
                         <FormGroup>
                             <Input
@@ -133,27 +118,15 @@ class Register extends Component {
                                 value={this.state.rePassword}
                                 error={errors.rePassword}
                                 id="rePassword"
-                                className={classnames("input-field", {
-                                    invalid: errors.repassword
-                                })}
                             />
-                            {/* <span className="red-text">{errors.password}</span> */}
                         </FormGroup>
                         <div className="btn-handler">
                             <Button className="signup-btn">Sign Up</Button>
                         </div>
                     </Form>
                 </div>
-                <Errors errors={ errors } />
             </div>
         )
     }
 }
-const mapStateToProps = state => ({
-    auth: state.authReducer.islogged,
-    errors: state.errorReducer.errors
-});
-export default connect(
-    mapStateToProps,
-    { registerUser }
-)(withRouter(Register));
+export default Register;
