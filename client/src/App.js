@@ -1,57 +1,55 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
+import React, { Component } from 'react';
+import { 
+  BrowserRouter as Router, 
+  Route,
+  Switch
+} from "react-router-dom";
+import { 
+  setCurrentUser, 
+  logoutUser } 
+from "./actions/authActions";
+
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
-function App() {
+import AddUser from './components/auth/AddUser';
+import ForgotPassword from './components/auth/ForgotPassword';
+import jwt_decode from "jwt-decode";
+import Login from './components/auth/Login';
+import Register from './components/auth/AdminRegister';
+import ResetPassword from './components/auth/ResetPassword';
+import setAuthToken from "./utils/setAuthToken";
+import store from "./store"
+//will keep user logged in even if refreshes too from a react tutorial
+if (localStorage.jwtToken) {
+  // Set auth token header auth
+  const token = localStorage.jwtToken;
+  setAuthToken(token);
+  // Decode token and get user info and exp
+  const decoded = jwt_decode(token);
+  // Set user and isAuthenticated
+  store.dispatch(setCurrentUser(decoded));
+// Check for expired token
+  const currentTime = Date.now() / 1000; // to get in milliseconds
+  if (decoded.exp < currentTime) {
+    // Logout user
+    store.dispatch(logoutUser());
+    // Redirect to login
+    window.location.href = "./login";
+  }
+}
+
+const  App =()=>{
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-    </div>
+    <Router>
+      <div className="App">
+        <Route path="/register" component={ Register } />
+        <Route exact path="/login" component={ Login } />
+        <Route exact path="/fp" component={ ForgotPassword } />
+        <Route exact path="/adduser" component={ AddUser } />
+        <Route exact path="/resetpassword" component={ ResetPassword } />
+      </div>  
+    </Router>   
   );
 }
 
