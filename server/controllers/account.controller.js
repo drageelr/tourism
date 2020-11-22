@@ -88,6 +88,57 @@ exports.customerSignUp = async (req, res, next) => {
     }
 }
 
+exports.fetchAdmins = async (req, res, next) => {
+    try {
+        let params = req.body;
+
+        
+    } catch (err) {
+        next(err);
+    }
+}
+
+exports.fetchCustomers = async (req, res, next) => {
+    try {
+        const keys = ["id", "email", "firstName", "lastName", "active"];
+        const kType = [0, 1, 1, 1, 0];
+        let params = req.body;
+
+        let selectQuery = 'SELECT * FROM customer';
+        let whereQuery = ' WHERE';
+        for (let i = 0; i < keys.length; i++) {
+            if (params[keys[i]] !== undefined) {
+                if (whereQuery != ' WHERE') { whereQuery += ' AND'; }
+                whereQuery += ' ' + keys[i] + ' = '
+                if (kType[i]) { whereQuery += '"'; }
+                whereQuery += params[keys[i]]
+                if (kType[i]) { whereQuery += '"'; }
+            }
+        }
+
+        if (whereQuery != ' WHERE') {
+            selectQuery += whereQuery;
+        }
+
+        let results = await db.query(selectQuery);
+
+        let customerArray = [];
+        for (let i = 0; i < results.length; i++) {
+            customerArray.push(hFuncs.duplicateObject(results[i], keys));
+        }
+
+        res.json({
+            statusCode: 200,
+            statusName: httpStatus.getName(200),
+            message: "Customers Fetched Sucessfully!",
+            customers: customerArray
+        })
+
+    } catch (err) {
+        next(err);
+    }
+}
+
 exports.adminFPReq = async (req, res, next) => {
     try {
         let params = req.body;
@@ -161,6 +212,42 @@ exports.customerFPRes = async (req, res, next) => {
             message: "Password Reset Successfully!"
         });
 
+    } catch(err) {
+        next(err);
+    }
+}
+
+exports.adminChangePassword = async (req, res, next) => {
+    try {
+        let params = req.body;
+
+        let reqAdmin = await db.query('SELECT password FROM admin WHERE id = ' + params.user.id + ' AND password = "' + hFuncs.hash(params.oldPassword) + '"');
+        if (!reqAdmin.length) { throw new customError.AuthenticationError("invalid old password"); }
+        await db.query('UPDATE admin SET password = "' + hFuncs.hash(params.newPassword) + '" WHERE id = ' + params.user.id);
+
+        res.json({
+            statusCode: 200,
+            statusName: httpStatus.getName(200),
+            message: "Password Changed Successfully!"
+        })
+    } catch(err) {
+        next(err);
+    }
+}
+
+exports.customerChangePassword = async (req, res, next) => {
+    try {
+        let params = req.body;
+
+        let reqCustomer = await db.query('SELECT password FROM customer WHERE id = ' + params.user.id + ' AND password = "' + hFuncs.hash(params.oldPassword) + '"');
+        if (!reqCustomer.length) { throw new customError.AuthenticationError("invalid old password"); }
+        await db.query('UPDATE customer SET password = "' + hFuncs.hash(params.newPassword) + '" WHERE id = ' + params.user.id);
+
+        res.json({
+            statusCode: 200,
+            statusName: httpStatus.getName(200),
+            message: "Password Changed Successfully!"
+        })
     } catch(err) {
         next(err);
     }

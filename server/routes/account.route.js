@@ -34,6 +34,24 @@ router.post(
     accountController.customerSignUp
 );
 
+// API 2.4: Fetch Admins
+router.post(
+    '/admin/fetch',
+    validate(accountValidation.fetchAdmins, {keyByField: true}),
+    jwt.verfiyUser,
+    validateUserAccess,
+    accountController.fetchAdmins
+);
+
+// API 2.5: Fetch Customers
+router.post(
+    '/customer/fetch',
+    validate(accountValidation.fetchCustomers, {keyByField: true}),
+    jwt.verfiyUser,
+    validateUserAccess,
+    accountController.fetchCustomers
+);
+
 // API 2.8: Admin Forgot Password Request
 router.post(
     '/admin/forgot-password/req',
@@ -64,6 +82,24 @@ router.post(
     jwt.verfiyUser,
     validateUserAccess,
     accountController.customerFPRes
+);
+
+// API 2.12: Admin Change Password
+router.post(
+    '/admin/change-password',
+    validate(accountValidation.changePassword, {keyByField: true}),
+    jwt.verfiyUser,
+    validateUserAccess,
+    accountController.adminChangePassword
+);
+
+// API 2.13: Customer Change Password
+router.post(
+    '/customer/change-password',
+    validate(accountValidation.changePassword, {keyByField: true}),
+    jwt.verfiyUser,
+    validateUserAccess,
+    accountController.customerChangePassword
 );
 
 // Export router

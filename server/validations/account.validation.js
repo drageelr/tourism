@@ -29,9 +29,45 @@ exports.customerSignUp = {
     })
 };
 
+// API 2.4:
+exports.fetchAdmins = {
+    body: Joi.object({
+        id: Joi.number(),
+        email: Joi.string().email().max(50),
+        firstName: Joi.string().max(50),
+        lastName: Joi.string().max(50),
+        active: Joi.bool(),
+        permission: Joi.object({
+            manageAdmins: Joi.bool(),
+            manageTrips: Joi.bool(),
+            manageReqList: Joi.bool(),
+            manageReports: Joi.bool()
+        })
+    })
+}
+
+// API 2.5:
+exports.fetchCustomers = {
+    body: Joi.object({
+        id: Joi.number(),
+        email: Joi.string().email().max(50),
+        firstName: Joi.string().max(50),
+        lastName: Joi.string().max(50),
+        active: Joi.bool()
+    })
+}
+
 // API 2.10 & 2.11:
 exports.password = {
     body: Joi.object({
         password: Joi.string().regex(/[a-zA-Z0-9]/).min(8).max(30).required()
+    })
+};
+
+// API 2.12 & 2.13:
+exports.changePassword = {
+    body: Joi.object({
+        oldPassword: Joi.string().regex(/[a-zA-Z0-9]/).min(8).max(30).required(),
+        newPassword: Joi.string().regex(/[a-zA-Z0-9]/).min(8).max(30).required()
     })
 };
