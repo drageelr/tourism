@@ -27,8 +27,8 @@
 |1|Create Admin|Creates a record for a potential admin|`/api/account/admin/create`|`{email*: "String - must be email}`|POST|-|`Admin`|
 |2|Admin Sign Up|Signs up admin|`/api/account/admin/signup`|`adminSignUpObj`|POST|-|`Potential Admin`|
 |3|Customer Sign Up|Signs up customer|`/api/account/customer/signup`|`customerSignUpObj`|POST|-|-|
-|4|Fetch Admins|Retrieves Admin(s) based on an optional criteria|`/api/account/admin/fetch`|`adminFetchCriteriaObj`|POST|`[adminFetchCriteriaObj]`|`Admin`|
-|5|Fetch Customers|Retrieves Customer(s) based on an optional criteria|`/api/account/customer/fetch`|`customerFetchCriteriaObj`|POST|`[customerFetchCriteriaObj]`|`Admin`|
+|4|Fetch Admins|Retrieves Admin(s) based on an optional criteria|`/api/account/admin/fetch`|`adminFetchCriteriaObj`|POST|`{admins: [adminFetchCriteriaObj]}`|`Admin`|
+|5|Fetch Customers|Retrieves Customer(s) based on an optional criteria|`/api/account/customer/fetch`|`customerFetchCriteriaObj`|POST|`{customers: [customerFetchCriteriaObj]}`|`Admin`|
 |6|Edit Admin|Edits the Admin field(s) provided in the request|`/api/account/admin/edit`|`adminEditObj`|POST|-|`Admin`|
 |7|Edit Customer|Edits the Customer field(s) provided in the request|`/api/account/customer/edit`|`customerEditObj`|POST|-|`Admin`|
 |8|Admin Forgot Password Request|Sends email to Admin containing a link to reset password|`/api/account/admin/forgot-password/req`|`{email*: "String - must be email}`|POST|-|-|
@@ -55,7 +55,7 @@
 |#|Name|Description|Route|Request Object|Request Type|Response Object (Success)|Access|
 |-|----|-----------|-----|------------|--------------|-------------------------|------|
 |1|Create Location|Creates a Location|`/api/location/create`|`locationCreateObj`|POST|`{id: Number}`|`Admin`|
-|2|Fetch Locations|Retrieves Location(s) based on an optional criteria|`/api/location/fetch`|`locationFetchCriteriaObj`|POST|`[locationFetchCriteriaObj]`|-|
+|2|Fetch Locations|Retrieves Location(s) based on an optional criteria|`/api/location/fetch`|`locationFetchCriteriaObj`|POST|`{locations: [locationFetchCriteriaObj]}`|-|
 
 - **Note: * means the field mentioned is required (For `Request Object`)**
 

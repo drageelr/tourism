@@ -16,10 +16,11 @@ exports.createAdmin = async (req, res, next) => {
         if (pendingAdmin[0]['count(*)']) { throw new customError.DuplicateResourceError("email already used for a potential admin"); }
         let reqAdmin = await db.query('SELECT count(*) FROM admin WHERE email = "' + params.email + '"');
         if (reqAdmin[0]['count(*)']) { throw new customError.DuplicateResourceError("email already used for an admin"); }
-        await db.query('INSERT INTO admin_request (email) VALUES ("' + params.email + '")');
+        let newPotentialAdmin = await db.query('INSERT INTO admin_request (email) VALUES ("' + params.email + '")');
 
         // send email here
-
+        let link = vars.secretKey + "signup/admin?token=" + jwt.signUser(newPotentialAdmin.insertId, "admin_request", "8760h");
+        emailer.sendAdminSignUpEmail(params.email, link);
 
         res.json({
             statusCode: 200,
