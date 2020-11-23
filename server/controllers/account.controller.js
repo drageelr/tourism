@@ -91,8 +91,67 @@ exports.customerSignUp = async (req, res, next) => {
 
 exports.fetchAdmins = async (req, res, next) => {
     try {
+        const keysPermission = ["manageAdmins", "manageTrips", "manageReqList", "manageReports"];
+        const keys = ["id", "email", "firstName", "lastName", "active"];
+        const kType = [0, 1, 1, 1, 0];
         let params = req.body;
 
+        let selectQueryPermission = 'SELECT id FROM admin_permission';
+        let whereQueryPermission = ' WHERE';
+        for (let i = 0; i < keysPermission.length; i++) {
+            if (params[keysPermission[i]] !== undefined) {
+                if (whereQueryPermission != ' WHERE') { whereQueryPermission += ' AND'; }
+                whereQueryPermission += ' ' + keysPermission[i] + ' = ' + params[keysPermission[i]];
+            }
+        }
+
+        let selectQuery = 'SELECT * FROM customer';
+        let whereQuery = ' WHERE';
+        for (let i = 0; i < keys.length; i++) {
+            if (params[keys[i]] !== undefined) {
+                if (whereQuery != ' WHERE') { whereQuery += ' AND'; }
+                whereQuery += ' ' + keys[i] + ' = '
+                if (kType[i]) { whereQuery += '"'; }
+                whereQuery += params[keys[i]]
+                if (kType[i]) { whereQuery += '"'; }
+            }
+        }
+
+        let appendAnd = false;
+
+        if (whereQuery != ' WHERE') {
+            selectQuery += whereQuery;
+            appendAnd = true;
+        }
+
+        if (whereQueryPermission != ' WHERE') {
+            let appendStr = ' WHERE id IN (';
+            if (appendAnd) { appendStr = ' AND id IN ('; }
+            selectQuery += appendStr + selectQueryPermission + whereQueryPermission + ')';
+        }
+
+        let results = await db.query(selectQuery + ' ORDER BY id ASC');
+
+        let adminArray = [];
+        let ids = "0";
+        for (let i = 0; i < results.length; i++) {
+            adminArray.push(hFuncs.duplicateObject(results[i], keys));
+            ids += ', ' + results[i].id;
+        }
+
+        if (adminArray.length) {
+            let resultsPermission = await db.query('SELECT manageAdmins, manageTrips, manageReqList, manageReports FROM admin_permission WHERE id IN (' + ids + ') ORDER BY id ASC');
+            for (let i = 0; i < adminArray.length; i++) {
+                adminArray[i].permission = hFuncs.duplicateObject(resultsPermission[i], keysPermission);
+            }
+        }
+
+        res.json({
+            statusCode: 200,
+            statusName: httpStatus.getName(200),
+            message: "Admins Fetched Successfully!",
+            admins: adminArray
+        });
         
     } catch (err) {
         next(err);
