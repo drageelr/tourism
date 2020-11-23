@@ -98,12 +98,15 @@ exports.fetchAdmins = async (req, res, next) => {
 
         let selectQueryPermission = 'SELECT id FROM admin_permission';
         let whereQueryPermission = ' WHERE';
-        for (let i = 0; i < keysPermission.length; i++) {
-            if (params[keysPermission[i]] !== undefined) {
-                if (whereQueryPermission != ' WHERE') { whereQueryPermission += ' AND'; }
-                whereQueryPermission += ' ' + keysPermission[i] + ' = ' + params[keysPermission[i]];
+        if (params.permission !== undefined) {
+            for (let i = 0; i < keysPermission.length; i++) {
+                if (params.permission[keysPermission[i]] !== undefined) {
+                    if (whereQueryPermission != ' WHERE') { whereQueryPermission += ' AND'; }
+                    whereQueryPermission += ' ' + keysPermission[i] + ' = ' + params.permission[keysPermission[i]];
+                }
             }
         }
+        
 
         let selectQuery = 'SELECT * FROM customer';
         let whereQuery = ' WHERE';
@@ -195,6 +198,101 @@ exports.fetchCustomers = async (req, res, next) => {
         })
 
     } catch (err) {
+        next(err);
+    }
+}
+
+exports.editAdmin = async (req, res, next) => {
+    try {
+        const keysPermission = ["manageAdmins", "manageTrips", "manageReqList", "manageReports"];
+        const keys = ["email", "password", "firstName", "lastName", "active"];
+        const kType = [1, 2, 1, 1, 0];
+        let params = req.body;
+
+        let reqAdmin = await db.query("SELECT * FROM admin WHERE id = " + params.id);
+        if (!reqAdmin.length) { throw new customError.NotFoundError("admin not found"); }
+
+        let setQuery = 'SET ';
+        for (let i = 0; i < keys.length; i++) {
+            if (params[keys[i]] !== undefined) {
+                if (setQuery != 'SET ') { setQuery += ', '; }
+                setQuery += keys[i] + ' = ';
+                if (kType[i]) { setQuery += '"'; }
+                if (kType[i] == 2) {
+                    setQuery += hFuncs.hash(params[keys[i]]);
+                } else {
+                    setQuery += params[keys[i]];
+                }
+                if (kType[i]) { setQuery += '"'; }
+            }
+        }
+
+        let setQueryPermission = 'SET ';
+        if (params.permission !== undefined) {
+            for (let i = 0; i < keysPermission.length; i++) {
+                if (params.permission[keysPermission[i]] !== undefined) {
+                    if (setQueryPermission != 'SET ') { setQueryPermission += ', '; }
+                    setQueryPermission += keysPermission[i] + ' = ' + params.permission[keysPermission[i]];
+                }
+            }
+        }
+
+        if (setQuery == 'SET ' && setQueryPermission == 'SET ') { throw new customError.NotFoundError("no edit parameters provided"); }
+        
+        if (setQuery != 'SET ') {
+            await db.query('UPDATE admin ' + setQuery + ' WHERE id = ' + params.id);
+        }
+
+        if (setQueryPermission != 'SET ') {
+            await db.query('UPDATE admin_permission ' + setQueryPermission + ' WHERE id = ' + params.id);
+        }
+
+        res.json({
+            statusCode: 200,
+            statusName: httpStatus.getName(200),
+            message: "Admin Edited Successfully!"
+        });
+
+    } catch(err) {
+        next(err);
+    }
+}
+
+exports.editCustomer = async (req, res, next) => {
+    try {
+        const keys = ["email", "password", "firstName", "lastName", "active"];
+        const kType = [1, 2, 1, 1, 0];
+        let params = req.body;
+
+        let reqCustomer = await db.query("SELECT * FROM customer WHERE id = " + params.id);
+        if (!reqCustomer.length) { throw new customError.NotFoundError("customer not found"); }
+
+        let setQuery = 'SET ';
+        for (let i = 0; i < keys.length; i++) {
+            if (params[keys[i]] !== undefined) {
+                if (setQuery != 'SET ') { setQuery += ', '; }
+                setQuery += keys[i] + ' = ';
+                if (kType[i]) { setQuery += '"'; }
+                if (kType[i] == 2) {
+                    setQuery += hFuncs.hash(params[keys[i]]);
+                } else {
+                    setQuery += params[keys[i]];
+                }
+                if (kType[i]) { setQuery += '"'; }
+            }
+        }
+
+        if (setQuery == 'SET ') { throw new customError.NotFoundError("no edit parameters provided"); }
+
+        await db.query('UPDATE customer ' + setQuery + ' WHERE id = ' + params.id);
+
+        res.json({
+            statusCode: 200,
+            statusName: httpStatus.getName(200),
+            message: "Customer Edited Successfully!"
+        });
+        
+    } catch(err) {
         next(err);
     }
 }

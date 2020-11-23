@@ -57,6 +57,36 @@ exports.fetchCustomers = {
     })
 }
 
+// API 2.6:
+exports.editAdmin = {
+    body: Joi.object({
+        id: Joi.number().required(),
+        email: Joi.string().email().max(50),
+        password: Joi.string().regex(/[a-zA-Z0-9]/).min(8).max(30),
+        firstName: Joi.string().max(50),
+        lastName: Joi.string().max(50),
+        active: Joi.bool(),
+        permission: Joi.object({
+            manageAdmins: Joi.bool(),
+            manageTrips: Joi.bool(),
+            manageReqList: Joi.bool(),
+            manageReports: Joi.bool()
+        })
+    })
+}
+
+// API 2.7:
+exports.editCustomer = {
+    body: Joi.object({
+        id: Joi.number().required(),
+        email: Joi.string().email().max(50),
+        password: Joi.string().regex(/[a-zA-Z0-9]/).min(8).max(30),
+        firstName: Joi.string().max(50),
+        lastName: Joi.string().max(50),
+        active: Joi.bool()
+    })
+}
+
 // API 2.10 & 2.11:
 exports.password = {
     body: Joi.object({

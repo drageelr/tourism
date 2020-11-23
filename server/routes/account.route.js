@@ -52,6 +52,26 @@ router.post(
     accountController.fetchCustomers
 );
 
+// API 2.6: Edit Admin
+router.post(
+    '/admin/edit',
+    validate(accountValidation.editAdmin, {keyByField: true}),
+    jwt.verfiyUser,
+    validateUserAccess,
+    validateAdminAccess,
+    accountController.editAdmin
+);
+
+// API 2.5: Edit Customer
+router.post(
+    '/customer/edit',
+    validate(accountValidation.editCustomer, {keyByField: true}),
+    jwt.verfiyUser,
+    validateUserAccess,
+    validateAdminAccess,
+    accountController.editCustomer
+);
+
 // API 2.8: Admin Forgot Password Request
 router.post(
     '/admin/forgot-password/req',
