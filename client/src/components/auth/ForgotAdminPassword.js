@@ -6,10 +6,10 @@ import {
     FormGroup,
     Input
 } from 'reactstrap';
+var api = require('./api');
 
-class ChangePassword extends Component {
+class ForgotAdminPassword extends Component {
     state = {
-        oldpassword: "",
         password: "",
         rePassword: "",
         errors: {}        
@@ -28,24 +28,11 @@ class ChangePassword extends Component {
         e.preventDefault();
         const userData = {
             password: this.state.password,
-            rePassword: this.state.rePassword
         }
         const token = window.location.href.substring( window.location.href.lastIndexOf('/') + 1)
-        console.log(userData);
-        console.log("/api/users/reset-password/"+token)
-        axios
-            .post("/api/users/reset-password/"+token,userData)
-            .then(res => 
-                window.location.href="/login"
-            )
-            .catch(err => {
+        window.localStorage.setItem('token', token)
+        api.apiCallerWithToken("http://localhost:8080/api/account/admin/forgot-password/res", userData,200).then(res=>  console.log(res))
 
-                console.log(err.response)
-                this.setState({
-                    email: "",
-                    errors: err.response.data
-                })
-            })
     }
 
     render() {
@@ -56,17 +43,6 @@ class ChangePassword extends Component {
                     <p className="brand-name">BOOK MY TRIP</p>
                     <p className="title">Change Password</p>
                     <Form className="reg-form" noValidate onSubmit={this.onSubmit}>
-                        <FormGroup>
-                            <Input 
-                                className="input-field"
-                                type="password" 
-                                placeholder="Enter old password" 
-                                onChange={this.onChange}
-                                value={this.state.oldpassword} 
-                                error={errors.oldpassword} 
-                                id="password"
-                            />
-                        </FormGroup>
                         <FormGroup className="password-container">
                             
                             <Input 
@@ -102,4 +78,4 @@ class ChangePassword extends Component {
         )
     }
 }
-export default ChangePassword;
+export default ForgotAdminPassword;
