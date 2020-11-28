@@ -7,6 +7,7 @@ var { errorHandler } = require('./errors/errorhandler');
 
 var authRouter = require('./routes/auth.route');
 var accountRouter = require('./routes/account.route');
+var tripRouter = require('./routes/trip.route');
 var locRouter = require('./routes/location.route');
 var promoRouter = require('./routes/promo.route');
 var app = express();
@@ -40,6 +41,7 @@ app.use('/api/auth', authRouter);
 app.use('/api/account', accountRouter);
 app.use('/api/location',locRouter);
 app.use('/api/promo',promoRouter);
+app.use('/api/trip',tripRouter);
 
 app.use(errorHandler);
 
