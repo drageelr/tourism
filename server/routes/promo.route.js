@@ -18,6 +18,16 @@ router.post (
 
 );
 
+router.post (
+    '/delete',
+    validate(promoValidation.deletePromocode, {keyByField: true}),
+    jwt.verfiyUser,
+    validateUserAccess,
+    validateAdminAccess,
+    promoController.deletePromo
+
+);
+
 // Export router
 module.exports = router;
 

@@ -10,3 +10,10 @@ exports.createPromocode = {
         discountPercentage:Joi.number.required()
     })
 };
+
+exports.deletePromocode = {
+    body: Joi.object({
+        code : Joi.number.required(),
+
+    })
+};
