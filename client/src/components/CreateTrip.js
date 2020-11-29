@@ -84,20 +84,9 @@ class CreateFarm extends Component {
           icon={faTimes}
           size="1x"
         />
-        <Form className="mt-3 row" noValidate onSubmit={this.onSubmit} inline nav>
-          <div className="col-sm-12 col-md-6">
-            <div style={{ width: "90%", margin: "0 auto" }}>
-              <FormGroup style={{ width: "100%", paddingBottom: "30px" } }>
-                <Label className="input-label-a">Name:</Label>
-                <Input
-                  className="input-field-a"
-                  type="text"
-                  id="Name"
-                  placeholder="Enter name"
-                  onChange={this.onChange}
-                  value={this.state.Name}
-                />
-              </FormGroup>
+        <Form className="mt-3 row" noValidate onSubmit={this.onSubmit} >
+          <div className="">
+            <div style={{ width: "90%", margin: "0 auto"}}>
               <FormGroup style={{ width: "100%", paddingBottom: "30px" }}>
                 <Label className="input-label-a">Mobile Number:</Label>
                 <Input
@@ -136,23 +125,20 @@ class CreateFarm extends Component {
               </FormGroup>
             </div>
           </div>
-          <div className="col-sm-12 mt-5 mb-2">
-            <Button className="form-btn" type="submit">
+          <div style={{ width: "25%", margin: "auto"}}>
+            <Button className="submit-btn" type="submit" style={{borderColor: "black"}}>
               Register
             </Button>
             <Button
-              className="form-btn"
               type="reset"
               onClick={this.toggle}
-              style={{
-                backgroundColor: "White",
-                border: "1px solid gray",
-                color: "#4caf50",
-              }}
+              className="submit-btn"
+              style={{borderColor: "black"}}
             >
               CANCEL
             </Button>
           </div>
+          <p></p>
         </Form>
       </Modal>
     );

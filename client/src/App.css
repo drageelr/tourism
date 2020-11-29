@@ -278,7 +278,9 @@ input[type="email"]:hover ~ .pop-up {
   border-width: 0%;
   border-color: cornsilk;
 }
-
+.col-sm-12 mt-5 mb-2{
+  margin-left: 90%;
+}
 
 .link {
   color: white;
