@@ -70,7 +70,7 @@
 |#|Name|Description|Route|Request Object|Request Type|Response Object (Success)|Access|
 |-|----|-----------|-----|------------|--------------|-------------------------|------|
 |1|Create Trip|Creates a Trip|`/api/trip/create`|`tripCreateObj`|POST|`{id: Number}`|`Admin`|
-|2|Fetch Trips|Retrieves Trip(s) based on an optional criteria|`/api/trip/fetch`|`tripFetchCriteriaObj`|POST|`[tripFetchCriteriaObj]`|-|
+|2|Fetch Trips|Retrieves Trip(s) based on an optional criteria|`/api/trip/fetch`|`tripFetchCriteriaObj`|POST|`{trips: [tripFetchCriteriaObj]}`|-|
 |3|Edit Trip|Edits the Trip field(s) provided in the request|`/api/trip/edit`|`tripEditObj`|POST|-|`Admin`|
 
 - **Note: * means the field mentioned is required (For `Request Object`)**
@@ -104,7 +104,7 @@
 |#|Name|Description|Route|Request Object|Request Type|Response Object (Success)|Access|
 |-|----|-----------|-----|------------|--------------|-------------------------|------|
 |1|Create Promo Code|Creates a Promo Code|`/api/code/create`|`codeCreateObj`|POST|-|`Admin`|
-|2|Fetch Promo Code|Retrieves Promo Code(s) based on an optional criteria|`/api/code/fetch`|`codeFetchCriteriaObj`|POST|`[codeFetchCriteriaObj]`|`Admin`|
+|2|Fetch Promo Code|Retrieves Promo Code(s) based on an optional criteria|`/api/code/fetch`|`codeFetchCriteriaObj`|POST|`{promos: [codeFetchCriteriaObj]}`|`Admin`|
 |3|Delete Promo Code|Deletes a Promo Code|`/api/code/delete`|`{id*: Number}`|POST|-|`Admin`|
 
 - **Note: * means the field mentioned is required (For `Request Object`)**
