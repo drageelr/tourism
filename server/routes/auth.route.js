@@ -10,6 +10,7 @@ router.post(
     '/admin/login',
     validate(authValidation.login, {keyByField: true}),
     authController.adminLogin
+    
 );
   
 // API 1.2: Customer Login:

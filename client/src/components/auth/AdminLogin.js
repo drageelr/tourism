@@ -1,13 +1,17 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
+import axios from 'axios';
 import {
     Button,
     Form,
     FormGroup,
     Input
 } from 'reactstrap';
+var api = require('./api');
 
-class Login extends Component {
+
+
+class AdminLogin extends Component {
     state = {
         email: "",
         password: "",
@@ -17,25 +21,13 @@ class Login extends Component {
     onChange = e => {
         this.setState({ [e.target.id]: e.target.value });
     }
-    componentDidUpdate=()=> {
-        if (this.props.loggedIn) {
-            this.props.history.push("/home");
-        }
-    }
-    componentDidMount=()=>{
-        if(this.props.loggedIn)
-        {
-            this.props.history.push("/home");
-        }
-    }
     onSubmit = e => {
         e.preventDefault();
         const userData = {
             email: this.state.email,
             password: this.state.password
         }
-        this.props.loginUser(userData);
-
+        api.apiCallerWithoutToken("http://localhost:8080/api/auth/admin/login", userData,200).then(res=>  window.localStorage.setItem('token', res.token))
     }
 
     render(props) {
@@ -45,7 +37,7 @@ class Login extends Component {
             <div className="home-page">
                 <div className="container main">
                     <p className="brand-name">BOOK MY TRIP</p>
-                    <p className="title">Login</p>
+                    <p className="title">Admin Login</p>
                     <Form className="reg-form" noValidate onSubmit={this.onSubmit}>
                         <FormGroup>
                             <Input
@@ -65,7 +57,7 @@ class Login extends Component {
                                 id="password"
                             />
                             <p></p>
-                            <Link to="/forgot-password" className="link">Forgot Password? :(</Link>
+                            <Link to="/forgot-password-admin" className="link">Forgot Password? :(</Link>
                             
                         </FormGroup>
                         <div className="btn-handler">
@@ -78,4 +70,4 @@ class Login extends Component {
     }
 }
 
-export default Login;
+export default AdminLogin;   

@@ -5,10 +5,10 @@ import {
     Form,
     FormGroup,
     Input
-} from 'reactstrap';
+} from 'reactstrap';    
 var api = require('./api');
 
-class AdminRegister extends Component {
+class CustomerRegister extends Component {
     // Can Add Constructor
     state = {
         firstName: "",
@@ -28,16 +28,22 @@ class AdminRegister extends Component {
             });
         }
     }
+    componentDidMount=()=>{
+        if(this.props.auth)
+        {
+            this.props.history.push("/home");
+        }
+    }
     onSubmit = e => {
         e.preventDefault();
         const newUser = {
+            email: this.state.email,
             firstName: this.state.firstName,
             lastName: this.state.lastName,
             password: this.state.password,
+            rePassword: this.state.rePassword
         }
-        const token = window.location.href.substring( window.location.href.lastIndexOf('/') + 1)
-        this.props.registerUser(newUser, this.props.history,token);
-        api.apiCallerWithToken('http://localhost:8080/api/auth/admin/signup', newUser, 200).then(res=>  console.log(res))
+        api.apiCallerWithToken('http://localhost:8080/api/auth/customer/signup', newUser, 200).then(res=>  console.log(res))
     }
     render() {
         const { errors } = this.state;
@@ -46,8 +52,8 @@ class AdminRegister extends Component {
             <div className="home-page">
                 <div className="container main">
                 <p className="brand-name">BOOK MY TRIP</p>
-                <p className="title">Admin Register</p>
-                <Form className="reg-form mt-3" noValidate onSubmit={this.onSubmit}>
+                <p className="title">Register</p>
+                   <Form className="reg-form mt-3" noValidate onSubmit={this.onSubmit}>
                         <FormGroup>
                                     <Input
                                         type="text"
@@ -69,7 +75,20 @@ class AdminRegister extends Component {
                                     />
                             
                         </FormGroup>
-                        
+                        <FormGroup>
+                            <Input
+                                type="text"
+                                placeholder="Enter your email address"
+                                onChange={this.onChange}
+                                value={this.state.email}
+                                error={errors.email}
+                                id="email"
+                                className={classnames("input-field", {
+                                    invalid: errors.email
+                                })}
+                            />
+                            {/* <span className="red-text">{errors.email}</span> */}
+                        </FormGroup>
                         <FormGroup className="password-container">
                             <Input
                                 type="password"
@@ -106,4 +125,4 @@ class AdminRegister extends Component {
         )
     }
 }
-export default AdminRegister;
+export default CustomerRegister;

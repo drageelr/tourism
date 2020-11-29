@@ -6,9 +6,9 @@ import {
     FormGroup,
     Input
 } from 'reactstrap';
+var api = require('./api');
 
-
-class ForgotPassword extends Component {
+class AdminForgotPassword extends Component {
     state = {
         email: "",
         errors: {}
@@ -28,20 +28,8 @@ class ForgotPassword extends Component {
         const userData = {
             email: this.state.email
         }
-        console.log(userData);
-        axios
-            .post("/api/users/forgot-password",userData)
-            .then(res => 
-                window.location.href="/login"
-            )
-            .catch(err => {
+        api.apiCallerWithoutToken("http://localhost:8080/api/account/admin/forgot-password/req", userData,200).then(res=>  console.log(res))
 
-                console.log(err.response)
-                this.setState({
-                    email: "",
-                    errors: err.response.data
-                })
-            })
     }
 
     render() {
@@ -79,4 +67,4 @@ class ForgotPassword extends Component {
         )
     }
 }
-export default ForgotPassword;
+export default AdminForgotPassword;
