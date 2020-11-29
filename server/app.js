@@ -40,7 +40,7 @@ app.use(function (req, res, next) {
 app.use('/api/auth', authRouter);
 app.use('/api/account', accountRouter);
 app.use('/api/location',locRouter);
-app.use('/api/promo',promoRouter);
+app.use('/api/code',promoRouter);
 app.use('/api/trip',tripRouter);
 
 app.use(errorHandler);

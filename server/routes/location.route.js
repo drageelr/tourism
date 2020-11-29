@@ -16,8 +16,13 @@ router.post(
     validateAdminAccess,
     locationController.createLocation
 );
-  
 
+// API 3.1: Fetch Location:
+router.post(
+    '/fetch',
+    validate(locationValidation.fetchLocation, {keyByField: true}),
+    locationController.fetchLocation
+);
 
 // Export router
 module.exports = router;
