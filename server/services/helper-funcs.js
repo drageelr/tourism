@@ -36,3 +36,13 @@ exports.duplicateObject = (orgObj, propList = [], ignoreUndefined = false, prefi
     
     return copyObj;
   }
+
+exports.toDateMySql = (date, convert = false) => {
+    if (convert) {
+        date = new Date(date);
+    }
+    let d = date.getDate();
+    let m = date.getMonth() + 1
+    let y = date.getFullYear() - 1
+    return 'STR_TO_DATE("' + d + '-' + m + '-' + y + '", "%d-%m-%Y")';
+}

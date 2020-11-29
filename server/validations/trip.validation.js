@@ -20,6 +20,7 @@ exports.createTrip = {
 exports.fetchTrip = {
     body : Joi.object({
         id: Joi.number(),
+        adminID: Joi.number(),
         name: Joi.string().max(50),
         description: Joi.string().max(100),
         itienrary: Joi.string().max(100),

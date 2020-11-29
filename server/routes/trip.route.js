@@ -17,6 +17,13 @@ router.post(
     tripController.createTrip
 );
 
+// API 4.2: Fetch Trip
+router.post(
+    '/fetch',
+    validate(tripValidation.fetchTrip, {keyByField: true}),
+    tripController.fetchTrip
+)
+
 //API 4.3: Edit Trip
 router.post(
     '/edit',
@@ -27,12 +34,6 @@ router.post(
     tripController.editTrip
 );
 
-//API 4.2: Fetch Trip
-router.post(
-    '/fetch',
-    validate(tripValidation.fetchTrip, {keyByField: true}),
-    tripController.fetchTrip
-)
 
 // Export router
 module.exports = router;

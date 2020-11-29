@@ -79,7 +79,7 @@
 |#|Name|Object|
 |-|----|------|
 |1|`tripCreateObj`|`{name*: "String", description*: "String", itienrary*: "String", price*: Number, capacity*: Number, startDate*: DateTime, endDate*: DateTime, locationIDs*: [Number]}`|
-|2|`tripFetchCriteriaObj`|`{id: Number, name: "String", description: "String", itienrary: "String", price: Number, capacity: Number, startDate: DateTime, endDate: DateTime, locationIDs: [Number]}`|
+|2|`tripFetchCriteriaObj`|`{id: Number, adminID: Number, name: "String", description: "String", itienrary: "String", price: Number, capacity: Number, startDate: DateTime, endDate: DateTime, locationIDs: [Number]}`|
 |3|`tripEditObj`|`{id*: Number, name: "String", description: "String", itienrary: "String", price: Number, capacity: Number, startDate: DateTime, endDate: DateTime, locationIDs: [Number]}`|
 
 ### 5. Trip Request Management
