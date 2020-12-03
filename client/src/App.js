@@ -20,16 +20,20 @@ import AdminLogin from './components/auth/AdminLogin';
 import ResetPassword from './components/auth/ResetPassword';
 import AdminRegister from './components/auth/AdminRegister';
 import CustomerRegister from './components/auth/CustomerRegister';
+import ViewTrip from './components/ViewTrip';
+import admindetails from './components/admindetails';
+import edittripobj from './components/edittripobj';
+import toggleAdmin from './components/toggleAdmin';
 //will keep user logged in even if refreshes too from a react tutorial
 import Farm from './components/Trip'
-import CreateFarm from './components/CreateTrip.js'
 const  App =()=>{
   return (
     <Router>
       <div className="App">
         <Route path="/" component={ CustomerAppNavbar } />
+        <Route path="/vt" component={ ViewTrip } />
+        <Route path="/eto" component={ edittripobj } />
         <Route path="/f" component={ Farm } />
-        <Route path="/cf" component={ CreateFarm } />
         <Route path="/register" component={ CustomerRegister } />
         <Route path="/register-admin" component={ AdminRegister } />
         <Route exact path="/login-admin" component={ AdminLogin } />
@@ -38,6 +42,9 @@ const  App =()=>{
         <Route exact path="/forgot-password-admin" component={ AdminForgotPassword } />
         <Route exact path="/change-password" component={ CustomerChangePassword } />
         <Route exact path="/change-password-admin" component={ AdminChangePassword } />
+        <Route exact path="/va" component={ admindetails } />
+        <Route exact path="/toggleAdmin" component={ toggleAdmin } />
+
         
         <Route exact path="/adduser" component={ AddUser } />
         <Route exact path="/resetpassword" component={ ResetPassword } />
