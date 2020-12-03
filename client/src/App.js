@@ -26,12 +26,15 @@ import edittripobj from './components/edittripobj';
 import toggleAdmin from './components/toggleAdmin';
 //will keep user logged in even if refreshes too from a react tutorial
 import Farm from './components/Trip'
+import ViewFinance from './components/viewFinances';
 const  App =()=>{
   return (
     <Router>
       <div className="App">
         <Route path="/" component={ CustomerAppNavbar } />
         <Route path="/vt" component={ ViewTrip } />
+        <Route path="/vf" component={ ViewFinance } />
+        
         <Route path="/eto" component={ edittripobj } />
         <Route path="/f" component={ Farm } />
         <Route path="/register" component={ CustomerRegister } />
