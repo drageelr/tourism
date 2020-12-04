@@ -25,18 +25,22 @@ import admindetails from './components/admindetails';
 import edittripobj from './components/edittripobj';
 import toggleAdmin from './components/toggleAdmin';
 //will keep user logged in even if refreshes too from a react tutorial
-import Farm from './components/Trip'
 import ViewFinance from './components/viewFinances';
+import RegisterTrip from './components/RegisterTrip';
+import CreateTrip from './components/CreateTrip';
+import CreateLocation from './components/CreateLocation';
+import CreatePromoCode from './components/CreatePromoCode';
+import PromoCode from './components/PromoCode';
 const  App =()=>{
   return (
     <Router>
       <div className="App">
         <Route path="/" component={ CustomerAppNavbar } />
+        <Route path="/a" component={ AdminAppNavbar } />
         <Route path="/vt" component={ ViewTrip } />
         <Route path="/vf" component={ ViewFinance } />
         
         <Route path="/eto" component={ edittripobj } />
-        <Route path="/f" component={ Farm } />
         <Route path="/register" component={ CustomerRegister } />
         <Route path="/register-admin" component={ AdminRegister } />
         <Route exact path="/login-admin" component={ AdminLogin } />
@@ -47,7 +51,12 @@ const  App =()=>{
         <Route exact path="/change-password-admin" component={ AdminChangePassword } />
         <Route exact path="/va" component={ admindetails } />
         <Route exact path="/toggleAdmin" component={ toggleAdmin } />
-
+        <Route exact path="/add-user" component={ AddUser } />
+        <Route exact path="/register-trip" component={ RegisterTrip } />
+        <Route exact path="/create-trip" component={ CreateTrip } />
+        <Route exact path="/create-location" component={ CreateLocation } />
+        <Route exact path="/create-promo" component={ CreatePromoCode } />
+        <Route exact path="/view-promo" component={ PromoCode } />
         
         <Route exact path="/adduser" component={ AddUser } />
         <Route exact path="/resetpassword" component={ ResetPassword } />

@@ -9,140 +9,182 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes, faBell } from "@fortawesome/free-solid-svg-icons";
 import Modal from 'react-modal';
+var api = require('./auth/api');
 
 Modal.setAppElement(document.getElementById('root'));
-class CreateFarm extends Component {
+class CreateTrip extends Component {
   // Can Add Constructor
   state = {
     modal: true,
-    Name: "",
-    Mobile: "",
-    Promo: "",
-    People: 0,
+    name: "",
+    description: "",
+    itienrary: "",
+    price: 0,
+    capacity: 0,
+    startDate: new Date(),
+    endDate: new Date(),
+    data: [{ id: "lol", site: "lol" }, { id: "ll", site: "ll" }],
+    locationIDs: ""
   };
   toggle = () => {
     this.setState((prevState) => ({
       modal: !prevState.modal,
-      
+
     }));
-    this.props.errors.message = ""
   };
   onChange = (e) => {
     this.setState({ [e.target.id]: e.target.value });
   };
-  onSubmit = (e) => {
-    // console.log(e);
-    e.preventDefault();
-    const alertsPacket = this.state.alerts.map((alert) => {
-      return {
-        name: alert.description,
-        duration: alert.duration,
-        durationType: alert.selectedOption,
-        linkedModel: "farm",
-        startingDate: alert.AlertDate
-      };
-    });
-    const data = {
-      farm: {
-        farmName: this.state.farmName,
-        Location: this.state.Location,
-        Description: this.state.Description,
-        alerts: [],
-      },
-      alerts: alertsPacket,
-    };
-    // console.log(data);
-    this.props.saveFarm(data);
-  };
-  render() {
-    const { errors } = this.props;
+  display = () => {
+    const addedLocations = this.state.data.map((d, index) =>
+      <option value={d.id}>{d.site}</option>
+    );
     return (
+      <select name="locationIDs" id="locationIDs" className="select">
+        {addedLocations}
+      </select>
+    );
+  }
+  onSubmit = (e) => {
+    e.preventDefault();
+    const userData = {
+      name: this.state.name,
+      description: this.state.description, 
+      itienrary: this.state.itienrary,
+      price: this.state.price,
+      capacity: this.state.capacity, 
+      startDate: this.state.startDate, 
+      endDate: this.state.endDate, 
+      locationIDs: [this.state.locationIDs]}
+      
+    
+    api.apiCallerWithToken("http://localhost:8080/api/trip/create", userData,200).then( this.props.history.push("/home"))
+  };
+  setloc= (e)=>{
+    this.setState({locationIDs:e.locations})
+  }
+  render() {
+    api.apiCallerWithoutToken("http://localhost:8080/api/location/fetch", {}, 200).then((e) => {if(e.promos!==undefined){this.setloc(e)}})
+    return (
+      
+
       <Modal
-      className="Modal"
-        style={{ position: "relative", backgroundColor: "#2E5984"}}
+        className="Modal"
         isOpen={this.state.modal}
         toggle={this.toggle}
+        align="centre"
       >
-        <p
-          style={{
-            fontSize: "2rem",
-            textAlign: "center",
-            color: "#4caf50",
-          }}
-        >
-          Register For the Trip
-        </p>
-        <FontAwesomeIcon
-          onClick={this.toggle}
-          style={{
-            position: "absolute",
-            top: "0px",
-            right: "0px",
-            color: "#4caf50",
-            margin: "5px",
-          }}
-          icon={faTimes}
-          size="1x"
-        />
-        <Form className="mt-3 row" noValidate onSubmit={this.onSubmit} >
-          <div className="">
-            <div style={{ width: "90%", margin: "0 auto"}}>
+        <div style={{ backgroundColor: "#f5f5f5" }}>
+          <p>/</p>
+          <p className="title-med"> Create Trip </p>
+          <p>/</p>
+          <FontAwesomeIcon
+            onClick={this.toggle}
+            style={{
+              position: "absolute",
+              top: "0px",
+              right: "0px",
+              color: "#2E5984",
+              margin: "20px",
+            }}
+            icon={faTimes}
+            size="1.5x"
+          />
+        </div>
+        <Form className="mt-3" noValidate inline onSubmit={this.onSubmit} >
+          <div style={{ marginTop: "20px" }}>
+            <div style={{ width: "90%", margin: "0 auto" }}>
               <FormGroup style={{ width: "100%", paddingBottom: "30px" }}>
-                <Label className="input-label-a">Mobile Number:</Label>
+                <Label className="title-sm">Name:</Label>
                 <Input
-                  className="input-field-a"
                   type="text"
-                  id="Mobile"
-                  placeholder="Enter Mobile Number"
+                  style={{ marginLeft: "115px" }}
+                  id="name"
+                  placeholder="Enter Trip Name"
                   onChange={this.onChange}
-                  value={this.state.Mobile}
+                  value={this.state.name}
+                />
+                <Label className="title-sm-l">Location: </Label>
+                {this.display()}
+              </FormGroup>
+              <FormGroup style={{ width: "100%", paddingBottom: "30px" }}>
+                <Label className="title-sm">Description:</Label>
+                <Input
+                  type="textarea"
+                  style={{ marginLeft: "55px" , width:"60%"}}
+                  id="description"
+                  placeholder="Enter Description"
+                  onChange={this.onChange}
+                  value={this.state.description}
                 />
               </FormGroup>
               <FormGroup style={{ width: "100%", paddingBottom: "30px" }}>
-                <Label className="input-label-a">Promo Code:</Label>
+                <Label className="title-sm">Capacity:</Label>
                 <Input
-                  className="input-field-a"
-                  type="text"
-                  placeholder="Enter Promo Code"
-                  onChange={this.onChange}
-                  value={this.state.Promo}
-                  id="Promo"
-                />
-              </FormGroup>
-              <FormGroup style={{ width: "100%", paddingBottom: "30px" }}>
-                <Label className="input-label-a">Number of People:</Label>
-                <Input
-                  className="input-field-a"
-                  onChange={this.onChange}
-                  value={this.state.People}
                   type="number"
-                  id="People"
-                  placeholder="0"
-                  name="quantity" 
-                  min="1" 
-                  max="20"
+                  style={{ marginLeft: "85px" }}
+                  id="capacity"
+                  placeholder="Enter Capacity"
+                  onChange={this.onChange}
+                  value={this.state.capacity}
+                />
+
+                <Label className="title-sm-l">Price: </Label>
+                <Input
+                  style={{ marginLeft: "45px" }}
+                  type="number"
+                  placeholder="Enter Price"
+                  onChange={this.onChange}
+                  value={this.state.number}
+                  id="price"
                 />
               </FormGroup>
+              <FormGroup style={{ width: "100%", paddingBottom: "30px" }}>
+                <Label className="title-sm">Start Date: </Label>
+                <Input
+                  style={{ marginLeft: "70px" }}
+                  type="date"
+                  placeholder="Enter Start Date"
+                  onChange={this.onChange}
+                  value={this.state.startDate}
+                  id="startDate"
+                />
+                <Label className="title-sm-l" style={{marginLeft:"50px"}}> EndDate: </Label>
+                <Input
+                  style={{ marginLeft: "20px" }}
+                  type="date"
+                  placeholder="Enter Endt Date"
+                  onChange={this.onChange}
+                  value={this.state.endDate}
+                  id="endDate"
+                />
+              </FormGroup>
+              <FormGroup style={{ width: "100%", paddingBottom: "30px" }}>
+                <Label className="title-sm">Itinerary:</Label>
+                <Input
+                  style={{ marginLeft: "85px" , width:"60%"}}
+                  type="textarea"
+                  placeholder="Enter Itinerary"
+                  onChange={this.onChange}
+                  value={this.state.itienrary}
+                  id="itienrary"
+                />
+
+              </FormGroup>
+
             </div>
           </div>
-          <div style={{ width: "25%", margin: "auto"}}>
-            <Button className="submit-btn" type="submit" style={{borderColor: "black"}}>
-              Register
-            </Button>
-            <Button
-              type="reset"
-              onClick={this.toggle}
-              className="submit-btn"
-              style={{borderColor: "black"}}
-            >
-              CANCEL
-            </Button>
+          <div className="btn-handler">
+            <Button className="signup-btn" type="submit">Create Trip</Button>
+            <Button className="signup-btn" type="reset" onClick={()=>window.location.href = "/create-location"}>Create Location</Button>
+            <Button className="signup-btn" type="reset" onClick={this.toggle}>Cancel</Button>
           </div>
-          <p></p>
+
+          <p style={{ marginBottom: "1px" }}>.</p>
         </Form>
       </Modal>
     );
   }
 }
-export default CreateFarm
+export default CreateTrip
 

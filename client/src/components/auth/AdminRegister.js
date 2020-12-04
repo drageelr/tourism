@@ -77,9 +77,6 @@ class AdminRegister extends Component {
                                 value={this.state.password}
                                 error={errors.password}
                                 id="password"
-                                className={classnames("input-field", {
-                                    invalid: errors.password
-                                })}
 
                             />
                             <p></p>
