@@ -70,7 +70,7 @@ exports.createTrip = async (req, res, next) => {
         let locationCheck = await validateLocations(params.locationIDs);
         if (!locationCheck) { throw new customError.DuplicateResourceError("invalid or duplicate location id"); }
 
-        let result = await db.query('INSERT INTO trip (adminID, name, description, itienrary, price, capacity, startDate, endDate) VALUES (' +params.user.id + ',"' + params.name + '", "' + params.description + '", "' + params.itienrary + '",' + params.price + ',' + params.capacity + ', ' + hFuncs.toDateMySql(params.startDate, true) + ', ' + hFuncs.toDateMySql(params.endDate, true) +  ')');
+        let result = await db.query('INSERT INTO trip (adminID, name, description, itienrary, price, capacity, startDate, endDate) VALUES (' +params.user.id + ',"' + params.name + '", "' + params.description + '", "' + params.itienrary + '",' + params.price + ',' + params.capacity + ', ' + hFuncs.toDateMySql(params.startDate) + ', ' + hFuncs.toDateMySql(params.endDate) +  ')');
         
         let locationValues = constructTripLocString(params.locationIDs, result.insertId);
         if (locationValues != "") {
@@ -103,7 +103,7 @@ exports.fetchTrip = async (req, res, next) => {
                 else if (kType[i] == 3) { whereTripQuery +=  '<'; }
                 whereTripQuery += '= ';
                 if (kType[i] == 1) { whereTripQuery += '"'; }
-                if (kType[i] == 2 || kType[i] == 3) { whereTripQuery += hFuncs.toDateMySql(params[keys[i]], true); }
+                if (kType[i] == 2 || kType[i] == 3) { whereTripQuery += hFuncs.toDateMySql(params[keys[i]]); }
                 else { whereTripQuery += params[keys[i]]; }
                 if (kType[i] == 1) { whereTripQuery += '"'; }
             }
@@ -120,7 +120,10 @@ exports.fetchTrip = async (req, res, next) => {
 
         let trips = [];
         for (let i = 0; i < result.length; i++) {
-            trips.push(hFuncs.duplicateObject(result[i], keys));
+            let trip = hFuncs.duplicateObject(result[i], keys);
+            trip.startDate = hFuncs.createDateFromMysqlDate(trip.startDate);
+            trip.endDate = hFuncs.createDateFromMysqlDate(trip.endDate);
+            trips.push(trip);
         }
 
         res.json({
@@ -156,10 +159,10 @@ exports.editTrip = async (req, res, next) => {
         let updateTripQuery = 'UPDATE trip SET';
         for (let i = 0; i < keys.length; i++) {
             if (params[keys[i]] !== undefined) {
-                if (updateTripQuery != 'UPDATE trip SET') { updateTripQuery += ' ,'; }
+                if (updateTripQuery != 'UPDATE trip SET') { updateTripQuery += ' , '; }
                 updateTripQuery += ' ' + keys[i] + ' = ';
                 if (kType[i] == 1) { updateTripQuery += '"'; }
-                if (kType[i] == 2) { updateTripQuery += hFuncs.toDateMySql(params[keys[i]], true); }
+                if (kType[i] == 2) { updateTripQuery += hFuncs.toDateMySql(params[keys[i]]); }
                 else { updateTripQuery += params[keys[i]]; }
                 if (kType[i] == 1) { updateTripQuery += '"'; }
             }

@@ -1,5 +1,6 @@
 'use strict'
 
+const { func } = require('@hapi/joi');
 var crypto = require('crypto');
 
 exports.hash = (str) => {
@@ -37,12 +38,29 @@ exports.duplicateObject = (orgObj, propList = [], ignoreUndefined = false, prefi
     return copyObj;
   }
 
-exports.toDateMySql = (date, convert = false) => {
-    if (convert) {
-        date = new Date(date);
-    }
-    let d = date.getDate();
-    let m = date.getMonth() + 1
-    let y = date.getFullYear() - 1
-    return 'STR_TO_DATE("' + d + '-' + m + '-' + y + '", "%d-%m-%Y")';
+exports.toDateMySql = (date) => {
+    date = date.split('-');
+    let temp = date[2].split('');
+    return 'STR_TO_DATE("' + temp[0] + temp[1] + '-' + date[1] + '-' + date[0] + '", "%d-%m-%Y")';
+}
+
+exports.createDateFromMysqlDate = function(mysql_string)
+{ 
+   var t, result = null;
+
+   if( typeof mysql_string === 'string' )
+   {
+      t = mysql_string.split(/[- :]/);
+
+      //when t[3], t[4] and t[5] are missing they defaults to zero
+      result = new Date(Date.UTC(t[0], t[1] - 1, t[2], t[3] || 0, t[4] || 0, t[5] || 0));        
+   }
+
+   return result;   
+}
+
+exports.createDateNowInUTC = () => {
+    let now = new Date();
+    let utc = new Date(Date.UTC(now.getFullYear(), now.getMonth() + 1, now.getDate()))
+    return utc;
 }
