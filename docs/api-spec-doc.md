@@ -86,8 +86,8 @@
 |#|Name|Description|Route|Request Object|Request Type|Response Object (Success)|Access|
 |-|----|-----------|-----|------------|--------------|-------------------------|------|
 |1|Create Trip Request|Creates a Trip Request|`/api/trip-req/create`|`tripCreateObj`|POST|`{id: Number}`|`Customer`|
-|2|Fetch Trip Requests|Retrieves Trip Request(s) based on an optional criteria|`/api/trip-req/fetch`|`tripreqFetchCriteriaObj`|POST|`[tripreqFetchCriteriaObj]`|`Admin`|
-|3|Fetch Customer Trip Requests|Retrieves Trip Request(s) based on an optional criteria for the Customer executing this request|`/api/trip-req/fetch-customer`|`tripreqFetchCriteriaObj2`|POST|`[tripreqFetchCriteriaObj]`|`Customer`|
+|2|Fetch Trip Requests|Retrieves Trip Request(s) based on an optional criteria|`/api/trip-req/fetch`|`tripreqFetchCriteriaObj`|POST|`{tripReqs: [tripreqFetchCriteriaObj]}`|`Admin`|
+|3|Fetch Customer Trip Requests|Retrieves Trip Request(s) based on an optional criteria for the Customer executing this request|`/api/trip-req/fetch-customer`|`tripreqFetchCriteriaObj2`|POST|`{tripReqs: [tripreqFetchCriteriaObj]}`|`Customer`|
 |4|Edit Trip Request|Edits the Trip Request field(s) provided in the request|`/api/trip-req/edit`|`tripreqEditObj`|POST|-|`Admin`|
 
 - **Note: * means the field mentioned is required (For `Request Object`)**
@@ -118,8 +118,8 @@
 ### 7. Finance Management
 |#|Name|Description|Route|Request Object|Request Type|Response Object (Success)|Access|
 |-|----|-----------|-----|------------|--------------|-------------------------|------|
-|1|Fetch Monthly Statement|`/api/finance/monthly`|-|POST|-|`Admin`|
-|2|Fetch Yearly Statement|`/api/finance/yearly`|-|POST|-|`Admin`|
+|1|Fetch Monthly Statement|`/api/finance/monthly`|`{month: Number(0-11), year: Number(>=1970)}`|POST|`{totalAmount: Number}`|`Admin`|
+|2|Fetch Yearly Statement|`/api/finance/yearly`|`{year: Number(>=1970)}`|POST|`{totalAmount: Number}`|`Admin`|
 
 ## Status Codes
 **Note: These status codes have been altered for use in CMS. For further elaboration visit this [link.](https://restfulapi.net/http-status-codes/)**

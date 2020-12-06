@@ -10,6 +10,8 @@ var accountRouter = require('./routes/account.route');
 var tripRouter = require('./routes/trip.route');
 var locRouter = require('./routes/location.route');
 var promoRouter = require('./routes/promo.route');
+var financeRouter = require('./routes/finance.route');
+var tripReqRouter = require('./routes/trip-req.route');
 var app = express();
 
 app.use(logger('dev'));
@@ -60,6 +62,8 @@ app.use('/api/account', accountRouter);
 app.use('/api/location',locRouter);
 app.use('/api/code',promoRouter);
 app.use('/api/trip',tripRouter);
+app.use('/api/trip-req', tripReqRouter);
+app.use('/api/finance', financeRouter);
 
 app.use(errorHandler);
 
