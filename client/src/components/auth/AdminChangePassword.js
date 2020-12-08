@@ -50,7 +50,7 @@ class ChangeAdminPassword extends Component {
                                 onChange={this.onChange}
                                 value={this.state.oldpassword} 
                                 error={errors.oldpassword} 
-                                id="password"
+                                id="oldpassword"
                             />
                         </FormGroup>
                         <FormGroup className="password-container">

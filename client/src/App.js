@@ -20,10 +20,9 @@ import AdminLogin from './components/auth/AdminLogin';
 import ResetPassword from './components/auth/ResetPassword';
 import AdminRegister from './components/auth/AdminRegister';
 import CustomerRegister from './components/auth/CustomerRegister';
-import ViewTrip from './components/ViewTrip';
-import admindetails from './components/admindetails';
+import ViewAllTripAdmin from './components/ViewAllTripAdmin';
 import edittripobj from './components/edittripobj';
-import toggleAdmin from './components/toggleAdmin';
+import ViewAdmin from './components/ViewAdmin';
 //will keep user logged in even if refreshes too from a react tutorial
 import ViewFinance from './components/viewFinances';
 import RegisterTrip from './components/RegisterTrip';
@@ -31,13 +30,15 @@ import CreateTrip from './components/CreateTrip';
 import CreateLocation from './components/CreateLocation';
 import CreatePromoCode from './components/CreatePromoCode';
 import PromoCode from './components/PromoCode';
+import ViewResponses from './components/ViewResponses';
 const  App =()=>{
   return (
     <Router>
       <div className="App">
         <Route path="/" component={ CustomerAppNavbar } />
-        <Route path="/a" component={ AdminAppNavbar } />
-        <Route path="/vt" component={ ViewTrip } />
+        <Route path="/" component={ AdminAppNavbar } />
+        <Route path="/view-response" component={ ViewResponses } />
+        <Route path="/view-trip" component={ ViewAllTripAdmin } />
         <Route path="/vf" component={ ViewFinance } />
         
         <Route path="/eto" component={ edittripobj } />
@@ -49,8 +50,7 @@ const  App =()=>{
         <Route exact path="/forgot-password-admin" component={ AdminForgotPassword } />
         <Route exact path="/change-password" component={ CustomerChangePassword } />
         <Route exact path="/change-password-admin" component={ AdminChangePassword } />
-        <Route exact path="/va" component={ admindetails } />
-        <Route exact path="/toggleAdmin" component={ toggleAdmin } />
+        <Route exact path="/view-admin" component={ ViewAdmin } />
         <Route exact path="/add-user" component={ AddUser } />
         <Route exact path="/register-trip" component={ RegisterTrip } />
         <Route exact path="/create-trip" component={ CreateTrip } />

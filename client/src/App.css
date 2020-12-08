@@ -43,11 +43,12 @@ table {
   border-collapse: collapse;
 }
 table, th, td {
-  border: 3px solid black;
+  border: 2px solid #2E5984;
+  border-right: hidden;
+  border-left: hidden;
 }
 th, td {
   padding: 10px;
-  color: white;
   text-align: left;
 }
 .center {
@@ -164,6 +165,14 @@ input[type="email"]:hover ~ .pop-up {
   font-weight: bold;
   font-size: 250%;
 }
+.title-med-left {
+  text-align: left;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #2E5984;
+  margin-top: 20% auto;
+  font-weight: bold;
+  font-size: 300%;
+}
 .title-sm {
   text-align: center;
   font-family: Arial, Helvetica, sans-serif;
@@ -172,6 +181,14 @@ input[type="email"]:hover ~ .pop-up {
   font-weight: bold;
   font-size: 150%;
   text-shadow: 2px 2px 4px #000000
+}
+.title-sm-b {
+  text-align: center;
+  color: #2E5984;
+  font-family: Arial, Helvetica, sans-serif;
+  margin-top: 10% auto;
+  font-weight: bold;
+  font-size: 130%;
 }
 .title-sm-l {
   text-align: center;
@@ -182,6 +199,14 @@ input[type="email"]:hover ~ .pop-up {
   font-weight: bold;
   font-size: 150%;
   text-shadow: 2px 2px 4px #000000
+}
+.title-sm-b-s {
+  text-align: center;
+  color: #2E5984;
+  font-family: Arial, Helvetica, sans-serif;
+  margin-top: 10% auto;
+  font-weight: bold;
+  font-size: 120%;
 }
 
 .signup-btn {

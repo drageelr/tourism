@@ -7,7 +7,7 @@ import {
   Input,
 } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes, faBell } from "@fortawesome/free-solid-svg-icons";
+import { faTimes} from "@fortawesome/free-solid-svg-icons";
 import Modal from 'react-modal';
 var api = require('./auth/api');
 
@@ -31,6 +31,7 @@ class CreateTrip extends Component {
       modal: !prevState.modal,
 
     }));
+    this.props.history.push("/view-trip")
   };
   onChange = (e) => {
     this.setState({ [e.target.id]: e.target.value });
@@ -58,7 +59,7 @@ class CreateTrip extends Component {
       locationIDs: [this.state.locationIDs]}
       
     
-    api.apiCallerWithToken("http://localhost:8080/api/trip/create", userData,200).then( this.props.history.push("/home"))
+    api.apiCallerWithToken("http://localhost:8080/api/trip/create", userData,200).then( this.props.history.push("/view-trip"))
   };
   setloc= (e)=>{
     this.setState({locationIDs:e.locations})

@@ -27,7 +27,7 @@ class CustomerLogin extends Component {
             password: this.state.password
         }
 
-        api.apiCallerWithoutToken("http://localhost:8080/api/auth/customer/login", userData, 200).then(res=>  window.localStorage.setItem('token', res.token))
+        api.apiCallerWithoutToken("http://localhost:8080/api/auth/customer/login", userData, 200).then(res=> { window.localStorage.setItem('token', res.token); console.log(res)}).catch(e=>console.log(e))
     }
 
     render() {

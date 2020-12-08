@@ -30,10 +30,11 @@ function NavLinks(props) {
             <Link className="nav-link" to="/home/trips">Trips</Link>
             <span className="separator"></span>
             <Link className="nav-link" to="/home/finances">Finance</Link>
+            <span className="separator"></span>
+            <Link className="nav-link" to="/home/finances">Admins</Link>
         </Nav>
     );
 }
-
 
 class AppNavbar extends Component {
     constructor(props) {
