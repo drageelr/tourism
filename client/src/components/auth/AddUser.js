@@ -24,7 +24,7 @@ class AddUser extends Component {
         console.log(userData);
         
         api.apiCallerWithToken("http://localhost:8080/api/account/admin/create", userData, 200).then(res=>  console.log(res))
-
+        
     }
 
     render() {

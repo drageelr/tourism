@@ -27,15 +27,14 @@ import { Link } from 'react-router-dom';
 function NavLinks(props) {
     return (
         <Nav className="mr-auto" navbar>
-            <Link className="nav-link" to="/home/farms">Trips</Link>
-            <span className="separator"></span>
-            <Link className="nav-link" to="/home/alerts">Alerts</Link>
+            <Link className="nav-link" to="/home/trips">Trips</Link>
             <span className="separator"></span>
             <Link className="nav-link" to="/home/finances">Finance</Link>
+            <span className="separator"></span>
+            <Link className="nav-link" to="/home/finances">Admins</Link>
         </Nav>
     );
 }
-
 
 class AppNavbar extends Component {
     constructor(props) {
@@ -76,7 +75,7 @@ class AppNavbar extends Component {
                                             <DropdownMenu className="nav-but-big">
                                                 <DropdownItem className="nav-but" onClick={() => {
                                                     localStorage.removeItem("token");
-                                                    this.props.history.push('/change-password');
+                                                    this.props.history.push('/change-password-admin');
                                                 }}>
                                                     Change Password
                                                 </DropdownItem>

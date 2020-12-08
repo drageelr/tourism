@@ -1,13 +1,11 @@
 import React, { Component } from "react";
-import { Link, withRouter } from "react-router-dom";
-import axios from 'axios';
+import { Link } from "react-router-dom";
 import {
     Button,
     Form,
     FormGroup,
     Input
 } from 'reactstrap';
-import Axios from "axios";
 var api = require('./api');
 
 
@@ -28,23 +26,11 @@ class CustomerLogin extends Component {
             email: this.state.email,
             password: this.state.password
         }
-        // axios({
-        //     method: "post",
-        //     url: "http://localhost:8080/api/auth/admin/login",
-        //     data: userData,
-        //     responseType: "json"
-        // }).then(res=>{
-        //     console.log(res)
-        // }).catch(err=>console.log(err))
-        // axios.post("http://localhost:8080/api/auth/admin/login",userData).then(res=>{
-        //     console.log(res)
-        // }).catch(err=>console.log(err))
 
-        api.apiCallerWithoutToken("http://localhost:8080/api/auth/customer/login", userData, 200).then(res=>  window.localStorage.setItem('token', res.token))
+        api.apiCallerWithoutToken("http://localhost:8080/api/auth/customer/login", userData, 200).then(res=> { window.localStorage.setItem('token', res.token); console.log(res)}).catch(e=>console.log(e))
     }
 
-    render(props) {
-        const { errors } = this.props;
+    render() {
 
         return (
             <div className="home-page">
@@ -69,15 +55,14 @@ class CustomerLogin extends Component {
                                 value={this.state.password}
                                 id="password"
                             />
-                            <p></p>
-                            <Link to="/forgot-password" className="link">Forgot Password? :(</Link>
-                            
                         </FormGroup>
                         <div className="btn-handler">
-                            <Button className="signup-btn">LOGIN</Button>
-                        </div>
+                            <Link to="/forgot-password" className="link" style={{marginleft:"14%"}}>Forgot Password? :(</Link>
+                        </div>  
                         <div className="btn-handler">
-                            <Button className="signup-btn" onClick={()=>{let path = `newPath`; 
+                            <Button className="signup-btn">LOGIN</Button>
+                        
+                            <Button className="signup-btn" onClick={()=>{
                                 this.props.history.push('/register');}}>SIGNUP</Button>
                         </div>
                         <div className="btn-handler">

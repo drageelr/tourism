@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import classnames from "classnames";
 import {
     Button,
     Form,
@@ -83,9 +82,6 @@ class CustomerRegister extends Component {
                                 value={this.state.email}
                                 error={errors.email}
                                 id="email"
-                                className={classnames("input-field", {
-                                    invalid: errors.email
-                                })}
                             />
                             {/* <span className="red-text">{errors.email}</span> */}
                         </FormGroup>
@@ -97,9 +93,6 @@ class CustomerRegister extends Component {
                                 value={this.state.password}
                                 error={errors.password}
                                 id="password"
-                                className={classnames("input-field", {
-                                    invalid: errors.password
-                                })}
 
                             />
                             <p></p>

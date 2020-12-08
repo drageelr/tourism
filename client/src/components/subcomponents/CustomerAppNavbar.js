@@ -21,9 +21,7 @@ var api = require('../auth/api');
 function NavLinks(props) {
     return (
         <Nav className="mr-auto" navbar>
-            <Link className="nav-link" to="/home/farms">Trips</Link>
-            <span className="separator"></span>
-            <Link className="nav-link" to="/home/alerts">Alerts</Link>
+            <Link className="nav-link" to="/home/trips">Trips</Link>
         </Nav>
     );
 }
@@ -54,7 +52,7 @@ class AppNavbar extends Component {
     }
     render() {
         const check = (word) => (window.location.href.indexOf(word) > -1)
-        return check("register") || check("login") || check("reset-password") || check("forgot-password") || check("change-password") ? null : (
+        return check("register") || check("login") || check("reset-password") || check("forgot-password") || check("change-password") ||check("admin") ? null : (
             <div >
                 <Navbar className="navbar" expand="md">
                     <NavbarBrand className="title-small" href="/home">BOOK MY TRIP</NavbarBrand>
