@@ -123,8 +123,8 @@ exports.fetchTrip = async (req, res, next) => {
         let trips = [];
         for (let i = 0; i < result.length; i++) {
             let trip = hFuncs.duplicateObject(result[i], keys);
-            trip.startDate = hFuncs.createDateFromMysqlDate(trip.startDate);
-            trip.endDate = hFuncs.createDateFromMysqlDate(trip.endDate);
+            trip.startDate = hFuncs.toDateStr(trip.startDate.toISOString());
+            trip.endDate = hFuncs.toDateStr(trip.endDate.toISOString());
             trips.push(trip);
         }
 

@@ -44,6 +44,12 @@ exports.toDateMySql = (date) => {
     return 'STR_TO_DATE("' + temp[0] + temp[1] + '-' + date[1] + '-' + date[0] + '", "%d-%m-%Y")';
 }
 
+exports.toDateStr = (date) => {
+    date = date.split('-');
+    let temp = date[2].split('');
+    return '' + temp[0] + temp[1] + '-' + date[1] + '-' + date[0] + '';
+}
+
 exports.createDateFromMysqlDate = function(mysql_string)
 { 
    var t, result = null;
