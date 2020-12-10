@@ -21,7 +21,7 @@ exports.fetchTripReq = {
         code: Joi.string().max(10),
         numberOfPeople: Joi.number(),
         amountDue: Joi.number(),
-        accepted: Joi.bool()
+        accepted: Joi.number().integer().min(-1).max(1)
     })
 };
 
@@ -33,7 +33,7 @@ exports.fetchTripReqCustomer = {
         code: Joi.string().max(10),
         numberOfPeople: Joi.number(),
         amountDue: Joi.number(),
-        accepted: Joi.bool()
+        accepted: Joi.number().integer().min(-1).max(1)
     })
 };
 
@@ -43,6 +43,6 @@ exports.editTripReq = {
         id: Joi.number().required(),
         numberOfPeople: Joi.number(),
         amountDue: Joi.number(),
-        accepted: Joi.bool()
+        accepted: Joi.number().integer().min(-1).max(1)
     })
 };
