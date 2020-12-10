@@ -19,7 +19,7 @@ exports.createAdmin = async (req, res, next) => {
         let newPotentialAdmin = await db.query('INSERT INTO admin_request (email) VALUES ("' + params.email + '")');
 
         // send email here
-        let link = vars.secretKey + "signup/admin?token=" + jwt.signUser(newPotentialAdmin.insertId, "admin_request", "8760h");
+        let link = vars.websiteLink2 + "register-admin?token=" + jwt.signUser(newPotentialAdmin.insertId, "admin_request", "8760h");
         emailer.sendAdminSignUpEmail(params.email, link);
 
         res.json({
@@ -40,9 +40,9 @@ exports.adminSignUp = async (req, res, next) => {
         let potentialAdmin = await db.query('SELECT email FROM admin_request WHERE id = ' + params.user.id);
         let newAdmin = await db.query(
             'INSERT INTO admin (firstName, lastName, email, password, active) VALUES ("'
-            + params.firstName + '", '
-            + params.lastName + '", '
-            + potentialAdmin[0].email + '", '
+            + params.firstName + '", "'
+            + params.lastName + '", "'
+            + potentialAdmin[0].email + '", "'
             + hFuncs.hash(params.password) + '", true)'
         );
         await db.query(
@@ -71,11 +71,12 @@ exports.customerSignUp = async (req, res, next) => {
         if (reqCustomer[0]['count(*)']) { throw new customError.DuplicateResourceError("email already used for a customer"); }
         let newCustomer = await db.query(
             'INSERT INTO customer (firstName, lastName, email, password, active) VALUES ("'
-            + params.firstName + '", '
-            + params.lastName + '", '
-            + params.email + '", '
+            + params.firstName + '", "'
+            + params.lastName + '", "'
+            + params.email + '", "'
             + hFuncs.hash(params.password) + '", true)'
         );
+
 
         res.json({
             statusCode: 200,
@@ -305,8 +306,9 @@ exports.adminFPReq = async (req, res, next) => {
         if (!reqAdmin.length) { throw new customError.NotFoundError("admin not found"); }
         
         // send email here
-        let link = vars.secretKey + "password-reset/admin?token=" + jwt.signUser(reqAdmin[0].id, "admin", "12h");
+        let link = vars.websiteLink2 + "reset-password-admin?token=" + jwt.signUser(reqAdmin[0].id, "admin", "12h");
         emailer.sendForgotPasswordEmail(params.email, reqAdmin[0].firstName + " " + reqAdmin[0].lastName, "admin", link);
+        
 
         res.json({
             statusCode: 200,
@@ -327,7 +329,7 @@ exports.customerFPReq = async (req, res, next) => {
         if (!reqCustomer.length) { throw new customError.NotFoundError("customer not found"); }
         
         // send email here
-        let link = vars.secretKey + "password-reset/customer?token=" + jwt.signUser(reqCustomer[0].id, "customer", "12h");
+        let link = vars.websiteLink2 + "reset-password?token=" + jwt.signUser(reqCustomer[0].id, "customer", "12h");
         emailer.sendForgotPasswordEmail(params.email, reqCustomer[0].firstName + " " + reqCustomer[0].lastName, "customer", link);
 
         res.json({

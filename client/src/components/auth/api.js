@@ -28,16 +28,18 @@ async function apiCallerWithoutToken(api, body, successCode, dataReturner, ) {
         
         if (res.ok) {
             const data = await res.json()
+            return data
             if (data.statusCode != successCode) {
                 throw new Error((data.err !== undefined) 
                 ? `${data.statusCode}: ${data.message} - ${JSON.stringify(data.err.details).replace(/[\[\]\{\}"'\\]+/g, '').split(':').pop()}`
                 : `${data.statusCode}: ${data.message}`) 
             }
-            return dataReturner(data)
+            return data
         }
         throw new Error(`${res.status}, ${res.statusText}`) 
     }
     catch (err) {
+        console.log(err)
         return err.toString()
     }
 }
@@ -71,17 +73,20 @@ async function apiCallerWithToken(api, body, successCode, dataReturner, ) {
         const res = await fetch(api, req_init);
         
         if (res.ok) {
+            console.log("lolll")
             const data = await res.json()
             if (data.statusCode != successCode) {
+                return data
                 throw new Error((data.err !== undefined) 
                 ? `${data.statusCode}: ${data.message} - ${JSON.stringify(data.err.details).replace(/[\[\]\{\}"'\\]+/g, '').split(':').pop()}`
                 : `${data.statusCode}: ${data.message}`) 
             }
-            return dataReturner(data)
+            return data
         }
         throw new Error(`${res.status}, ${res.statusText}`) 
     }
     catch (err) {
+        return err
         return err.toString()
     }
 }

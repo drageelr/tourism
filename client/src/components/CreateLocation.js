@@ -37,7 +37,16 @@ class CreateLocation extends Component {
           province: this.state.province
         }
 
-        api.apiCallerWithToken("http://localhost:8080/api/location/create", userData,200).then( this.props.history.push("/create-trip"))
+        api.apiCallerWithToken("http://localhost:8080/api/location/create", userData,200).then( res =>
+        {
+          if(res.statusCode == 200)
+          {  
+          this.props.history.push("/create-trip"); 
+          console.log(res)}
+          else{
+              alert("Error")
+          }}
+       )
   };
   render() {
     return (
@@ -81,10 +90,10 @@ class CreateLocation extends Component {
                 <Input
                   type="text"
                   style = {{marginLeft:"55px"}}
-                  id="customerID"
+                  id="city"
                   placeholder="Enter City"
                   onChange={this.onChange}
-                  value={this.state.customerID}
+                  value={this.state.city}
                 />
               </FormGroup>
               <FormGroup style={{ width: "100%", paddingBottom: "30px" }}>

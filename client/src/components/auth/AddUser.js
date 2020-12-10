@@ -23,7 +23,16 @@ class AddUser extends Component {
         }
         console.log(userData);
         
-        api.apiCallerWithToken("http://localhost:8080/api/account/admin/create", userData, 200).then(res=>  console.log(res))
+        api.apiCallerWithToken("http://localhost:8080/api/account/admin/create", userData, 200).then(res=>  
+        {   console.log(res)
+            if(res.statusCode == 200)
+            {  
+            this.props.history.push("/home/admin"); 
+            console.log(res)}
+            else{
+                alert("Error")
+            }}
+    )
         
     }
 

@@ -28,7 +28,14 @@ class CustomerForgotPassword extends Component {
         const userData = {
             email: this.state.email
         }
-        api.apiCallerWithoutToken("http://localhost:8080/api/account/customer/forgot-password/req", userData,200).then(res=>  console.log(res))
+        api.apiCallerWithoutToken("http://localhost:8080/api/account/customer/forgot-password/req", userData,200).then (res => 
+        {   console.log(res)
+            if(res.statusCode == 200)
+            {  this.props.history.push("/login"); 
+            console.log(res)}
+            else{
+                alert("Error")
+            }})
 
     }
 

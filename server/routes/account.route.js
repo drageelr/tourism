@@ -19,7 +19,7 @@ router.post(
 
 // API 2.2: Admin Sign Up
 router.post(
-    '/admin/create',
+    '/admin/signup',
     validate(accountValidation.adminSignUp, {keyByField: true}),
     jwt.verfiyUser,
     validateUserAccess,
@@ -29,7 +29,7 @@ router.post(
 
 // API 2.3: Customer Sign Up
 router.post(
-    '/admin/create',
+    '/customer/signup',
     validate(accountValidation.customerSignUp, {keyByField: true}),
     accountController.customerSignUp
 );

@@ -10,7 +10,6 @@ exports.adminLogin = async (req, res, next) => {
     
     try {
         let params = req.body;
-        console.log(req)
         let reqUser = await db.query('SELECT * FROM admin WHERE email = "' + params.email + '" AND password = "' + hFuncs.hash(params.password) + '"');
         if (!reqUser.length) { throw new customError.AuthenticationError("invalid credentials"); }
         if (!reqUser[0].active) { throw new customError.AuthenticationError("account not active"); }

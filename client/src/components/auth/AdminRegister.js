@@ -34,9 +34,19 @@ class AdminRegister extends Component {
             lastName: this.state.lastName,
             password: this.state.password,
         }
-        const token = window.location.href.substring( window.location.href.lastIndexOf('/') + 1)
-        this.props.registerUser(newUser, this.props.history,token);
-        api.apiCallerWithToken('http://localhost:8080/api/auth/admin/signup', newUser, 200).then(res=>  console.log(res))
+        const token = window.location.href.substring( window.location.href.lastIndexOf('=') + 1)
+        window.localStorage.setItem('token', token);
+        api.apiCallerWithToken('http://localhost:8080/api/account/admin/signup', newUser, 200).then(res=>  
+        {console.log(res)
+            if(res.statusCode == 200)
+            {  
+            
+            this.props.history.push("/login-admin"); 
+            console.log(res)}
+            else{
+                alert("Error")
+            }}
+    )
     }
     render() {
         const { errors } = this.state;

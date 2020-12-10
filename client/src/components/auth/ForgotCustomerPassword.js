@@ -10,7 +10,7 @@ var api = require('./api');
 
 class ForgotCustomerPassword extends Component {
     state = {
-        password: "",
+        password : "",
         rePassword: "",
         errors: {}        
     }
@@ -29,14 +29,24 @@ class ForgotCustomerPassword extends Component {
         const userData = {
             password: this.state.password
         }
-        const token = window.location.href.substring( window.location.href.lastIndexOf('/') + 1)
+        const token = window.location.href.substring( window.location.href.lastIndexOf('=') +1)
+        console.log(token)
         window.localStorage.setItem('token', token)
-        api.apiCallerWithToken("http://localhost:8080/api/account/customer/forgot-password/res", userData,200).then(res=>  console.log(res))
+        if(this.state.password === this.state.rePassword)
+        api.apiCallerWithToken("http://localhost:8080/api/account/customer/forgot-password/res", userData,200).then(res=>  
+        {   console.log(res)
+            if(res.statusCode == 200)
+            {  this.props.history.push("/login"); 
+            console.log(res)}
+            else{
+                alert("Error")
+            }})
+        else
+        {alert("Passwords do not match")}
 
     }
 
     render() {
-        const { errors } = this.state;
         return (
             <div className="home-page">
                 <div className="container main">
@@ -52,7 +62,6 @@ class ForgotCustomerPassword extends Component {
                                 placeholder="Enter new password" 
                                 onChange={this.onChange}
                                 value={this.state.password} 
-                                error={errors.password} 
                                 id="password"
                                 />
                             <p></p>
@@ -62,7 +71,6 @@ class ForgotCustomerPassword extends Component {
                                 placeholder="Confirm new password" 
                                 onChange={this.onChange}
                                 value={this.state.rePassword} 
-                                error={errors.rePassword} 
                                 id="rePassword"
                                 />
                             <div className="pop-up">

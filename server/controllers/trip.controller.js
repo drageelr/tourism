@@ -9,7 +9,7 @@ const { param } = require('../routes/trip.route');
 
 async function validateLocations(locationIDs) {
     if (locationIDs !== undefined) {
-        let locationQuery = "SELECT count(*) distinct FROM trip_location WHERE id IN (";
+        let locationQuery = "SELECT count(*) FROM location WHERE id IN (";
         for (let i = 0; i < locationIDs.length; i++){
             if (i < locationIDs.length - 1){
                 locationQuery += locationIDs[i] + ",";
@@ -17,10 +17,12 @@ async function validateLocations(locationIDs) {
                 locationQuery += locationIDs[i] +")";
             }
         }
-
-        if (locationQuery != "SELECT count(*) distinct FROM trip_location WHERE id IN ("){
+        console.log(locationQuery)
+        if (locationQuery != "SELECT count(*) FROM location WHERE id IN ("){
             let result = await db.query(locationQuery);
-            if (result["count(*)"] != locationIDs.length) {
+            console.log(result[0]["count(*)"])
+            console.log(locationIDs.length)
+            if (result[0]["count(*)"] != locationIDs.length) {
                 return false;
             }
         }

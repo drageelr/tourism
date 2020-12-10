@@ -12,7 +12,7 @@ import Modal from 'react-modal';
 var api = require('./auth/api');
 
 Modal.setAppElement(document.getElementById('root'));
-class CreateTrip extends Component {
+class EditTrip extends Component {
   // Can Add Constructor
   state = {
     modal: true,
@@ -27,7 +27,22 @@ class CreateTrip extends Component {
     locationIDs:[]
  };
  componentDidMount() {
-  api.apiCallerWithoutToken("http://localhost:8080/api/location/fetch", {}, 200).then(
+  api.apiCallerWithoutToken("http://localhost:8080/api/trip/fetch", {id:2}, 200).then(
+    (e) => {
+      console.log("e",e)
+      this.setState({
+        name: e.trips[0].name,
+        description: e.trips[0].description,
+        itienrary: e.trips[0].itienrary,
+        price: e.trips[0].price,
+        capacity: e.trips[0].capacity,
+        startDate: e.trips[0].startDate,
+        endDate: e.trips[0].endDate,
+        locationIDs:e.trips[0].locationIDs
+      });
+      console.log(typeof this.state.location, this.state.location)
+    });
+    api.apiCallerWithoutToken("http://localhost:8080/api/location/fetch", {}, 200).then(
     (e) => {
       if(e.locations!==undefined)
       this.setState({data: e.locations});
@@ -65,7 +80,6 @@ class CreateTrip extends Component {
       endDate: this.state.endDate, 
       locationIDs: this.state.locationIDs}
       
-    console.log("12121",userData)
     api.apiCallerWithToken("http://localhost:8080/api/trip/create", userData,200).then( res=>
       {
         if(res.statusCode === 200)
@@ -91,7 +105,7 @@ class CreateTrip extends Component {
       >
         <div style={{ backgroundColor: "#f5f5f5" }}>
           <p>/</p>
-          <p className="title-med"> Create Trip </p>
+          <p className="title-med"> Edit Trip </p>
           <p>/</p>
           <FontAwesomeIcon
             onClick={this.toggle}
@@ -201,5 +215,5 @@ class CreateTrip extends Component {
     );
   }
 }
-export default CreateTrip
+export default EditTrip
 

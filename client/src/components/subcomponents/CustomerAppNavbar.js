@@ -75,7 +75,6 @@ class AppNavbar extends Component {
                                             </DropdownToggle>
                                             <DropdownMenu className="nav-but-big">
                                                 <DropdownItem className="nav-but" onClick={() => {
-                                                    localStorage.removeItem("token");
                                                     this.props.history.push('/change-password');
                                                 }}>
                                                     Change Password

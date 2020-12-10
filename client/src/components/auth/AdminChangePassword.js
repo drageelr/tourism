@@ -10,16 +10,9 @@ var api = require('./api');
 
 class ChangeAdminPassword extends Component {
     state = {
-        oldpassword: "",
-        password: "",
+        oldPassword: "",
+        password:"",
         rePassword: "",
-        errors: {}        
-    }
-    componentDidMount=()=>{
-        if(this.props.auth)
-        {
-            this.props.history.push("/home");
-        }
     }
     onChange = e => {
         this.setState({ [e.target.id]: e.target.value });
@@ -28,10 +21,27 @@ class ChangeAdminPassword extends Component {
     onSubmit = e => {
         e.preventDefault();
         const userData = {
-            oldpassword:this.state.oldpassword,
-            newpassword: this.state.password
+            oldPassword:this.state.oldPassword,
+            newPassword: this.state.password
         }
-        api.apiCallerWithToken("http://localhost:8080/api/account/admin/change-password", userData,200).then(res=>  console.log(res))
+        if(this.state.password === this.state.rePassword)
+        {
+            api.apiCallerWithToken("http://localhost:8080/api/account/admin/change-password", userData,200).then(res=>  
+            {
+                if(res.statusCode == 200)
+                {  
+                this.props.history.push("/home/admin"); 
+                console.log(res)}
+                else{
+                    alert("Error")
+                }}
+             )
+        }
+        else{
+            alert("Passwords do not match")
+        }
+
+
     }
 
     render() {
@@ -48,9 +58,8 @@ class ChangeAdminPassword extends Component {
                                 type="password" 
                                 placeholder="Enter old password" 
                                 onChange={this.onChange}
-                                value={this.state.oldpassword} 
-                                error={errors.oldpassword} 
-                                id="oldpassword"
+                                value={this.state.oldPassword} 
+                                id="oldPassword"
                             />
                         </FormGroup>
                         <FormGroup className="password-container">
@@ -60,8 +69,7 @@ class ChangeAdminPassword extends Component {
                                 type="password" 
                                 placeholder="Enter new password" 
                                 onChange={this.onChange}
-                                value={this.state.password} 
-                                error={errors.password} 
+                                value={this.state.password}
                                 id="password"
                                 />
                             <p></p>
@@ -71,7 +79,6 @@ class ChangeAdminPassword extends Component {
                                 placeholder="Confirm new password" 
                                 onChange={this.onChange}
                                 value={this.state.rePassword} 
-                                error={errors.rePassword} 
                                 id="rePassword"
                                 />
                             <div className="pop-up">

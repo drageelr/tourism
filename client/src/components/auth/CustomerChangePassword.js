@@ -15,12 +15,6 @@ class ChangeCustomerPassword extends Component {
         rePassword: "",
         errors: {}        
     }
-    componentDidMount=()=>{
-        if(this.props.auth)
-        {
-            this.props.history.push("/home");
-        }
-    }
     onChange = e => {
         this.setState({ [e.target.id]: e.target.value });
     }
@@ -28,10 +22,19 @@ class ChangeCustomerPassword extends Component {
     onSubmit = e => {
         e.preventDefault();
         const userData = {
-            oldpassword:this.state.oldpassword,
-            password: this.state.password
+            oldPassword:this.state.oldpassword,
+            newPassword: this.state.password
         }
-        api.apiCallerWithToken("http://localhost:8080/api/account/customer/change-password", userData,200).then(res=>  console.log(res))
+        api.apiCallerWithToken("http://localhost:8080/api/account/customer/change-password", userData,200).then(res=>  
+        {
+            if(res.statusCode == 200)
+            {  
+            this.props.history.push("/home"); 
+            console.log(res)}
+            else{
+                alert("Error")
+            }}
+         )
     }
 
     render() {

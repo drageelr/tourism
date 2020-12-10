@@ -27,11 +27,11 @@ import { Link } from 'react-router-dom';
 function NavLinks(props) {
     return (
         <Nav className="mr-auto" navbar>
-            <Link className="nav-link" to="/home/trips">Trips</Link>
+            <Link className="nav-link" to="/home/admin">Trips</Link>
             <span className="separator"></span>
             <Link className="nav-link" to="/home/finances">Finance</Link>
             <span className="separator"></span>
-            <Link className="nav-link" to="/home/finances">Admins</Link>
+            <Link className="nav-link" to="/home/view-admin">Admins</Link>
         </Nav>
     );
 }
@@ -51,7 +51,7 @@ class AppNavbar extends Component {
     }
     render() {
         const check = (word) => (window.location.href.indexOf(word) > -1)
-        return check("register") || check("login") || check("reset-password") || check("forgot-password") ? null : (
+        return check("register") || check("login") || check("reset-password") || check("forgot-password") || check("change-password") ? null : (
             <div >
                 <Navbar className="navbar" expand="md">
                     <NavbarBrand className="title-small" href="/home">BOOK MY TRIP</NavbarBrand>
@@ -74,7 +74,6 @@ class AppNavbar extends Component {
                                             </DropdownToggle>
                                             <DropdownMenu className="nav-but-big">
                                                 <DropdownItem className="nav-but" onClick={() => {
-                                                    localStorage.removeItem("token");
                                                     this.props.history.push('/change-password-admin');
                                                 }}>
                                                     Change Password
@@ -82,7 +81,6 @@ class AppNavbar extends Component {
                                                 <DropdownItem divider />
                                                 <Link to="/add-user">
                                                 <DropdownItem className="nav-but" onClick={() => {
-                                                    localStorage.removeItem("token");
                                                     this.props.history.push('/adduser');
                                                 }}>
                                                     Add User

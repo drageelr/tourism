@@ -40,9 +40,18 @@ class CustomerRegister extends Component {
             firstName: this.state.firstName,
             lastName: this.state.lastName,
             password: this.state.password,
-            rePassword: this.state.rePassword
         }
-        api.apiCallerWithToken('http://localhost:8080/api/auth/customer/signup', newUser, 200).then(res=>  console.log(res))
+        if(this.state.password === this.state.rePassword)
+            api.apiCallerWithoutToken('http://localhost:8080/api/account/customer/signup', newUser, 200).then(res => 
+            {   console.log(res)
+                if(res.statusCode == 200)
+                {  this.props.history.push("/login"); 
+                console.log(res)}
+                else{
+                    alert("Error")
+                }})
+        else
+            alert("Passwords do not Match!")
     }
     render() {
         const { errors } = this.state;

@@ -27,7 +27,17 @@ class CustomerLogin extends Component {
             password: this.state.password
         }
 
-        api.apiCallerWithoutToken("http://localhost:8080/api/auth/customer/login", userData, 200).then(res=> { window.localStorage.setItem('token', res.token); console.log(res)}).catch(e=>console.log(e))
+        api.apiCallerWithoutToken("http://localhost:8080/api/auth/customer/login", userData, 200).then(res =>
+            {   console.log(res)
+                if(res.statusCode == 200)
+                {  
+                    window.localStorage.setItem('token', res.token);
+                    this.props.history.push("/home"); 
+                    console.log(res)}
+                    else{
+                        alert("Error")
+                }}
+        ).catch(e=>console.log(e))
     }
 
     render() {

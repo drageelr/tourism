@@ -10,8 +10,7 @@ var api = require('./api');
 
 class ForgotAdminPassword extends Component {
     state = {
-        password: "",
-        rePassword: "",
+        password:"",
         errors: {}        
     }
     componentDidMount=()=>{
@@ -29,9 +28,20 @@ class ForgotAdminPassword extends Component {
         const userData = {
             password: this.state.password,
         }
-        const token = window.location.href.substring( window.location.href.lastIndexOf('/') + 1)
+        const token = window.location.href.substring( window.location.href.lastIndexOf('=') +1)
+        console.log(token)
         window.localStorage.setItem('token', token)
-        api.apiCallerWithToken("http://localhost:8080/api/account/admin/forgot-password/res", userData,200).then(res=>  console.log(res))
+        if(this.state.password === this.state.rePassword)
+        api.apiCallerWithToken("http://localhost:8080/api/account/admin/forgot-password/res", userData,200).then(res=>  
+        {   console.log(res)
+            if(res.statusCode == 200)
+            {  this.props.history.push("/login-admin"); 
+            console.log(res)}
+            else{
+                alert("Error")
+            }})
+        else
+        {alert("Passwords do not match")}
 
     }
 

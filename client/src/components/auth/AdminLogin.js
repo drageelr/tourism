@@ -27,11 +27,20 @@ class AdminLogin extends Component {
             email: this.state.email,
             password: this.state.password
         }
-        api.apiCallerWithoutToken("http://localhost:8080/api/auth/admin/login", userData,200).then(res=>  window.localStorage.setItem('token', res.token))
+            api.apiCallerWithoutToken("http://localhost:8080/api/auth/admin/login", userData,200).then(res=>  {console.log(res);
+            console.log(res.token)
+            if(res.statusCode == 200)
+            {  
+            window.localStorage.setItem('token', res.token);
+            this.props.history.push("/home/admin"); 
+            console.log(res)}
+            else{
+                alert("Error")
+            }}
+    )
     }
 
     render(props) {
-        const { errors } = this.props;
 
         return (
             <div className="home-page">
