@@ -27,7 +27,10 @@ class EditTrip extends Component {
     locationIDs:[]
  };
  componentDidMount() {
-  api.apiCallerWithoutToken("http://localhost:8080/api/trip/fetch", {id:2}, 200).then(
+   
+  api.apiCallerWithoutToken("http://localhost:8080/api/trip/fetch", {
+    id: window.location.href.substring(window.location.href.lastIndexOf('=') + 1)
+  }, 200).then(
     (e) => {
       console.log("e",e)
       this.setState({

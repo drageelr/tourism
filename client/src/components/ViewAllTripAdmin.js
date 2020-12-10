@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {
     Table
 } from 'reactstrap';
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faPlus, faEye } from "@fortawesome/free-solid-svg-icons";
 
@@ -21,8 +20,7 @@ class ViewAllTripAdmin extends Component {
                 <td className="title-sm-b-s">{i.price}</td>
                 <td className="title-sm-b-s">{i.capacity}</td>
                 <td className="title-sm-b-s"></td>
-                {console.log(typeof i.startDate, i.startDate)}
-                <td className="title-sm-b-s"><button><FontAwesomeIcon onClick={() => { this.props.history.push('/create-trip'); }} style={{ color: "#2E5984" }} icon={faPen} size="1x" /></button></td>
+                <td className="title-sm-b-s"><button><FontAwesomeIcon onClick={() => { this.props.history.push('/edit-trip?id='+i.id); }} style={{ color: "#2E5984" }} icon={faPen} size="1x" /></button></td>
                 <td className="title-sm-b-s"><button><FontAwesomeIcon onClick={() => { }} style={{ color: "#2E5984" }} icon={faEye} size="1x" /></button></td>
             </tr>
         
@@ -50,7 +48,6 @@ class ViewAllTripAdmin extends Component {
                 if (e.trips !== [])
                 {
                     this.setState({trips: e.trips });
-                    console.log(this.state.trips)
                     this.render()
                 }    
             });
@@ -59,6 +56,7 @@ class ViewAllTripAdmin extends Component {
         return (
             <div style={{ marginLeft: '20px' }}>
                 <div className="main-container">
+                    {console.log("path", this.props.match, this.props.location)}
 
                     <p className="title-med-left">Trip Details</p>
                     {this.display()}

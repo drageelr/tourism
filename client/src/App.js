@@ -23,7 +23,7 @@ import ViewAllTripAdmin from './components/ViewAllTripAdmin';
 import edittripobj from './components/edittripobj';
 import ViewAdmin from './components/ViewAdmin';
 //will keep user logged in even if refreshes too from a react tutorial
-import ViewFinance from './components/viewFinances';
+import ViewFinance from './components/ViewFinances';
 import RegisterTrip from './components/RegisterTrip';
 import CreateLocation from './components/CreateLocation';
 import CreatePromoCode from './components/CreatePromoCode';
@@ -37,12 +37,13 @@ const  App =()=>{
   return (
     <Router>
       <div className="App">
+        
+      <Route path="/a" component={ CustomerAppNavbar } />
+        <Route path="/" component={ AdminAppNavbar } />
         <Route path="/view-response" component={ ViewResponses } />
         <Route path="/edit-trip" component={ EditTrip } />
         <Route path="/home/admin" component={ ViewAllTripAdmin } />
-        <Route path="/vf" component={ ViewFinance } />
-        <Route path="/a" component={ CustomerAppNavbar } />
-        <Route path="/" component={ AdminAppNavbar } />
+        <Route path="/view-finances" component={ ViewFinance } />
         <Route path="/edit" component={ edittripobj } />
         <Route path="/register" component={ CustomerRegister } />
         <Route path="/register-admin" component={ AdminRegister } />

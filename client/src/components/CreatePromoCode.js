@@ -40,7 +40,12 @@ class CreatePromoCode extends Component {
           discountPercentage: this.state.discountPercentage,
         }
 
-        api.apiCallerWithToken("http://localhost:8080/api/code/create", userData,200).then( this.props.history.push("/home"))
+        api.apiCallerWithToken("http://localhost:8080/api/code/create", userData,200).then((res)=>{ if(res.statusCode == 200)
+        {  this.props.history.push("/view-promo"); 
+        console.log(res)}
+        else{
+            alert("Error")
+        }})
   };
   render() {
     return (

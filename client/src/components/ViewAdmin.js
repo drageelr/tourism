@@ -5,7 +5,7 @@ import {
 } from 'reactstrap';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {  faSave } from "@fortawesome/free-solid-svg-icons";
+import { faSave } from "@fortawesome/free-solid-svg-icons";
 
 var api = require('./auth/api.js');
 class ViewAdmin extends Component {
@@ -37,68 +37,144 @@ class ViewAdmin extends Component {
             }
         }
         ],
-        currentObj: {},
-        save: this.save
     }
-    onChange  = (e, index) => {
-        const admins = [...this.state.currentObj];
-        const i= [e.target.id];
-        console.log(i)
-        [admins[index].i] = e.target.value
     
-        this.setState({ admins });
-      }
-    save = (item) => {
-        const userData = {
-                email: this.state.currentObj.email,
-                firstName:this.state.currentObj.firstName, 
-                lastName: this.state.currentObj.lastName, 
-                active: this.state.currentObj.active, 
-                permission: {
-                    manageAdmins: this.state.currentObj.manageAdmins, 
-                    manageTrips: this.state.currentObj.manageTrips, 
-                    manageReqList: this.state.currentObj.manageReqList, 
-                    manageReports: this.state.currentObj.manageReports}
-        };
-        api.apiCallerWithToken("http://localhost:8080/api/account/admin/edit", userData, 200).then(res => this.setState({ [this.state.currentObj.accepted]: 1 }))
+    display = () => {
+        const addedTrips = this.state.admins.map((i, index) =>
+        
+            <tbody>
+                <tr>
+                <td className="title-sm-b-s">{i.id}</td>
+                <td className="title-sm-b-s"><Input type="text" value={i.email} onChange={(e) =>
+                {
+                    const{admins} = this.state;
+                    const newadmins = [...admins];
+                    admins[index].email = e.target.value;
+                    this.setState({admins: newadmins})
+                }}/></td>
+                <td className="title-sm-b-s"><Input type="text" value={i.firstName} onChange={(e) =>
+                {
+                    const{admins} = this.state;
+                    const newadmins = [...admins];
+                    admins[index].firstName = e.target.value;
+                    this.setState({admins: newadmins})
+                }}/></td>
+                <td className="title-sm-b-s"><Input type="text" value={i.lastName} onChange={(e) =>
+                {
+                    const{admins} = this.state;
+                    const newadmins = [...admins];
+                    admins[index].lastName = e.target.value;
+                    this.setState({admins: newadmins})
+                }}/></td>
+                <td className="title-sm-b-s">{<Input type="checkbox" onChange={(e)=>{
+                    const{admins} = this.state;
+                    const newadmins = [...admins];
+                    admins[index].active = !admins[index].active;
+                    this.setState({admins: newadmins})
+                }
+                } checked={i.active}/>}</td>
+                <td className="title-sm-b-s">{<Input type="checkbox" 
+                onChange={(e)=>{
+                    const{admins} = this.state;
+                    const newadmins = [...admins];
+                    admins[index].permission.manageAdmins = !admins[index].permission.manageAdmins;
+                    this.setState({admins: newadmins})
+                }
+                } checked={i.permission.manageAdmins}/>}</td>
+                <td className="title-sm-b-s">{<Input type="checkbox" 
+                onChange={(e)=>{
+                    const{admins} = this.state;
+                    const newadmins = [...admins];
+                    admins[index].permission.manageTrips = !admins[index].permission.manageTrips;
+                    this.setState({admins: newadmins})
+                }
+                } checked={i.permission.manageTrips}/>}</td>
+                <td className="title-sm-b-s">{<Input type="checkbox" 
+                onChange={(e)=>{
+                    const{admins} = this.state;
+                    const newadmins = [...admins];
+                    admins[index].permission.manageReqList = !admins[index].permission.manageReqList;
+                    this.setState({admins: newadmins})
+                }
+                } checked={i.permission.manageReqList}/>}</td>
+                <td className="title-sm-b-s">{<Input type="checkbox" 
+                onChange={(e)=>{
+                    const{admins} = this.state;
+                    const newadmins = [...admins];
+                    admins[index].permission.manageReports = !admins[index].permission.manageReports;
+                    this.setState({admins: newadmins})
+                }
+                } checked={i.permission.manageReports}/>}</td>
+                <td className="title-sm-b-s"><button><FontAwesomeIcon onClick={ (e)=> {
+                    console.log(
+                         i.id,
+                         i.firstName,
+                         i.lastName,
+                         !!i.active,
+                         !!i.permission.manageAdmins,
+                            !!i.permission.manageTrips,
+                            !!i.permission.manageReqList,
+                            !!i.permission.manageReports
+                        )
+                    api.apiCallerWithToken("http://localhost:8080/api/account/admin/edit", 
+                    {
+                        id:i.id,
+                        email: i.email,
+                        firstName: i.firstName,
+                        lastName: i.lastName,
+                        active: !!i.active,
+                        permission: {
+                            manageAdmins: !!i.permission.manageAdmins,
+                            manageTrips: !!i.permission.manageTrips,
+                            manageReqList: !!i.permission.manageReqList,
+                            manageReports: !!i.permission.manageReports
+                        }
+                    },
+                     200).then(res => {})
+                }
+                
+                } style={{ color: "#2E5984" }} icon={faSave} size="1x" /></button></td>
+                
+                </tr>
+            </tbody>
+
+        );
+        return (
+            <Table className="tablee" responsive >
+                <thead>
+                    <tr>
+                    <th className="title-sm-b">Admin ID</th>
+                    <th className="title-sm-b">Email</th>
+                    <th className="title-sm-b">Name</th>
+                    <th className="title-sm-b">Surname</th>
+                    <th className="title-sm-b">Active</th>
+                    <th className="title-sm-b">Admin</th>
+                    <th className="title-sm-b">Trip</th>
+                    <th className="title-sm-b">ReqList</th>
+                    <th className="title-sm-b">Reports</th>
+                    <th className="title-sm-b">Save</th>
+                    </tr>
+                </thead>
+                {addedTrips}
+            </Table>
+        );
+    }
+    componentDidMount() {
+        api.apiCallerWithToken("http://localhost:8080/api/account/admin/fetch", {}, 200).then(
+            (e) => {
+                console.log(e)
+                 {
+                    this.setState({ admins: e.admins });
+                    this.render()
+                }
+            });
     }
     render() {
-        api.apiCallerWithoutToken("http://localhost:8080/api/trip/fetch", {}, 200).then(res =>
-            console.log(res)
-        )
-        const { errors } = this.state;
         return (
             <div style={{ marginLeft: '20px' }}>
                 <div className="main-container">
                     <p className="title-med-left">View Admin</p>
-                    <Table className="tablee" responsive >
-                        <tr>
-                            <th className="title-sm-b">Admin ID</th>
-                            <th className="title-sm-b">Email</th>
-                            <th className="title-sm-b">Name</th>
-                            <th className="title-sm-b">Surname</th>
-                            <th className="title-sm-b">Active</th>
-                            <th className="title-sm-b">Admin</th>
-                            <th className="title-sm-b">Trip</th>
-                            <th className="title-sm-b">ReqList</th>
-                            <th className="title-sm-b">Reports</th>
-                            <th className="title-sm-b">Save</th>
-                        </tr>
-                        {this.state.admins.map((i,index) => {
-                            return (<tr>
-                                <td className="title-sm-b-s">{i.id}</td>
-                                <td className="title-sm-b-s">{<Input type="text" id="email" onChange={(e)=>{this.onChange(e, index)}} value={i.email}></Input>}</td>
-                                <td className="title-sm-b-s">{<Input type="text" id={i.firstName} onChange={this.onChange} value={i.firstName}></Input>}</td>
-                                <td className="title-sm-b-s">{<Input type="text" id={i.lastName} onChange={this.onChange} value={i.lastName}></Input>}</td>
-                                <td className="title-sm-b-s">{<Input type="checkbox" id={i.active} onChange={this.onChange} value={i.active}></Input>}</td>
-                                <td className="title-sm-b-s">{<Input type="checkbox" id={i.permission.manageAdmins} onChange={this.onChange} value={i.permission.manageAdmins}></Input>}</td>
-                                <td className="title-sm-b-s">{<Input type="checkbox" id={i.permission.manageTrips} onChange={this.onChange} value={i.permission.manageTrips}></Input>}</td>
-                                <td className="title-sm-b-s">{<Input type="checkbox" id={i.permission.manageReqList} onChange={this.onChange} value={i.permission.manageReqList}></Input>}</td>
-                                <td className="title-sm-b-s">{<Input type="checkbox" id={i.permission.manageReports} onChange={this.onChange} value={i.permission.manageReports}></Input>}</td>
-                                <td className = "title-sm-b-s"><button><FontAwesomeIcon  onClick={this.state.save} style={{ color: "#2E5984" }} icon={ faSave} size="1x" /></button></td>
-                            </tr>);
-                        })}
-                    </Table>
+                    {this.display()}
                 </div>
             </div>
         )

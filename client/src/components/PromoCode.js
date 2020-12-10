@@ -15,50 +15,60 @@ class PromoCode extends Component {
     super(props);
   this.state = {
     modal: true,
-    data:[{id:1,code:"LOL", maxDiscount:120, discountPercentage:50},{id:1,code:"LOL", maxDiscount:120, discountPercentage:50},{id:1,code:"LOL", maxDiscount:120, discountPercentage:50}],
-  }};
+    promos:[]
+    }};
   toggle = () => {
     this.setState((prevState) => ({
       modal: !prevState.modal,
-      
     }));
+    this.props.history.push("/home/admin");
+  };
+  remove = (d) => {
+    this.setState(
+      (state) => {
+        const promos = state.promos.filter((item, j) => d !== j);
+        return {
+          promos,
+        };
+      },
+    );
   };
   display = () => {
-    const addedPromos = this.state.data.map((d, index) =>
-      <tr style={{textAlign: "center"}}>
-        <td>{d.code}</td>
-        <td>{d.maxDiscount}</td>
-        <td>{d.discountPercentage}</td>
-        <td><FontAwesomeIcon onClick={() => this.remove(index, d.code)} style={{ color: "#white" }} icon={faTimes} size="1x" /></td>
+    const addedPromos = this.state.promos.map((d, index) =>
+      <tr style={{ marginLeft:"10px"}}>
+        <td style={{backgroundColor:"#f5f5f5", padding:"10px", marginLeft:"20px"}}>{d.code}</td>
+        <td style={{backgroundColor:"#f5f5f5", padding:"10px", marginLeft:"20px"}}>{d.maxDiscount}</td>
+        <td style={{backgroundColor:"#f5f5f5", padding:"10px", marginLeft:"20px"}}>{d.discountPercentage}</td>
+        <td style={{backgroundColor:"#f5f5f5", padding:"10px", marginLeft:"20px"}}><FontAwesomeIcon onClick={() => {
+          api.apiCallerWithToken("http://localhost:8080/api/code/delete", {code:d.code},200).then(this.remove(index))}} style={{ color: "#white" }} icon={faTimes} size="1x" /></td>
       </tr>
     );
     return (
       <Table responsive>
         <tbody>
+          <tr style={{ marginLeft:"10px"}}>
+        <td className="title-sm-b" style={{color:"white"}}>Code</td>
+                    <td className="title-sm-b" style={{color:"white"}}>Maximum Discount</td>
+                    <td className="title-sm-b" style={{color:"white"}}>Discount %</td>
+                    <td className="title-sm-b" style={{color:"white"}}>Delete</td>
+                    </tr>
           {addedPromos}
+          
         </tbody>
       </Table>
     );
   }
-  remove = (d, did) => {
-    api.apiCallerWithToken("http://localhost:8080/api/code/delete", {id:did},200).then( 
-      this.setState(state => {
-          const data = state.data.filter((item, j) => d !== j)
-          return {
-              data,
-          };
-      }
-      )
-    )
-};
-setloc= (e)=>{
-  this.setState({data:e.promos})
+componentDidMount() {
+  api.apiCallerWithoutToken("http://localhost:8080/api/code/fetch", {}, 200).then(
+      (e) => {
+          if (e.promos !== [])
+          {
+              this.setState({promos: e.promos });
+              this.render()
+          }    
+      });
 }
   render() {
-    api.apiCallerWithToken("http://localhost:8080/api/code/fetch", {},200).then(
-      
-        (e) => {if(e.promos!==undefined){this.setloc(e)}}
-      )
     return (
       <Modal
         className = "Modall"

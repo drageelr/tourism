@@ -29,21 +29,21 @@ function NavLinks(props) {
         <Nav className="mr-auto" navbar>
             <Link className="nav-link" to="/home/admin">Trips</Link>
             <span className="separator"></span>
-            <Link className="nav-link" to="/home/finances">Finance</Link>
+            <Link className="nav-link" to="/view-finances">Finance</Link>
             <span className="separator"></span>
-            <Link className="nav-link" to="/home/view-admin">Admins</Link>
+            <Link className="nav-link" to="/view-admin">Admins</Link>
+            <span className="separator"></span>
+            <Link className="nav-link" to="/view-promo">Promos</Link>
         </Nav>
     );
 }
 
 class AppNavbar extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
+    state = {
             isOpen: false,
-            link: props.link
+            link: "https:localhost:3000/searchhhhhh"
         }
-    }
+    
     toggle = () => {
         this.setState({
             isOpen: !this.state.isOpen
@@ -58,14 +58,13 @@ class AppNavbar extends Component {
                     <Collapse isOpen={this.state.isOpen} navbar>
 
                         <div className="title-small-2">
-                            <NavLinks link={window.location.href} />
+                            <NavLinks  />
                         </div>
                         <div className="search">
                             <Nav className="ml-auto">
                                 <Form inline nav>
                                     <FormGroup>
-                                        <Button className="nav-button"><FontAwesomeIcon icon={faSearch} size="lg" /></Button>
-                                        <Input type="text" name="search" id="exampleSearch" placeholder="Search Trip" />
+                                        <p></p>
                                     </FormGroup>
                                     <FormGroup>
                                         <UncontrolledDropdown >

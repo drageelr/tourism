@@ -1,74 +1,48 @@
 import React, { Component } from 'react';
-import axios from "axios"
 import {
-    Button,
-    Form,
-    FormGroup,
-    Input,
-    Label
+    Table
 } from 'reactstrap';
-import { faAlignCenter } from '@fortawesome/free-solid-svg-icons';
-
 var api = require('./auth/api.js');
 class ViewFinance extends Component {
     state = {
-        financesMonthly: "res.somethingelse",
-        financesYearly: "res.something"
+        months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+        currentObj: {},
+        today: new Date()
     }
-    componentDidMount=()=>{
-        if(this.props.auth)
-        {
-            this.props.history.push("/home");
-        }
-
-        api.apiCallerWithoutToken("http://localhost:8080//api/finance/monthly", {},200).then(res=>  
+    display = () => {
+        const addedTrips = this.state.months.map((i, index) => 
+            <tr>
+                <td className="title-sm-b-s">{i}</td>
+                {()=>api.apiCallerWithoutToken("http://localhost:8080//api/finance/monthly", {month:index},200).then((res)=>{console.log(res);
+                <td className="title-sm-b-s">{res.totalAmount}</td>})}
         
-        this.setState({
-            financesMonthly: res
-        })
-        )
+            </tr>
         
-        api.apiCallerWithoutToken("http://localhost:8080//api/finance/yearly", {},200).then(res=>  
-        
-        this.setState({
-            financesYearly: res
-        })
-        )
-    }
-
-     render() {
+        );
         return (
-            <div className="home-page" style={{marginLeft:'20px', color:'white'}}>
-            <div className="container main">
-                
-                <p className="brand-name">View Finances</p>
-                <div style={{marginLeft:'0px'}}>
-                <h1>
-                    Monthly Finances
-                </h1>
-                </div>
-                <div style={{marginLeft:'100px'}}>
-                    <h2>
-                        {this.state.financesMonthly}
-                    </h2>
-                </div>
-                <div style={{marginLeft:'0px'}}>
-                <h1>
-                    Yearly Finances
-                </h1>
-                </div>
-                <div style={{marginLeft:'100px'}}>
-                    <h2>
-                        {this.state.financesYearly}
-                    </h2>
-                </div>
-                
-            
-            
-             
-                
+            <Table className="tablee" responsive >
+                <tr>
+                    <th className="title-sm-b">Month</th>
+                    <th className="title-sm-b">Income</th>
+                </tr>
+                {addedTrips}
+            </Table>
+        );
+    }
+    render() {
+        return (
+            <div style={{ marginLeft: '20px' }}>
+                <div className="main-container">
+                    {console.log("path", this.props.match, this.props.location)}
 
-            </div>
+                    <p className="title-med-left">Trip Details</p>
+                    {this.display()}
+
+                    <p className="title-med-left">Yearly Sum:
+                    {()=>api.apiCallerWithoutToken("http://localhost:8080//api/finance/yearly", {},200).then((res)=>{console.log(res);
+                <td className="title-sm-b-s">{res.totalAmount}</td>})}
+                     </p>
+                </div>
             </div>
         )
     }
