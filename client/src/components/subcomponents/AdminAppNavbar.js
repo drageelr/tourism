@@ -29,21 +29,21 @@ function NavLinks(props) {
         <Nav className="mr-auto" navbar>
             <Link className="nav-link" to="/home/admin">Trips</Link>
             <span className="separator"></span>
-            <Link className="nav-link" to="/view-finances">Finance</Link>
+            <Link className="nav-link" to="/view-finances/admin">Finance</Link>
             <span className="separator"></span>
-            <Link className="nav-link" to="/view-admin">Admins</Link>
+            <Link className="nav-link" to="/view/admin">Admins</Link>
             <span className="separator"></span>
-            <Link className="nav-link" to="/view-promo">Promos</Link>
+            <Link className="nav-link" to="/view-promo/admin">Promos</Link>
         </Nav>
     );
 }
 
 class AppNavbar extends Component {
     state = {
-            isOpen: false,
-            link: "https:localhost:3000/searchhhhhh"
-        }
-    
+        isOpen: false,
+        link: "https:localhost:3000/searchhhhhh"
+    }
+
     toggle = () => {
         this.setState({
             isOpen: !this.state.isOpen
@@ -51,14 +51,14 @@ class AppNavbar extends Component {
     }
     render() {
         const check = (word) => (window.location.href.indexOf(word) > -1)
-        return check("register") || check("login") || check("reset-password") || check("forgot-password") || check("change-password") ? null : (
+        return check("register") || check("login") || check("reset-password") || check("forgot-password") || check("change-password") || check("add-user") || check("customer") ? null : (
             <div >
                 <Navbar className="navbar" expand="md">
-                    <NavbarBrand className="title-small" href="/home">BOOK MY TRIP</NavbarBrand>
+                    <NavbarBrand className="title-small" href="/home/admin">BOOK MY TRIP</NavbarBrand>
                     <Collapse isOpen={this.state.isOpen} navbar>
 
                         <div className="title-small-2">
-                            <NavLinks  />
+                            <NavLinks />
                         </div>
                         <div className="search">
                             <Nav className="ml-auto">
@@ -73,16 +73,16 @@ class AppNavbar extends Component {
                                             </DropdownToggle>
                                             <DropdownMenu className="nav-but-big">
                                                 <DropdownItem className="nav-but" onClick={() => {
-                                                    this.props.history.push('/change-password-admin');
+                                                    this.props.history.push('/change-password/admin');
                                                 }}>
                                                     Change Password
                                                 </DropdownItem>
                                                 <DropdownItem divider />
-                                                <Link to="/add-user">
-                                                <DropdownItem className="nav-but" onClick={() => {
-                                                    this.props.history.push('/adduser');
-                                                }}>
-                                                    Add User
+                                                <Link to="/add-user/admin">
+                                                    <DropdownItem className="nav-but" onClick={() => {
+                                                        this.props.history.push('/adduser');
+                                                    }}>
+                                                        Add User
                                                 </DropdownItem>
                                                 </Link>
                                                 <DropdownItem divider />
@@ -92,7 +92,7 @@ class AppNavbar extends Component {
                                                 }}>
                                                     Log Out
                                                 </DropdownItem>
-                                                </DropdownMenu>
+                                            </DropdownMenu>
                                         </UncontrolledDropdown>
                                     </FormGroup>
                                 </Form>

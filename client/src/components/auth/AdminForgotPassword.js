@@ -20,7 +20,7 @@ class AdminForgotPassword extends Component {
     componentDidMount=()=>{
         if(this.props.auth)
         {
-            this.props.history.push("/home");
+            this.props.history.push("/login");
         }
     }
     onSubmit = e => {
@@ -32,7 +32,7 @@ class AdminForgotPassword extends Component {
         {   console.log(res)
             if(res.statusCode == 200)
             {  
-            this.props.history.push("/login-admin"); 
+            this.props.history.push("/login/admin"); 
             console.log(res)}
             else{
                 alert("Error")

@@ -27,17 +27,18 @@ class CustomerLogin extends Component {
             password: this.state.password
         }
 
-        api.apiCallerWithoutToken("http://localhost:8080/api/auth/customer/login", userData, 200).then(res =>
-            {   console.log(res)
-                if(res.statusCode == 200)
-                {  
-                    window.localStorage.setItem('token', res.token);
-                    this.props.history.push("/home"); 
-                    console.log(res)}
-                    else{
-                        alert("Error")
-                }}
-        ).catch(e=>console.log(e))
+        api.apiCallerWithoutToken("http://localhost:8080/api/auth/customer/login", userData, 200).then(res => {
+            console.log(res)
+            if (res.statusCode == 200) {
+                window.localStorage.setItem('token', res.token);
+                this.props.history.push("/home/customer");
+                console.log(res)
+            }
+            else {
+                alert("Error")
+            }
+        }
+        ).catch(e => console.log(e))
     }
 
     render() {
@@ -67,16 +68,17 @@ class CustomerLogin extends Component {
                             />
                         </FormGroup>
                         <div className="btn-handler">
-                            <Link to="/forgot-password" className="link" style={{marginleft:"14%"}}>Forgot Password? :(</Link>
-                        </div>  
-                        <div className="btn-handler">
-                            <Button className="signup-btn">LOGIN</Button>
-                        
-                            <Button className="signup-btn" onClick={()=>{
-                                this.props.history.push('/register');}}>SIGNUP</Button>
+                            <Link to="/forgot-password" className="link" style={{ marginleft: "14%" }}>Forgot Password? :(</Link>
                         </div>
                         <div className="btn-handler">
-                        <Link to="/login-admin" className="link">Login as Admin</Link>
+                            <Button className="signup-btn">LOGIN</Button>
+
+                            <Button className="signup-btn" onClick={() => {
+                                this.props.history.push('/register');
+                            }}>SIGNUP</Button>
+                        </div>
+                        <div className="btn-handler">
+                            <Link to="/login/admin" className="link">Login as Admin</Link>
                         </div>
                     </Form>
                 </div>

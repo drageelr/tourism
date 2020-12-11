@@ -16,7 +16,7 @@ class RegisterTrip extends Component {
   // Can Add Constructor
   state = {
     modal: true,
-    tripID: "",
+    tripID: window.location.href.substring(window.location.href.lastIndexOf('=') + 1),
     customerID: "",
     mobile: "",
     code: "",
@@ -27,6 +27,7 @@ class RegisterTrip extends Component {
       modal: !prevState.modal,
       
     }));
+    this.props.history.push("/home/customer");
   };
   onChange = (e) => {
     this.setState({ [e.target.id]: e.target.value });
@@ -41,7 +42,16 @@ class RegisterTrip extends Component {
           numberOfPeople: this.state.numberOfPeople,
         }
 
-        api.apiCallerWithToken("http://localhost:8080/api/trip-req/create", userData,200).then( this.props.history.push("/home"))
+        api.apiCallerWithToken("http://localhost:8080/api/trip-req/create", userData,200).then( (res)=>
+        {if (res.statusCode == 200) {
+          window.localStorage.setItem('token', res.token);
+          this.props.history.push("/home/customer");
+          console.log(res)
+      }
+      else {
+          alert("Error")
+      }
+    })
   };
   render() {
     return (
@@ -77,8 +87,6 @@ class RegisterTrip extends Component {
                   type="text"
                   style = {{marginLeft:"115px"}}
                   id="tripID"
-                  placeholder="Enter Trip ID"
-                  onChange={this.onChange}
                   value={this.state.tripID}
                 />
                 <Label className="title-sm-l">Customer ID:</Label>

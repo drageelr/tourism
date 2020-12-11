@@ -9,7 +9,7 @@ API Caller helper to refactor common API code that requires bearer tokens (all h
 @param {function} rejectWithValue  rejectWithValue function for that specific async thunk that calls it
 */
 
-async function apiCallerWithoutToken(api, body, successCode, dataReturner, ) {
+async function apiCallerWithoutToken(api, body, successCode, dataReturner,) {
     try {
         let req_init = {
             method: 'POST',
@@ -20,25 +20,20 @@ async function apiCallerWithoutToken(api, body, successCode, dataReturner, ) {
             },
         }
         // if body is an empty object, do not include it
-        if (!(Object.keys(body).length === 0 && body.constructor === Object)){
+        if (!(Object.keys(body).length === 0 && body.constructor === Object)) {
             req_init['body'] = JSON.stringify(body);
         }
-        
+
         const res = await fetch(api, req_init);
-        
+
         if (res.ok) {
             const data = await res.json()
             return data
-            if (data.statusCode != successCode) {
-                throw new Error((data.err !== undefined) 
-                ? `${data.statusCode}: ${data.message} - ${JSON.stringify(data.err.details).replace(/[\[\]\{\}"'\\]+/g, '').split(':').pop()}`
-                : `${data.statusCode}: ${data.message}`) 
-            }
-            return data
         }
-        throw new Error(`${res.status}, ${res.statusText}`) 
+        throw new Error(`${res.status}, ${res.statusText}`)
     }
     catch (err) {
+        return err
         console.log(err)
         return err.toString()
     }
@@ -55,35 +50,32 @@ API Caller helper to refactor common API code that requires bearer tokens (all h
 @param {function} rejectWithValue  rejectWithValue function for that specific async thunk that calls it
 */
 
-async function apiCallerWithToken(api, body, successCode, dataReturner, ) {
+async function apiCallerWithToken(api, body, successCode, dataReturner,) {
     try {
         let req_init = {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.token}`, 
+                'Authorization': `Bearer ${localStorage.token}`,
             },
         }
         // if body is an empty object, do not include it
-        if (!(Object.keys(body).length === 0 && body.constructor === Object)){
+        if (!(Object.keys(body).length === 0 && body.constructor === Object)) {
             req_init['body'] = JSON.stringify(body);
         }
-        
+
         const res = await fetch(api, req_init);
-        
+
         if (res.ok) {
             console.log("lolll")
             const data = await res.json()
             if (data.statusCode != successCode) {
                 return data
-                throw new Error((data.err !== undefined) 
-                ? `${data.statusCode}: ${data.message} - ${JSON.stringify(data.err.details).replace(/[\[\]\{\}"'\\]+/g, '').split(':').pop()}`
-                : `${data.statusCode}: ${data.message}`) 
             }
             return data
         }
-        throw new Error(`${res.status}, ${res.statusText}`) 
+        throw new Error(`${res.status}, ${res.statusText}`)
     }
     catch (err) {
         return err

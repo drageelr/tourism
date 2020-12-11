@@ -33,35 +33,39 @@ import ForgotAdminPassword from './components/auth/ForgotAdminPassword';
 import ForgotCustomerPassword from './components/auth/ForgotCustomerPassword'
 import EditTrip from './components/EditTrip'
 import CreateTrip from './components/CreateTrip'
+import TripList from './components/TripList'
+import Trip from "./components/Trip"
 const  App =()=>{
   return (
     <Router>
       <div className="App">
         
-      <Route path="/a" component={ CustomerAppNavbar } />
+      <Route path="/" component={ CustomerAppNavbar } />
         <Route path="/" component={ AdminAppNavbar } />
-        <Route path="/view-response" component={ ViewResponses } />
-        <Route path="/edit-trip" component={ EditTrip } />
+        <Route path="/view-response/admin" component={ ViewResponses } />
+        <Route path="/trips/customer" component={ Trip } />
+        <Route path="/home/customer" component={ TripList } />
+        <Route path="/edit-trip/admin" component={ EditTrip } />
         <Route path="/home/admin" component={ ViewAllTripAdmin } />
-        <Route path="/view-finances" component={ ViewFinance } />
+        <Route path="/view-finances/admin" component={ ViewFinance } />
         <Route path="/edit" component={ edittripobj } />
         <Route path="/register" component={ CustomerRegister } />
-        <Route path="/register-admin" component={ AdminRegister } />
-        <Route exact path="/login-admin" component={ AdminLogin } />
+        <Route path="/register/admin" component={ AdminRegister } />
+        <Route exact path="/login/admin" component={ AdminLogin } />
         <Route exact path="/login" component={ CustomerLogin } />
         <Route exact path="/forgot-password" component={ CustomerForgotPassword } />
-        <Route exact path="/forgot-password-admin" component={ AdminForgotPassword } />
+        <Route exact path="/forgot-password/admin" component={ AdminForgotPassword } />
         <Route exact path="/change-password" component={ CustomerChangePassword } />
-        <Route exact path="/change-password-admin" component={ AdminChangePassword } />
-        <Route exact path="/view-admin" component={ ViewAdmin } />
-        <Route exact path="/add-user" component={ AddUser } />
+        <Route exact path="/change-password/admin" component={ AdminChangePassword } />
+        <Route exact path="/view/admin" component={ ViewAdmin } />
+        <Route exact path="/add-user/admin" component={ AddUser } />
         <Route exact path="/register-trip" component={ RegisterTrip } />
-        <Route exact path="/create-trip" component={ CreateTrip } />
-        <Route exact path="/create-location" component={ CreateLocation } />
-        <Route exact path="/create-promo" component={ CreatePromoCode } />
-        <Route exact path="/view-promo" component={ PromoCode } />
+        <Route exact path="/create-trip/admin" component={ CreateTrip } />
+        <Route exact path="/create-location/admin" component={ CreateLocation } />
+        <Route exact path="/create-promo/admin" component={ CreatePromoCode } />
+        <Route exact path="/view-promo/admin" component={ PromoCode } />
         <Route exact path= "/reset-password" component={ForgotCustomerPassword}/>
-        <Route exact path= "/reset-password-admin" component={ForgotAdminPassword}/>
+        <Route exact path= "/reset-password/admin" component={ForgotAdminPassword}/>
         <Route exact path="/adduser" component={ AddUser } />
       </div>  
     </Router>   

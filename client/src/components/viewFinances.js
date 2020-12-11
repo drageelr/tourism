@@ -10,14 +10,16 @@ class ViewFinance extends Component {
         today: new Date()
     }
     display = () => {
-        const addedTrips = this.state.months.map((i, index) => 
+        const addedTrips = this.state.months.map((i, index) =>
             <tr>
                 <td className="title-sm-b-s">{i}</td>
-                {()=>api.apiCallerWithoutToken("http://localhost:8080//api/finance/monthly", {month:index},200).then((res)=>{console.log(res);
-                <td className="title-sm-b-s">{res.totalAmount}</td>})}
-        
+                {() => api.apiCallerWithoutToken("http://localhost:8080//api/finance/monthly", { month: index }, 200).then((res) => {
+                    console.log(res);
+                    <td className="title-sm-b-s">{res.totalAmount}</td>
+                })}
+
             </tr>
-        
+
         );
         return (
             <Table className="tablee" responsive >
@@ -39,9 +41,11 @@ class ViewFinance extends Component {
                     {this.display()}
 
                     <p className="title-med-left">Yearly Sum:
-                    {()=>api.apiCallerWithoutToken("http://localhost:8080//api/finance/yearly", {},200).then((res)=>{console.log(res);
-                <td className="title-sm-b-s">{res.totalAmount}</td>})}
-                     </p>
+                    {() => api.apiCallerWithoutToken("http://localhost:8080//api/finance/yearly", {}, 200).then((res) => {
+                        console.log(res);
+                        <td className="title-sm-b-s">{res.totalAmount}</td>
+                    })}
+                    </p>
                 </div>
             </div>
         )

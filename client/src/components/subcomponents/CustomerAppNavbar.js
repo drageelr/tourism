@@ -21,7 +21,7 @@ var api = require('../auth/api');
 function NavLinks(props) {
     return (
         <Nav className="mr-auto" navbar>
-            <Link className="nav-link" to="/home/trips">Trips</Link>
+            <Link className="nav-link" to="/home/customer">Trips</Link>
         </Nav>
     );
 }
@@ -52,10 +52,10 @@ class AppNavbar extends Component {
     }
     render() {
         const check = (word) => (window.location.href.indexOf(word) > -1)
-        return check("register") || check("login") || check("reset-password") || check("forgot-password") || check("change-password") ||check("admin") ? null : (
+        return check("register") || check("login") || check("reset-password") || check("forgot-password")  || check("admin") || check("change-password") ||check("admin") ? null : (
             <div >
                 <Navbar className="navbar" expand="md">
-                    <NavbarBrand className="title-small" href="/home">BOOK MY TRIP</NavbarBrand>
+                    <NavbarBrand className="title-small" href="/home/customer">BOOK MY TRIP</NavbarBrand>
                     <Collapse isOpen={this.state.isOpen} navbar>
 
                         <div className="title-small-2">
@@ -64,10 +64,7 @@ class AppNavbar extends Component {
                         <div className="search">
                             <Nav className="ml-auto">
                                 <Form inline nav onSubmit={this.onSubmit}>
-                                    <FormGroup>
-                                        <Button className="nav-button"><FontAwesomeIcon icon={faSearch} size="lg" /></Button>
-                                        <Input type="text" name="search" id="search" placeholder="Search Trip" value={this.state.search} onChange={this.onChange} />
-                                    </FormGroup>
+                                    
                                     <FormGroup>
                                         <UncontrolledDropdown >
                                             <DropdownToggle className="nav-button">

@@ -19,7 +19,7 @@ exports.createAdmin = async (req, res, next) => {
         let newPotentialAdmin = await db.query('INSERT INTO admin_request (email) VALUES ("' + params.email + '")');
 
         // send email here
-        let link = vars.websiteLink2 + "register-admin?token=" + jwt.signUser(newPotentialAdmin.insertId, "admin_request", "8760h");
+        let link = vars.websiteLink2 + "register/admin?token=" + jwt.signUser(newPotentialAdmin.insertId, "admin_request", "8760h");
         emailer.sendAdminSignUpEmail(params.email, link);
 
         res.json({
@@ -306,7 +306,7 @@ exports.adminFPReq = async (req, res, next) => {
         if (!reqAdmin.length) { throw new customError.NotFoundError("admin not found"); }
         
         // send email here
-        let link = vars.websiteLink2 + "reset-password-admin?token=" + jwt.signUser(reqAdmin[0].id, "admin", "12h");
+        let link = vars.websiteLink2 + "reset-password/admin?token=" + jwt.signUser(reqAdmin[0].id, "admin", "12h");
         emailer.sendForgotPasswordEmail(params.email, reqAdmin[0].firstName + " " + reqAdmin[0].lastName, "admin", link);
         
 

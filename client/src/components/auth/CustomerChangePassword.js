@@ -13,7 +13,7 @@ class ChangeCustomerPassword extends Component {
         oldpassword: "",
         password: "",
         rePassword: "",
-        errors: {}        
+        errors: {}
     }
     onChange = e => {
         this.setState({ [e.target.id]: e.target.value });
@@ -22,19 +22,19 @@ class ChangeCustomerPassword extends Component {
     onSubmit = e => {
         e.preventDefault();
         const userData = {
-            oldPassword:this.state.oldpassword,
+            oldPassword: this.state.oldpassword,
             newPassword: this.state.password
         }
-        api.apiCallerWithToken("http://localhost:8080/api/account/customer/change-password", userData,200).then(res=>  
-        {
-            if(res.statusCode == 200)
-            {  
-            this.props.history.push("/home"); 
-            console.log(res)}
-            else{
+        api.apiCallerWithToken("http://localhost:8080/api/account/customer/change-password", userData, 200).then(res => {
+            if (res.statusCode == 200) {
+                this.props.history.push("/home/customer");
+                console.log(res)
+            }
+            else {
                 alert("Error")
-            }}
-         )
+            }
+        }
+        )
     }
 
     render() {
@@ -46,37 +46,37 @@ class ChangeCustomerPassword extends Component {
                     <p className="title">Change Password</p>
                     <Form className="reg-form" noValidate onSubmit={this.onSubmit}>
                         <FormGroup>
-                            <Input 
+                            <Input
                                 className="input-field"
-                                type="password" 
-                                placeholder="Enter old password" 
+                                type="password"
+                                placeholder="Enter old password"
                                 onChange={this.onChange}
-                                value={this.state.oldpassword} 
-                                error={errors.oldpassword} 
+                                value={this.state.oldpassword}
+                                error={errors.oldpassword}
                                 id="oldpassword"
                             />
                         </FormGroup>
                         <FormGroup className="password-container">
-                            
-                            <Input 
+
+                            <Input
                                 className="input-field"
-                                type="password" 
-                                placeholder="Enter new password" 
+                                type="password"
+                                placeholder="Enter new password"
                                 onChange={this.onChange}
-                                value={this.state.password} 
-                                error={errors.password} 
+                                value={this.state.password}
+                                error={errors.password}
                                 id="password"
-                                />
+                            />
                             <p></p>
-                            <Input 
+                            <Input
                                 className="input-field"
-                                type="password" 
-                                placeholder="Confirm new password" 
+                                type="password"
+                                placeholder="Confirm new password"
                                 onChange={this.onChange}
-                                value={this.state.rePassword} 
-                                error={errors.rePassword} 
+                                value={this.state.rePassword}
+                                error={errors.rePassword}
                                 id="rePassword"
-                                />
+                            />
                             <div className="pop-up">
                                 Password must be greater than 8 characters long and
                                 must contain atleast 1 digit and 1 special character
@@ -86,7 +86,7 @@ class ChangeCustomerPassword extends Component {
                             <Button className="signup-btn">Confirm</Button>
                         </div>
                     </Form>
-                </div>    
+                </div>
             </div>
         )
     }

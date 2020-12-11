@@ -41,7 +41,7 @@ class AdminRegister extends Component {
             if(res.statusCode == 200)
             {  
             
-            this.props.history.push("/login-admin"); 
+            this.props.history.push("/login/admin"); 
             console.log(res)}
             else{
                 alert("Error")

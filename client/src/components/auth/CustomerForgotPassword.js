@@ -17,10 +17,9 @@ class CustomerForgotPassword extends Component {
     onChange = e => {
         this.setState({ [e.target.id]: e.target.value });
     }
-    componentDidMount=()=>{
-        if(this.props.auth)
-        {
-            this.props.history.push("/home");
+    componentDidMount = () => {
+        if (this.props.auth) {
+            this.props.history.push("/home/customer");
         }
     }
     onSubmit = e => {
@@ -28,14 +27,16 @@ class CustomerForgotPassword extends Component {
         const userData = {
             email: this.state.email
         }
-        api.apiCallerWithoutToken("http://localhost:8080/api/account/customer/forgot-password/req", userData,200).then (res => 
-        {   console.log(res)
-            if(res.statusCode == 200)
-            {  this.props.history.push("/login"); 
-            console.log(res)}
-            else{
+        api.apiCallerWithoutToken("http://localhost:8080/api/account/customer/forgot-password/req", userData, 200).then(res => {
+            console.log(res)
+            if (res.statusCode == 200) {
+                this.props.history.push("/login");
+                console.log(res)
+            }
+            else {
                 alert("Error")
-            }})
+            }
+        })
 
     }
 
@@ -59,10 +60,10 @@ class CustomerForgotPassword extends Component {
                                 id="email"
                             />
                             <div className="pop-up">
-                        Enter the email you used to sign up and a password-reset link will be emailed to you.
+                                Enter the email you used to sign up and a password-reset link will be emailed to you.
                         </div>
                         </FormGroup>
-                        
+
                         <p className="text"></p>
                         <span>{errors.email}</span>
                         <div className="btn-handler">

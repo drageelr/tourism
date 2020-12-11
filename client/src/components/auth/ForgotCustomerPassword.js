@@ -17,7 +17,7 @@ class ForgotCustomerPassword extends Component {
     componentDidMount=()=>{
         if(this.props.auth)
         {
-            this.props.history.push("/home");
+            this.props.history.push("/home/customer");
         }
     }
     onChange = e => {

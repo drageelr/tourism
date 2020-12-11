@@ -4,7 +4,7 @@ import {
     Form,
     FormGroup,
     Input
-} from 'reactstrap';    
+} from 'reactstrap';
 var api = require('./api');
 
 class CustomerRegister extends Component {
@@ -27,10 +27,9 @@ class CustomerRegister extends Component {
             });
         }
     }
-    componentDidMount=()=>{
-        if(this.props.auth)
-        {
-            this.props.history.push("/home");
+    componentDidMount = () => {
+        if (this.props.auth) {
+            this.props.history.push("/home/customer");
         }
     }
     onSubmit = e => {
@@ -41,15 +40,17 @@ class CustomerRegister extends Component {
             lastName: this.state.lastName,
             password: this.state.password,
         }
-        if(this.state.password === this.state.rePassword)
-            api.apiCallerWithoutToken('http://localhost:8080/api/account/customer/signup', newUser, 200).then(res => 
-            {   console.log(res)
-                if(res.statusCode == 200)
-                {  this.props.history.push("/login"); 
-                console.log(res)}
-                else{
+        if (this.state.password === this.state.rePassword)
+            api.apiCallerWithoutToken('http://localhost:8080/api/account/customer/signup', newUser, 200).then(res => {
+                console.log(res)
+                if (res.statusCode == 200) {
+                    this.props.history.push("/login");
+                    console.log(res)
+                }
+                else {
                     alert("Error")
-                }})
+                }
+            })
         else
             alert("Passwords do not Match!")
     }
@@ -59,29 +60,29 @@ class CustomerRegister extends Component {
         return (
             <div className="home-page">
                 <div className="container main">
-                <p className="brand-name">BOOK MY TRIP</p>
-                <p className="title">Register</p>
-                   <Form className="reg-form mt-3" noValidate onSubmit={this.onSubmit}>
+                    <p className="brand-name">BOOK MY TRIP</p>
+                    <p className="title">Register</p>
+                    <Form className="reg-form mt-3" noValidate onSubmit={this.onSubmit}>
                         <FormGroup>
-                                    <Input
-                                        type="text"
-                                        placeholder="First Name"
-                                        onChange={this.onChange}
-                                        value={this.state.firstName}
-                                        error={errors.firstName}
-                                        id="firstName"
-                                    />
+                            <Input
+                                type="text"
+                                placeholder="First Name"
+                                onChange={this.onChange}
+                                value={this.state.firstName}
+                                error={errors.firstName}
+                                id="firstName"
+                            />
                         </FormGroup>
                         <FormGroup>
-                                    <Input
-                                        type="text"
-                                        placeholder="Last Name"
-                                        onChange={this.onChange}
-                                        value={this.state.lastName}
-                                        error={errors.lastName}
-                                        id="lastName"
-                                    />
-                            
+                            <Input
+                                type="text"
+                                placeholder="Last Name"
+                                onChange={this.onChange}
+                                value={this.state.lastName}
+                                error={errors.lastName}
+                                id="lastName"
+                            />
+
                         </FormGroup>
                         <FormGroup>
                             <Input

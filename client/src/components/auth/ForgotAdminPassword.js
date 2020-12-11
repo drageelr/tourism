@@ -10,13 +10,12 @@ var api = require('./api');
 
 class ForgotAdminPassword extends Component {
     state = {
-        password:"",
-        errors: {}        
+        password: "",
+        errors: {}
     }
-    componentDidMount=()=>{
-        if(this.props.auth)
-        {
-            this.props.history.push("/home");
+    componentDidMount = () => {
+        if (this.props.auth) {
+            this.props.history.push("/home/admin");
         }
     }
     onChange = e => {
@@ -28,20 +27,21 @@ class ForgotAdminPassword extends Component {
         const userData = {
             password: this.state.password,
         }
-        const token = window.location.href.substring( window.location.href.lastIndexOf('=') +1)
+        const token = window.location.href.substring(window.location.href.lastIndexOf('=') + 1)
         console.log(token)
         window.localStorage.setItem('token', token)
-        if(this.state.password === this.state.rePassword)
-        api.apiCallerWithToken("http://localhost:8080/api/account/admin/forgot-password/res", userData,200).then(res=>  
-        {   console.log(res)
-            if(res.statusCode == 200)
-            {  this.props.history.push("/login-admin"); 
-            console.log(res)}
-            else{
-                alert("Error")
-            }})
-        else
-        {alert("Passwords do not match")}
+        if (this.state.password === this.state.rePassword)
+            api.apiCallerWithToken("http://localhost:8080/api/account/admin/forgot-password/res", userData, 200).then(res => {
+                console.log(res)
+                if (res.statusCode == 200) {
+                    this.props.history.push("/login/admin");
+                    console.log(res)
+                }
+                else {
+                    alert("Error")
+                }
+            })
+        else { alert("Passwords do not match") }
 
     }
 
@@ -54,26 +54,26 @@ class ForgotAdminPassword extends Component {
                     <p className="title">Change Password</p>
                     <Form className="reg-form" noValidate onSubmit={this.onSubmit}>
                         <FormGroup className="password-container">
-                            
-                            <Input 
+
+                            <Input
                                 className="input-field"
-                                type="password" 
-                                placeholder="Enter new password" 
+                                type="password"
+                                placeholder="Enter new password"
                                 onChange={this.onChange}
-                                value={this.state.password} 
-                                error={errors.password} 
+                                value={this.state.password}
+                                error={errors.password}
                                 id="password"
-                                />
+                            />
                             <p></p>
-                            <Input 
+                            <Input
                                 className="input-field"
-                                type="password" 
-                                placeholder="Confirm new password" 
+                                type="password"
+                                placeholder="Confirm new password"
                                 onChange={this.onChange}
-                                value={this.state.rePassword} 
-                                error={errors.rePassword} 
+                                value={this.state.rePassword}
+                                error={errors.rePassword}
                                 id="rePassword"
-                                />
+                            />
                             <div className="pop-up">
                                 Password must be greater than 8 characters long and
                                 must contain atleast 1 digit and 1 special character
@@ -83,7 +83,7 @@ class ForgotAdminPassword extends Component {
                             <Button className="signup-btn">Confirm</Button>
                         </div>
                     </Form>
-                </div>    
+                </div>
             </div>
         )
     }

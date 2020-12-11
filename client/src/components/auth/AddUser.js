@@ -22,18 +22,19 @@ class AddUser extends Component {
             email: this.state.email
         }
         console.log(userData);
-        
-        api.apiCallerWithToken("http://localhost:8080/api/account/admin/create", userData, 200).then(res=>  
-        {   console.log(res)
-            if(res.statusCode == 200)
-            {  
-            this.props.history.push("/home/admin"); 
-            console.log(res)}
-            else{
+
+        api.apiCallerWithToken("http://localhost:8080/api/account/admin/create", userData, 200).then(res => {
+            console.log(res)
+            if (res.statusCode == 200) {
+                this.props.history.push("/home/admin");
+                console.log(res)
+            }
+            else {
                 alert("Error")
-            }}
-    )
-        
+            }
+        }
+        )
+
     }
 
     render() {
@@ -62,7 +63,7 @@ class AddUser extends Component {
                         <div className="btn-handler">
                             <Button className="signup-btn">Submit</Button>
                         </div>
-                        
+
                     </Form>
                 </div>
             </div>

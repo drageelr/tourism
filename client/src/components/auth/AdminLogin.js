@@ -27,17 +27,19 @@ class AdminLogin extends Component {
             email: this.state.email,
             password: this.state.password
         }
-            api.apiCallerWithoutToken("http://localhost:8080/api/auth/admin/login", userData,200).then(res=>  {console.log(res);
+        api.apiCallerWithoutToken("http://localhost:8080/api/auth/admin/login", userData, 200).then(res => {
+            console.log(res);
             console.log(res.token)
-            if(res.statusCode == 200)
-            {  
-            window.localStorage.setItem('token', res.token);
-            this.props.history.push("/home/admin"); 
-            console.log(res)}
-            else{
+            if (res.statusCode == 200) {
+                window.localStorage.setItem('token', res.token);
+                this.props.history.push("/home/admin");
+                console.log(res)
+            }
+            else {
                 alert("Error")
-            }}
-    )
+            }
+        }
+        )
     }
 
     render(props) {
@@ -66,8 +68,8 @@ class AdminLogin extends Component {
                                 id="password"
                             />
                             <p></p>
-                            <Link to="/forgot-password-admin" className="link">Forgot Password? :(</Link>
-                            
+                            <Link to="/forgot-password/admin" className="link">Forgot Password? :(</Link>
+
                         </FormGroup>
                         <div className="btn-handler">
                             <Button className="signup-btn">LOGIN</Button>

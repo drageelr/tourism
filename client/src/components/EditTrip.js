@@ -7,7 +7,7 @@ import {
   Input,
 } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes} from "@fortawesome/free-solid-svg-icons";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import Modal from 'react-modal';
 var api = require('./auth/api');
 
@@ -24,32 +24,32 @@ class EditTrip extends Component {
     startDate: new Date(),
     endDate: new Date(),
     data: [],
-    locationIDs:[]
- };
- componentDidMount() {
-   
-  api.apiCallerWithoutToken("http://localhost:8080/api/trip/fetch", {
-    id: window.location.href.substring(window.location.href.lastIndexOf('=') + 1)
-  }, 200).then(
-    (e) => {
-      console.log("e",e)
-      this.setState({
-        name: e.trips[0].name,
-        description: e.trips[0].description,
-        itienrary: e.trips[0].itienrary,
-        price: e.trips[0].price,
-        capacity: e.trips[0].capacity,
-        startDate: e.trips[0].startDate,
-        endDate: e.trips[0].endDate,
-        locationIDs:e.trips[0].locationIDs
+    locationIDs: []
+  };
+  componentDidMount() {
+
+    api.apiCallerWithoutToken("http://localhost:8080/api/trip/fetch", {
+      id: window.location.href.substring(window.location.href.lastIndexOf('=') + 1)
+    }, 200).then(
+      (e) => {
+        console.log("e", e)
+        this.setState({
+          name: e.trips[0].name,
+          description: e.trips[0].description,
+          itienrary: e.trips[0].itienrary,
+          price: e.trips[0].price,
+          capacity: e.trips[0].capacity,
+          startDate: e.trips[0].startDate,
+          endDate: e.trips[0].endDate,
+          locationIDs: e.trips[0].locationIDs
+        });
+        console.log(typeof this.state.location, this.state.location)
       });
-      console.log(typeof this.state.location, this.state.location)
-    });
     api.apiCallerWithoutToken("http://localhost:8080/api/location/fetch", {}, 200).then(
-    (e) => {
-      if(e.locations!==undefined)
-      this.setState({data: e.locations});
-    });
+      (e) => {
+        if (e.locations !== undefined)
+          this.setState({ data: e.locations });
+      });
   }
   toggle = () => {
     this.setState((prevState) => ({
@@ -63,7 +63,7 @@ class EditTrip extends Component {
   };
   display = () => {
     const addedLocations = this.state.data.map((d, index) =>
-      <option value={d.id} onChange={this.setState[{locationIDs: [d.id]}]}>{d.site}</option>
+      <option value={d.id} onChange={this.setState[{ locationIDs: [d.id] }]}>{d.site}</option>
     );
     return (
       <select name="locationIDs" id="locationIDs" className="select">
@@ -75,30 +75,31 @@ class EditTrip extends Component {
     e.preventDefault();
     const userData = {
       name: this.state.name,
-      description: this.state.description, 
+      description: this.state.description,
       itienrary: this.state.itienrary,
       price: this.state.price,
-      capacity: this.state.capacity, 
-      startDate: this.state.startDate, 
-      endDate: this.state.endDate, 
-      locationIDs: this.state.locationIDs}
-      
-    api.apiCallerWithToken("http://localhost:8080/api/trip/create", userData,200).then( res=>
-      {
-        if(res.statusCode === 200)
-        {  
-        this.props.history.push("/home/admin"); 
-        console.log(res)}
-        else{
-            alert("Error")
-        }}
-     )
+      capacity: this.state.capacity,
+      startDate: this.state.startDate,
+      endDate: this.state.endDate,
+      locationIDs: this.state.locationIDs
+    }
+
+    api.apiCallerWithToken("http://localhost:8080/api/trip/create", userData, 200).then(res => {
+      if (res.statusCode === 200) {
+        this.props.history.push("/home/admin");
+        console.log(res)
+      }
+      else {
+        alert("Error")
+      }
+    }
+    )
   };
-  
+
   render() {
-    
+
     return (
-      
+
 
       <Modal
         className="Modal"
@@ -143,7 +144,7 @@ class EditTrip extends Component {
                 <Label className="title-sm">Description:</Label>
                 <Input
                   type="textarea"
-                  style={{ marginLeft: "55px" , width:"60%"}}
+                  style={{ marginLeft: "55px", width: "60%" }}
                   id="description"
                   placeholder="Enter Description"
                   onChange={this.onChange}
@@ -181,7 +182,7 @@ class EditTrip extends Component {
                   value={this.state.startDate}
                   id="startDate"
                 />
-                <Label className="title-sm-l" style={{marginLeft:"50px"}}> EndDate: </Label>
+                <Label className="title-sm-l" style={{ marginLeft: "50px" }}> EndDate: </Label>
                 <Input
                   style={{ marginLeft: "20px" }}
                   type="Date"
@@ -194,7 +195,7 @@ class EditTrip extends Component {
               <FormGroup style={{ width: "100%", paddingBottom: "30px" }}>
                 <Label className="title-sm">Itinerary:</Label>
                 <Input
-                  style={{ marginLeft: "85px" , width:"60%"}}
+                  style={{ marginLeft: "85px", width: "60%" }}
                   type="textarea"
                   placeholder="Enter Itinerary"
                   onChange={this.onChange}
@@ -208,7 +209,7 @@ class EditTrip extends Component {
           </div>
           <div className="btn-handler">
             <Button className="signup-btn" type="submit">Create Trip</Button>
-            <Button className="signup-btn" type="reset" onClick={()=>window.location.href = "/create-location"}>Create Location</Button>
+            <Button className="signup-btn" type="reset" onClick={() => window.location.href = "/create-location/admin"}>Create Location</Button>
             <Button className="signup-btn" type="reset" onClick={this.toggle}>Cancel</Button>
           </div>
 
