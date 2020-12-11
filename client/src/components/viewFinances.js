@@ -13,7 +13,7 @@ class ViewFinance extends Component {
         const addedTrips = this.state.months.map((i, index) =>
             <tr>
                 <td className="title-sm-b-s">{i}</td>
-                {() => api.apiCallerWithoutToken("http://localhost:8080//api/finance/monthly", { month: index }, 200).then((res) => {
+                {() => api.apiCallerWithoutToken("http://localhost:8080//api/finance/monthly", { month: index, year:2020 }, 200).then((res) => {
                     console.log(res);
                     <td className="title-sm-b-s">{res.totalAmount}</td>
                 })}
@@ -41,7 +41,7 @@ class ViewFinance extends Component {
                     {this.display()}
 
                     <p className="title-med-left">Yearly Sum:
-                    {() => api.apiCallerWithoutToken("http://localhost:8080//api/finance/yearly", {}, 200).then((res) => {
+                    {() => api.apiCallerWithoutToken("http://localhost:8080//api/finance/yearly", {year: 2020}, 200).then((res) => {
                         console.log(res);
                         <td className="title-sm-b-s">{res.totalAmount}</td>
                     })}

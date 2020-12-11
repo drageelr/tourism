@@ -36,20 +36,6 @@ class AppNavbar extends Component {
             search: ""
         }
     }
-    onSubmit = e => {
-        e.preventDefault();
-        const userData = {
-            password: this.state.password
-        }
-        api.apiCallerWithToken("http://localhost:8080/api/trip/fetch", userData, 200).then(res => {
-            let path = `newPath`;
-            this.props.history.push('/register');
-        })
-
-    }
-    onChange = e => {
-        this.setState({ [e.target.id]: e.target.value });
-    }
     render() {
         const check = (word) => (window.location.href.indexOf(word) > -1)
         return check("register") || check("login") || check("reset-password") || check("forgot-password")  || check("admin") || check("change-password") ||check("admin") ? null : (
@@ -72,7 +58,7 @@ class AppNavbar extends Component {
                                             </DropdownToggle>
                                             <DropdownMenu className="nav-but-big">
                                                 <DropdownItem className="nav-but" onClick={() => {
-                                                    this.props.history.push('/change-password');
+                                                    this.props.history.push('/change-password/customer');
                                                 }}>
                                                     Change Password
                                                 </DropdownItem>

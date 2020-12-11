@@ -17,12 +17,7 @@ class AdminForgotPassword extends Component {
     onChange = e => {
         this.setState({ [e.target.id]: e.target.value });
     }
-    componentDidMount=()=>{
-        if(this.props.auth)
-        {
-            this.props.history.push("/login");
-        }
-    }
+    
     onSubmit = e => {
         e.preventDefault();
         const userData = {

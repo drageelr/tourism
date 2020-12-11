@@ -20,7 +20,6 @@ import AdminLogin from './components/auth/AdminLogin';
 import AdminRegister from './components/auth/AdminRegister';
 import CustomerRegister from './components/auth/CustomerRegister';
 import ViewAllTripAdmin from './components/ViewAllTripAdmin';
-import edittripobj from './components/edittripobj';
 import ViewAdmin from './components/ViewAdmin';
 //will keep user logged in even if refreshes too from a react tutorial
 import ViewFinance from './components/ViewFinances';
@@ -48,18 +47,17 @@ const  App =()=>{
         <Route path="/edit-trip/admin" component={ EditTrip } />
         <Route path="/home/admin" component={ ViewAllTripAdmin } />
         <Route path="/view-finances/admin" component={ ViewFinance } />
-        <Route path="/edit" component={ edittripobj } />
-        <Route path="/register" component={ CustomerRegister } />
+        <Route path="/register/customer" component={ CustomerRegister } />
         <Route path="/register/admin" component={ AdminRegister } />
         <Route exact path="/login/admin" component={ AdminLogin } />
         <Route exact path="/login" component={ CustomerLogin } />
-        <Route exact path="/forgot-password" component={ CustomerForgotPassword } />
+        <Route exact path="/forgot-password/customer" component={ CustomerForgotPassword } />
         <Route exact path="/forgot-password/admin" component={ AdminForgotPassword } />
-        <Route exact path="/change-password" component={ CustomerChangePassword } />
+        <Route exact path="/change-password/customer" component={ CustomerChangePassword } />
         <Route exact path="/change-password/admin" component={ AdminChangePassword } />
         <Route exact path="/view/admin" component={ ViewAdmin } />
         <Route exact path="/add-user/admin" component={ AddUser } />
-        <Route exact path="/register-trip" component={ RegisterTrip } />
+        <Route exact path="/register-trip/customer" component={ RegisterTrip } />
         <Route exact path="/create-trip/admin" component={ CreateTrip } />
         <Route exact path="/create-location/admin" component={ CreateLocation } />
         <Route exact path="/create-promo/admin" component={ CreatePromoCode } />

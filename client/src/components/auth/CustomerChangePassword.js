@@ -25,7 +25,7 @@ class ChangeCustomerPassword extends Component {
             oldPassword: this.state.oldpassword,
             newPassword: this.state.password
         }
-        api.apiCallerWithToken("http://localhost:8080/api/account/customer/change-password", userData, 200).then(res => {
+        api.apiCallerWithToken("http://localhost:8080/api/account/customer", userData, 200).then(res => {
             if (res.statusCode == 200) {
                 this.props.history.push("/home/customer");
                 console.log(res)

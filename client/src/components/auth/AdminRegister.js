@@ -36,6 +36,8 @@ class AdminRegister extends Component {
         }
         const token = window.location.href.substring( window.location.href.lastIndexOf('=') + 1)
         window.localStorage.setItem('token', token);
+        console.log(window.localStorage.getItem("token"))
+        console.log("2",newUser)
         api.apiCallerWithToken('http://localhost:8080/api/account/admin/signup', newUser, 200).then(res=>  
         {console.log(res)
             if(res.statusCode == 200)

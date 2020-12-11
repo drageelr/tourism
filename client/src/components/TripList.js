@@ -13,7 +13,7 @@ class TripList extends Component{
         }
     }
     componentDidMount(){
-        api.apiCallerWithoutToken("http://localhost:8080/api/trip/fetch", {}, 200).then(
+        api.apiCallerWithoutToken("http://localhost:8080/api/trip/fetch", {startDate: new Date()}, 200).then(
           (e) => {
             if (e.trips !== []) {
               this.setState({ trips: e.trips });

@@ -13,11 +13,6 @@ class ForgotAdminPassword extends Component {
         password: "",
         errors: {}
     }
-    componentDidMount = () => {
-        if (this.props.auth) {
-            this.props.history.push("/home/admin");
-        }
-    }
     onChange = e => {
         this.setState({ [e.target.id]: e.target.value });
     }

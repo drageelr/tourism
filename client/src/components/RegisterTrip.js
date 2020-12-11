@@ -36,7 +36,6 @@ class RegisterTrip extends Component {
     e.preventDefault();
         const userData = {
           tripID: this.state.tripID,
-          customerID: this.state.customerID,
           mobile: this.state.mobile,
           code: this.state.code,
           numberOfPeople: this.state.numberOfPeople,
@@ -88,15 +87,6 @@ class RegisterTrip extends Component {
                   style = {{marginLeft:"115px"}}
                   id="tripID"
                   value={this.state.tripID}
-                />
-                <Label className="title-sm-l">Customer ID:</Label>
-                <Input
-                  type="text"
-                  style = {{marginLeft:"55px"}}
-                  id="customerID"
-                  placeholder="Enter Customer ID"
-                  onChange={this.onChange}
-                  value={this.state.customerID}
                 />
               </FormGroup>
               <FormGroup style={{ width: "100%", paddingBottom: "30px" }}>

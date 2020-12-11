@@ -27,11 +27,6 @@ class CustomerRegister extends Component {
             });
         }
     }
-    componentDidMount = () => {
-        if (this.props.auth) {
-            this.props.history.push("/home/customer");
-        }
-    }
     onSubmit = e => {
         e.preventDefault();
         const newUser = {

@@ -27,7 +27,7 @@ class Trip extends Component {
     }
     onSubmit = (e) => {
         e.preventDefault();
-        this.props.history.push("/register-trip?="+window.location.href.substring(window.location.href.lastIndexOf('=') + 1));
+        this.props.history.push("/register-trip/customer?="+window.location.href.substring(window.location.href.lastIndexOf('=') + 1));
     
         
       };

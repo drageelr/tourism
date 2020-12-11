@@ -208,7 +208,7 @@ class EditTrip extends Component {
             </div>
           </div>
           <div className="btn-handler">
-            <Button className="signup-btn" type="submit">Create Trip</Button>
+            <Button className="signup-btn" type="submit">Edit Trip</Button>
             <Button className="signup-btn" type="reset" onClick={() => window.location.href = "/create-location/admin"}>Create Location</Button>
             <Button className="signup-btn" type="reset" onClick={this.toggle}>Cancel</Button>
           </div>
