@@ -47,8 +47,8 @@
 |2|`customerSignUpObj`|`{email*: "String - must be email", firstName*: "String", lastName*: "String", password: "String-min(8)-max(30)-[a-zA-Z0-9]"}`|
 |3|`adminFetchCriteriaObj`|`{id: Number, email: "String - must be email", firstName: "String", lastName: "String", active: Boolean, permission: {manageAdmins: Boolean, manageTrips: Boolean, manageReqList: Boolean, manageReports: Boolean}}`|
 |4|`customerFetchCriteriaObj`|`{id: Number, email: "String - must be email", firstName: "String", lastName: "String", active: Boolean}`|
-|5|`adminEditObj`|`{email: "String - must be email", firstName: "String", lastName: "String", password: "String-min(8)-max(30)-[a-zA-Z0-9]", active: Boolean, permission: {manageAdmins: Boolean, manageTrips: Boolean, manageReqList: Boolean, manageReports: Boolean}}`|
-|6|`customerEditObj`|`{email: "String - must be email", firstName: "String", lastName: "String", password: "String-min(8)-max(30)-[a-zA-Z0-9]", active: Boolean}`|
+|5|`adminEditObj`|`{id*: Number, email: "String - must be email", firstName: "String", lastName: "String", password: "String-min(8)-max(30)-[a-zA-Z0-9]", active: Boolean, permission: {manageAdmins: Boolean, manageTrips: Boolean, manageReqList: Boolean, manageReports: Boolean}}`|
+|6|`customerEditObj`|`{id*: Number, email: "String - must be email", firstName: "String", lastName: "String", password: "String-min(8)-max(30)-[a-zA-Z0-9]", active: Boolean}`|
 |7|`changePassObj`|`{oldpassword*: "String-min(8)-max(30)-[a-zA-Z0-9]", newpassword*: "String-min(8)-max(30)-[a-zA-Z0-9]"}`|
 
 ### 3. Location Management
@@ -95,10 +95,10 @@
 #### Object Schema
 |#|Name|Object|
 |-|----|------|
-|1|`tripreqCreateObj`|`{tripID*: Number, customerID*: Number, code: "String", numberOfPeople*: Number}`|
-|2|`tripreqFetchCriteriaObj`|`{id: Number, tripID: Number, customerID: Number, code: "String", numberOfPeople: Number, amountDue: Number, accepted: Boolean}`|
-|3|`tripreqFetchCriteriaObj2`|`{id: Number, tripID: Number, code: "String", numberOfPeople: Number, amountDue: Number, accepted: Boolean}`|
-|4|`tripreqEditObj`|`{id*: Number, numberOfPeople: Number, amountDue: Number, accepted: Boolean}`|
+|1|`tripreqCreateObj`|`{tripID*: Number, code: "String", numberOfPeople*: Number}`|
+|2|`tripreqFetchCriteriaObj`|`{id: Number, tripID: Number, customerID: Number, code: "String", numberOfPeople: Number, amountDue: Number, accepted: Integer.min(-1).max(1)}`|
+|3|`tripreqFetchCriteriaObj2`|`{id: Number, tripID: Number, code: "String", numberOfPeople: Number, amountDue: Number, accepted: Integer.min(-1).max(1)}`|
+|4|`tripreqEditObj`|`{id*: Number, numberOfPeople: Number, amountDue: Number, accepted: Integer.min(-1).max(1)}`|
 
 ### 6. Promo Code Management
 |#|Name|Description|Route|Request Object|Request Type|Response Object (Success)|Access|

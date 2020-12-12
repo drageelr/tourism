@@ -5,6 +5,7 @@ var jwt = require('../services/jwt');
 var httpStatus = require('../services/http-status');
 var customError = require('../errors/errors');
 var hFuncs = require('../services/helper-funcs');
+const { connect } = require('../routes/trip.route');
 
 exports.createTripReq = async (req, res, next) => {
     try {
@@ -13,7 +14,10 @@ exports.createTripReq = async (req, res, next) => {
         let reqTrip = await db.query('SELECT * FROM trip WHERE id = ' + params.tripID);
         if (!reqTrip.length) { throw new customError.NotFoundError("trip does not exist"); }
 
-        if (hFuncs.createDateFromMysqlDate(reqTrip[0].startDate) < hFuncs.createDateNowInUTC()) { throw new customError.BadRequestError("start date of trip has gone by"); }
+        reqTrip[0].startDate.setDate(reqTrip[0].startDate.getDate() + 1)
+        let d1 = reqTrip[0].startDate
+        let d2 = hFuncs.createDateNowInUTC();
+        if (d1 < d2) { throw new customError.BadRequestError("start date of trip has gone by"); }
 
         let reqTripCapCheck = await db.query('SELECT SUM(numberOfPeople) FROM trip_request WHERE tripID = ' + params.tripID + ' AND accepted = 1')
         if (reqTripCapCheck[0]['SUM(numberOfPeople)'] + params.numberOfPeople >= reqTrip[0].capacity) { throw new customError.BadRequestError("number of people that can be accomodated = " + (reqTrip[0].capacity - reqTripCapCheck[0]['SUM(numberOfPeople)'])); }
@@ -142,7 +146,7 @@ exports.editTripReq = async (req, res, next) => {
         let updateTripReqQuery = 'UPDATE trip_request SET';
         for (let i = 0; i < keys.length; i++) {
             if (params[keys[i]] !== undefined) {
-                if (updateTripReqQuery != 'UPDATE trip SET') { updateTripReqQuery += ' , '; }
+                if (updateTripReqQuery != 'UPDATE trip_request SET') { updateTripReqQuery += ' , '; }
                 updateTripReqQuery += ' ' + keys[i] + ' = ' + params[keys[i]];
             }
         }

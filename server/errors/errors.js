@@ -56,7 +56,22 @@ class DuplicateResourceError extends Error {
     }
 }
 
+class BadRequestError extends Error {
+    constructor(errDetails) {
+        super();
+        this.name = "BadRequestError";
+        this.statusCode = 400;
+        this.message = "Bad Request!";
+        this.details = errDetails;
+
+        if (Error.captureStackTrace) {
+            Error.captureStackTrace(this);
+        }
+    }
+}
+
 module.exports.AuthenticationError = AuthenticationError;
 module.exports.ForbiddenAccessError = ForbiddenAccessError;
 module.exports.NotFoundError = NotFoundError;
 module.exports.DuplicateResourceError = DuplicateResourceError;
+module.exports.BadRequestError = BadRequestError;
