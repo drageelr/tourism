@@ -23,7 +23,6 @@ router.post(
     validate(accountValidation.adminSignUp, {keyByField: true}),
     jwt.verfiyUser,
     validateUserAccess,
-    validateAdminAccess,
     accountController.adminSignUp
 );
 

@@ -109,7 +109,7 @@ exports.fetchAdmins = async (req, res, next) => {
         }
         
 
-        let selectQuery = 'SELECT * FROM customer';
+        let selectQuery = 'SELECT * FROM admin';
         let whereQuery = ' WHERE';
         for (let i = 0; i < keys.length; i++) {
             if (params[keys[i]] !== undefined) {

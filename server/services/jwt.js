@@ -32,11 +32,11 @@ exports.verfiyUser = async (req, res, next) => {
         let reqUser = await db.query("SELECT * FROM " + decodedObj.type + " WHERE id = " + decodedObj.id);
         if (reqUser.length) {
             req.body.user = decodedObj;
+            next();
         } else {
             throw new customError.ForbiddenAccessError("invalid token");
         }
 
-        next();
     } catch(e) {
         next(e);
     }
