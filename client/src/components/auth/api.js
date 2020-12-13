@@ -1,4 +1,4 @@
-const base_url = "http://localhost:8080/api/";
+const base_url = "http://139.59.110.100/api/";
 
 /**
 API Caller helper to refactor common API code that requires bearer tokens (all http requests have POST method)
