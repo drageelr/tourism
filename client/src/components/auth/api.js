@@ -16,7 +16,7 @@ export default async function api(api, body, successCode, dataReturner,) {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                // 'Authorization': `Bearer ${localStorage.token}`, 
+                'Authorization': `Bearer ${localStorage.token}`, 
             },
         }
         // if body is an empty object, do not include it
