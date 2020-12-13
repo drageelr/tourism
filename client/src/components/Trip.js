@@ -5,15 +5,15 @@ import {
     Button,
     Form
 } from 'reactstrap';
-var link = require('./name.js');
-var api = require('./auth/api.js');
+
+import api from './auth/api'
 class Trip extends Component {
     state = {
         trips: [{ id: 1, name: "l", price: 1, capacity: 0, startDate: new Date(), endDate: new Date }],
     }
 
     componentDidMount() {
-        api.apiCallerWithoutToken(link+"trip/fetch", {
+        api("trip/fetch", {
             id:
                 window.location.href.substring(window.location.href.lastIndexOf('=') + 1),
         }, 200).then(

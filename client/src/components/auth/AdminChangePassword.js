@@ -6,8 +6,8 @@ import {
     FormGroup,
     Input
 } from 'reactstrap';
-var api = require('./api');
-var link = require('../name.js');
+import api from "./api"
+
 
 class ChangeAdminPassword extends Component {
     state = {
@@ -26,7 +26,7 @@ class ChangeAdminPassword extends Component {
             newPassword: this.state.password
         }
         if (this.state.password === this.state.rePassword) {
-            api.apiCallerWithToken(link+"account/admin/change-password", userData, 200).then(res => {
+            api("account/admin/change-password", userData, 200).then(res => {
                 if (res.statusCode == 200) {
                     this.props.history.push("/home/admin");
                     console.log(res)

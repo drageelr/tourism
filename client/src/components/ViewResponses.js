@@ -6,8 +6,8 @@ import {
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes, faCheck } from "@fortawesome/free-solid-svg-icons";
-var link = require('./name.js');
-var api = require('./auth/api.js');
+
+import api from "./auth/api.js";
 class ViewResponses extends Component {
     state = {
         trips: [],
@@ -16,7 +16,7 @@ class ViewResponses extends Component {
         currentObj: {}
     }
     acceptTrip = (item) => {
-         api.apiCallerWithToken(link+"trip-req/edit", { id: item.id, accepted: 1 }, 200).then
+         api("trip-req/edit", { id: item.id, accepted: 1 }, 200).then
          (res => {if(res.statusCode == 200)
          {  
             this.setState({ [item.accepted]: 1 })}
@@ -28,7 +28,7 @@ class ViewResponses extends Component {
 
     rejectTrip = (item) => {
         console.log(item)
-         api.apiCallerWithToken(link+"trip-req/edit", { id: item.id, accepted: -1 }, 200).then
+         api("trip-req/edit", { id: item.id, accepted: -1 }, 200).then
          (res => {if(res.statusCode == 200)
          {  
             this.setState({ [item.accepted]: -1 })}
@@ -58,7 +58,7 @@ class ViewResponses extends Component {
     };
     componentDidMount() {
 
-        api.apiCallerWithToken(link+"trip-req/fetch", {
+        api("trip-req/fetch", {
             tripID: window.location.href.substring(window.location.href.lastIndexOf('=') + 1)
         }, 200).then(
             (e) => {

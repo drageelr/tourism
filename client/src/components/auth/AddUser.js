@@ -5,8 +5,8 @@ import {
     FormGroup,
     Input
 } from 'reactstrap';
-var api = require('./api');
-var link = require('../name.js');
+import api from "./api"
+
 
 class AddUser extends Component {
     state = {
@@ -24,7 +24,7 @@ class AddUser extends Component {
         }
         console.log(userData);
 
-        api.apiCallerWithToken(link+"account/admin/create", userData, 200).then(res => {
+        api("account/admin/create", userData, 200).then(res => {
             console.log(res)
             if (res.statusCode == 200) {
                 this.props.history.push("/home/admin");

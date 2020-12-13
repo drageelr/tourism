@@ -9,8 +9,8 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes, faBell } from "@fortawesome/free-solid-svg-icons";
 import Modal from 'react-modal';
-var api = require('./auth/api');
-var link = require('./name.js');
+import api from "./auth/api"
+
 Modal.setAppElement(document.getElementById('root'));
 class RegisterTrip extends Component {
   // Can Add Constructor
@@ -49,7 +49,7 @@ class RegisterTrip extends Component {
           }
       }
 
-        api.apiCallerWithToken(link+"trip-req/create", copyObj,200).then( (res)=>
+        api("trip-req/create", copyObj,200).then( (res)=>
         {if (res.statusCode == 200) {
           this.props.history.push("/home/customer");
           console.log(res)

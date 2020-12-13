@@ -4,8 +4,8 @@ import {
 } from 'reactstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faPlus, faEye } from "@fortawesome/free-solid-svg-icons";
-var link = require('./name.js');
-var api = require('./auth/api.js');
+
+import api from "./auth/api.js";
 class ViewAllTripAdmin extends Component {
     state = {
         trips: [{ id: 1, name: "l", price: 1, capacity: 0, startDate: "01-01-1999", endDate: "01-01-1999" }],
@@ -78,7 +78,7 @@ class ViewAllTripAdmin extends Component {
             }
         }
         
-        api.apiCallerWithoutToken(link+"trip/fetch", copyObj
+        api("trip/fetch", copyObj
             , 200).then(
                 (e) => {
                     console.log(e)

@@ -6,8 +6,8 @@ import {
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSave } from "@fortawesome/free-solid-svg-icons";
-var link = require('./name.js');
-var api = require('./auth/api.js');
+
+import api from "./auth/api.js";
 class ViewAdmin extends Component {
     state = {
         admins: [{
@@ -117,7 +117,7 @@ class ViewAdmin extends Component {
                             !!i.permission.manageReqList,
                             !!i.permission.manageReports
                         )
-                        api.apiCallerWithToken(link+"account/admin/edit",
+                        api("account/admin/edit",
                             {
                                 id: i.id,
                                 email: i.email,
@@ -175,7 +175,7 @@ class ViewAdmin extends Component {
                 copyObj[k] = orgObj[k];
             }
         }
-        api.apiCallerWithToken(link+"account/admin/fetch", copyObj, 200).then(
+        api("account/admin/fetch", copyObj, 200).then(
             (e) => {
                 console.log("res", e)
                 {

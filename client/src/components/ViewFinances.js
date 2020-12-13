@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {
     Table
 } from 'reactstrap';
-var api = require('./auth/api.js');
+import api from "./auth/api.js";
 class ViewFinance extends Component {
     state = {
         months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
@@ -13,7 +13,7 @@ class ViewFinance extends Component {
         const addedTrips = this.state.months.map((i, index) =>
             <tr>
                 <td className="title-sm-b-s">{i}</td>
-                {() => api.apiCallerWithoutToken("http://localhost:8080//api/finance/monthly", { month: index }, 200).then((res) => {
+                {() => api("http://localhost:8080//api/finance/monthly", { month: index }, 200).then((res) => {
                     console.log(res);
                     <td className="title-sm-b-s">{res.totalAmount}</td>
                 })}
@@ -41,7 +41,7 @@ class ViewFinance extends Component {
                     {this.display()}
 
                     <p className="title-med-left">Yearly Sum:
-                    {() => api.apiCallerWithoutToken("http://localhost:8080//api/finance/yearly", {}, 200).then((res) => {
+                    {() => api("http://localhost:8080//api/finance/yearly", {}, 200).then((res) => {
                         console.log(res);
                         <td className="title-sm-b-s">{res.totalAmount}</td>
                     })}

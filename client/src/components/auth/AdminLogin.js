@@ -7,8 +7,8 @@ import {
     FormGroup,
     Input
 } from 'reactstrap';
-var api = require('./api');
-var link = require('../name.js');
+import api from "./api"
+
 
 
 class AdminLogin extends Component {
@@ -27,7 +27,7 @@ class AdminLogin extends Component {
             email: this.state.email,
             password: this.state.password
         }
-        api.apiCallerWithoutToken(link+"auth/admin/login", userData, 200).then(res => {
+        api("auth/admin/login", userData, 200).then(res => {
             console.log(res);
             console.log(res.token)
             if (res.statusCode == 200) {

@@ -6,8 +6,8 @@ import {
     FormGroup,
     Input
 } from 'reactstrap';
-var api = require('./api');
-var link = require('../name.js');
+import api from "./api"
+
 
 
 class CustomerLogin extends Component {
@@ -27,7 +27,7 @@ class CustomerLogin extends Component {
             password: this.state.password
         }
 
-        api.apiCallerWithoutToken(link+"auth/customer/login", userData, 200).then(res => {
+        api("auth/customer/login", userData, 200).then(res => {
             
             if (res.statusCode == 200) {
                 window.localStorage.setItem('token', res.token);

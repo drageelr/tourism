@@ -7,7 +7,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faPlus, faEye } from "@fortawesome/free-solid-svg-icons";
 
-var api = require('./auth/api.js');
+
 class SearchTripAdmin extends Component {
     state = {
         trips: [{ id: 1, name: "l", price: 1, capacity: 0, startDate: new Date(), endDate: new Date }],

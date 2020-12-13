@@ -9,8 +9,8 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import Modal from 'react-modal';
-var api = require('./auth/api');
-var link = require('./name.js');
+import api from "./auth/api"
+
 Modal.setAppElement(document.getElementById('root'));
 class CreateTrip extends Component {
   // Can Add Constructor
@@ -27,7 +27,7 @@ class CreateTrip extends Component {
     locationIDs: []
   };
   componentDidMount() {
-    api.apiCallerWithoutToken(link+"location/fetch", {}, 200).then(
+    api("location/fetch", {}, 200).then(
       (e) => {
         if (e.locations !== undefined)
           this.setState({ data: e.locations });
@@ -66,7 +66,7 @@ class CreateTrip extends Component {
       locationIDs: this.state.locationIDs
     }
 
-    api.apiCallerWithToken(link+"api/trip/create", userData, 200).then(res => {
+    api("api/trip/create", userData, 200).then(res => {
       if (res.statusCode === 200) {
         this.props.history.push("/home/admin");
         console.log(res)

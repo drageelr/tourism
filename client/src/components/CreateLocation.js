@@ -9,8 +9,8 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes, faBell } from "@fortawesome/free-solid-svg-icons";
 import Modal from 'react-modal';
-var api = require('./auth/api');
-var link = require('./name.js');
+import api from "./auth/api"
+
 
 Modal.setAppElement(document.getElementById('root'));
 class CreateLocation extends Component {
@@ -39,7 +39,7 @@ class CreateLocation extends Component {
       province: this.state.province
     }
 
-    api.apiCallerWithToken(link+"location/create", userData, 200).then(res => {
+    api("location/create", userData, 200).then(res => {
       if (res.statusCode == 200) {
         this.props.history.push("/create-trip/admin");
         console.log(res)

@@ -6,8 +6,8 @@ import {
     FormGroup,
     Input
 } from 'reactstrap';
-var api = require('./api');
-var link = require('../name.js');
+import api from "./api"
+
 class CustomerForgotPassword extends Component {
     state = {
         email: "",
@@ -22,7 +22,7 @@ class CustomerForgotPassword extends Component {
         const userData = {
             email: this.state.email
         }
-        api.apiCallerWithoutToken(link+"account/customer/forgot-password/req", userData, 200).then(res => {
+        api("account/customer/forgot-password/req", userData, 200).then(res => {
             console.log(res)
             if (res.statusCode == 200) {
                 this.props.history.push("/login");
