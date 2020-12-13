@@ -3,7 +3,7 @@ import {
 } from 'reactstrap';
 import Tab from './subcomponents/Tab';
 var api = require('./auth/api');
-
+var link = require('./name.js');
 class TripList extends Component{
     constructor (props) {
         super(props);
@@ -32,7 +32,7 @@ class TripList extends Component{
                 copyObj[k] = orgObj[k];
             }
         }
-        api.apiCallerWithoutToken("http://localhost:8080/api/trip/fetch", copyObj , 200).then(
+        api.apiCallerWithoutToken(link+"trip/fetch", copyObj , 200).then(
           (e) => {
             if (e.trips !== []) {
               this.setState({ trips: e.trips });

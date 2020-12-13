@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import Modal from 'react-modal';
 var api = require('./auth/api');
-
+var link = require('./name.js');
 Modal.setAppElement(document.getElementById('root'));
 class EditTrip extends Component {
   // Can Add Constructor
@@ -28,7 +28,7 @@ class EditTrip extends Component {
   };
   componentDidMount() {
 
-    api.apiCallerWithoutToken("http://localhost:8080/api/trip/fetch", {
+    api.apiCallerWithoutToken(link+"trip/fetch", {
       id: window.location.href.substring(window.location.href.lastIndexOf('=') + 1)
     }, 200).then(
       (e) => {
@@ -45,7 +45,7 @@ class EditTrip extends Component {
         });
         console.log(typeof this.state.location, this.state.location)
       });
-    api.apiCallerWithoutToken("http://localhost:8080/api/location/fetch", {}, 200).then(
+    api.apiCallerWithoutToken(link+"location/fetch", {}, 200).then(
       (e) => {
         if (e.locations !== undefined)
           this.setState({ data: e.locations });
@@ -84,7 +84,7 @@ class EditTrip extends Component {
       locationIDs: this.state.locationIDs
     }
 
-    api.apiCallerWithToken("http://localhost:8080/api/trip/create", userData, 200).then(res => {
+    api.apiCallerWithToken(link+"trip/create", userData, 200).then(res => {
       if (res.statusCode === 200) {
         this.props.history.push("/home/admin");
         console.log(res)

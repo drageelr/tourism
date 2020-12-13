@@ -6,7 +6,7 @@ import {
     Input
 } from 'reactstrap';
 var api = require('./api');
-
+var link = require('../name.js');
 class AdminRegister extends Component {
     // Can Add Constructor
     state = {
@@ -38,7 +38,7 @@ class AdminRegister extends Component {
         window.localStorage.setItem('token', token);
         console.log(window.localStorage.getItem("token"))
         console.log("2",newUser)
-        api.apiCallerWithToken('http://localhost:8080/api/account/admin/signup', newUser, 200).then(res=>  
+        api.apiCallerWithToken(link+'account/admin/signup', newUser, 200).then(res=>  
         {console.log(res)
             if(res.statusCode == 200)
             {  

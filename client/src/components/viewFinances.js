@@ -3,6 +3,7 @@ import {
     Table
 } from 'reactstrap';
 var api = require('./auth/api.js');
+var link = require('./name.js');
 class ViewFinance extends Component {
     state = {
         months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
@@ -12,67 +13,67 @@ class ViewFinance extends Component {
         yearly:120
     }
     componentDidMount() {
-        api.apiCallerWithToken("http://localhost:8080/api/finance/monthly", { month: 0 ,year:2020}, 200).then(
+        api.apiCallerWithToken(link+"finance/monthly", { month: 0 ,year:2020}, 200).then(
           (e) => {
             if (e.totalAmount !== undefined)
               this.setState({ January: e.totalAmount });
           });
-          api.apiCallerWithToken("http://localhost:8080/api/finance/monthly", { month: 1 ,year:2020}, 200).then(
+          api.apiCallerWithToken(link+"finance/monthly", { month: 1 ,year:2020}, 200).then(
             (e) => {
               if (e.totalAmount !== undefined)
                 this.setState({ February: e.totalAmount });
             });
-            api.apiCallerWithToken("http://localhost:8080/api/finance/monthly", { month: 2 ,year:2020}, 200).then(
+            api.apiCallerWithToken(link+"finance/monthly", { month: 2 ,year:2020}, 200).then(
           (e) => {
             if (e.totalAmount !== undefined)
               this.setState({ March: e.totalAmount });
           });
-          api.apiCallerWithToken("http://localhost:8080/api/finance/monthly", { month: 3 ,year:2020}, 200).then(
+          api.apiCallerWithToken(link+"finance/monthly", { month: 3 ,year:2020}, 200).then(
           (e) => {
             if (e.totalAmount !== undefined)
               this.setState({ April: e.totalAmount });
           });
-          api.apiCallerWithToken("http://localhost:8080/api/finance/monthly", { month: 4 ,year:2020}, 200).then(
+          api.apiCallerWithToken(link+"finance/monthly", { month: 4 ,year:2020}, 200).then(
           (e) => {
             if (e.totalAmount !== undefined)
               this.setState({ May: e.totalAmount });
           });
-          api.apiCallerWithToken("http://localhost:8080/api/finance/monthly", { month: 5 ,year:2020}, 200).then(
+          api.apiCallerWithToken(link+"finance/monthly", { month: 5 ,year:2020}, 200).then(
           (e) => {
             if (e.totalAmount !== undefined)
               this.setState({ June: e.totalAmount });
           });
-          api.apiCallerWithToken("http://localhost:8080/api/finance/monthly", { month: 6 ,year:2020}, 200).then(
+          api.apiCallerWithToken(link+"finance/monthly", { month: 6 ,year:2020}, 200).then(
           (e) => {
             if (e.totalAmount !== undefined)
               this.setState({ July: e.totalAmount });
           });
-          api.apiCallerWithToken("http://localhost:8080/api/finance/monthly", { month: 7 ,year:2020}, 200).then(
+          api.apiCallerWithToken(link+"finance/monthly", { month: 7 ,year:2020}, 200).then(
           (e) => {
             if (e.totalAmount !== undefined)
               this.setState({ August: e.totalAmount });
           });
-          api.apiCallerWithToken("http://localhost:8080/api/finance/monthly", { month: 8 ,year:2020}, 200).then(
+          api.apiCallerWithToken(link+"finance/monthly", { month: 8 ,year:2020}, 200).then(
           (e) => {
             if (e.totalAmount !== undefined)
               this.setState({ September: e.totalAmount });
           });
-          api.apiCallerWithToken("http://localhost:8080/api/finance/monthly", { month: 9 ,year:2020}, 200).then(
+          api.apiCallerWithToken(link+"finance/monthly", { month: 9 ,year:2020}, 200).then(
           (e) => {
             if (e.totalAmount !== undefined)
               this.setState({ October: e.totalAmount });
           });
-          api.apiCallerWithToken("http://localhost:8080/api/finance/monthly", { month: 10 ,year:2020}, 200).then(
+          api.apiCallerWithToken(link+"finance/monthly", { month: 10 ,year:2020}, 200).then(
           (e) => {
             if (e.totalAmount !== undefined)
               this.setState({ November: e.totalAmount });
           });
-          api.apiCallerWithToken("http://localhost:8080/api/finance/monthly", { month: 11 ,year:2020}, 200).then(
+          api.apiCallerWithToken(link+"finance/monthly", { month: 11 ,year:2020}, 200).then(
           (e) => {
             if (e.totalAmount !== undefined)
               this.setState({ December: e.totalAmount });
           });
-          api.apiCallerWithToken("http://localhost:8080/api/finance/yearly", { year:2020}, 200).then(
+          api.apiCallerWithToken(link+"finance/yearly", { year:2020}, 200).then(
           (e) => {
             if (e.totalAmount !== undefined)
               this.setState({ yearly: e.totalAmount });

@@ -7,6 +7,7 @@ import {
     Input
 } from 'reactstrap';
 var api = require('./api');
+var link = require('../name.js');
 
 class AdminForgotPassword extends Component {
     state = {
@@ -23,7 +24,7 @@ class AdminForgotPassword extends Component {
         const userData = {
             email: this.state.email
         }
-        api.apiCallerWithoutToken("http://localhost:8080/api/account/admin/forgot-password/req", userData,200).then(res=>  
+        api.apiCallerWithoutToken(link+"account/admin/forgot-password/req", userData,200).then(res=>  
         {   console.log(res)
             if(res.statusCode == 200)
             {  

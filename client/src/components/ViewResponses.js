@@ -6,7 +6,7 @@ import {
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes, faCheck } from "@fortawesome/free-solid-svg-icons";
-
+var link = require('./name.js');
 var api = require('./auth/api.js');
 class ViewResponses extends Component {
     state = {
@@ -16,37 +16,55 @@ class ViewResponses extends Component {
         currentObj: {}
     }
     acceptTrip = (item) => {
-        api.apiCallerWithToken("http://localhost:8080/api/trip-req/edit", { id: this.state.currentObj.id, accepted: 1 }, 200).then(res => this.setState({ [this.state.currentObj.accepted]: 1 }))
+         api.apiCallerWithToken(link+"trip-req/edit", { id: item.id, accepted: 1 }, 200).then
+         (res => {if(res.statusCode == 200)
+         {  
+            this.setState({ [item.accepted]: 1 })}
+         else{
+             alert("Error")
+         }
+        })
     }
 
     rejectTrip = (item) => {
-        api.apiCallerWithToken("http://localhost:8080/api/trip-req/edit", { id: this.state.currentObj.id, accepted: -1 }, 200).then(res => this.setState({ [this.state.currentObj.accepted]: -1 }))
+        console.log(item)
+         api.apiCallerWithToken(link+"trip-req/edit", { id: item.id, accepted: -1 }, 200).then
+         (res => {if(res.statusCode == 200)
+         {  
+            this.setState({ [item.accepted]: -1 })}
+         else{
+             alert("Error")
+         }
+        })
+    
     }
     if = (e) => {
-        if (e.accepted === 1)
+        if (e.accepted == 1)
             return (<td className="title-sm-b-s">Accepted</td>);
         else if (e.accepted === 0)
-            return (<td className="title-sm-b-s"><FontAwesomeIcon onClick={this.state.acceptTrip} style={{ color: "#2E5984" }} icon={faCheck} size="2x" /></td>);
+            return (<td className="title-sm-b-s"><button onClick={()=>{this.acceptTrip(e)}}><FontAwesomeIcon  style={{ color: "#2E5984" }} icon={faCheck} size="2x" /></button></td>);
         else
             return (<br />);
     }
     if2 = (e) => {
-        if (e.accepted === -1)
+        if (e.accepted == -1)
             return (<td className="title-sm-b-s">Rejected</td>);
         else if (e.accepted === 0)
-            return (<td className="title-sm-b-s"><FontAwesomeIcon onClick={this.state.rejectTrip} style={{ color: "#2E5984" }} icon={faTimes} size="2x" /></td>);
+            return (
+                <td className="title-sm-b-s"><button><FontAwesomeIcon onClick={(res) => {this.rejectTrip(e)}
+                } style={{ color: "#2E5984" }} icon={faTimes} size="2x" /></button></td>);
         else
             return (<br />);
     };
     componentDidMount() {
 
-        api.apiCallerWithToken("http://localhost:8080/api/trip-req/fetch-customer", {
-            tripID: 12
+        api.apiCallerWithToken(link+"trip-req/fetch", {
+            tripID: window.location.href.substring(window.location.href.lastIndexOf('=') + 1)
         }, 200).then(
             (e) => {
                 console.log(e)
                 if (e.tripReqs !== []) {
-                    this.render()
+                    this.setState({ trips: e.tripReqs });
                 }
             });
     }

@@ -7,7 +7,7 @@ import {
     Input
 } from 'reactstrap';
 var api = require('./api');
-
+var link = require('../name.js');
 class ChangeCustomerPassword extends Component {
     state = {
         oldpassword: "",
@@ -25,7 +25,7 @@ class ChangeCustomerPassword extends Component {
             oldPassword: this.state.oldpassword,
             newPassword: this.state.password
         }
-        api.apiCallerWithToken("http://localhost:8080/api/account/customer", userData, 200).then(res => {
+        api.apiCallerWithToken(link+"account/customer", userData, 200).then(res => {
             if (res.statusCode == 200) {
                 this.props.history.push("/home/customer");
                 console.log(res)

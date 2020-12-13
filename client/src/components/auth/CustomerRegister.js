@@ -6,7 +6,7 @@ import {
     Input
 } from 'reactstrap';
 var api = require('./api');
-
+var link = require('../name.js');
 class CustomerRegister extends Component {
     // Can Add Constructor
     state = {
@@ -36,7 +36,7 @@ class CustomerRegister extends Component {
             password: this.state.password,
         }
         if (this.state.password === this.state.rePassword)
-            api.apiCallerWithoutToken('http://localhost:8080/api/account/customer/signup', newUser, 200).then(res => {
+            api.apiCallerWithoutToken(link+'account/customer/signup', newUser, 200).then(res => {
                
                 if (res.statusCode == 200) {
                     this.props.history.push("/login");

@@ -5,7 +5,7 @@ import {
     Button,
     Form
 } from 'reactstrap';
-
+var link = require('./name.js');
 var api = require('./auth/api.js');
 class Trip extends Component {
     state = {
@@ -13,7 +13,7 @@ class Trip extends Component {
     }
 
     componentDidMount() {
-        api.apiCallerWithoutToken("http://localhost:8080/api/trip/fetch", {
+        api.apiCallerWithoutToken(link+"trip/fetch", {
             id:
                 window.location.href.substring(window.location.href.lastIndexOf('=') + 1),
         }, 200).then(

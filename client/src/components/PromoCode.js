@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import Modal from 'react-modal';
 var api = require('./auth/api');
-
+var link = require('./name.js');
 Modal.setAppElement(document.getElementById('root'));
 class PromoCode extends Component {
   // Can Add Constructor
@@ -41,7 +41,7 @@ class PromoCode extends Component {
         <td style={{ backgroundColor: "#f5f5f5", padding: "10px", marginLeft: "20px" }}>{d.maxDiscount}</td>
         <td style={{ backgroundColor: "#f5f5f5", padding: "10px", marginLeft: "20px" }}>{d.discountPercentage}</td>
         <td style={{ backgroundColor: "#f5f5f5", padding: "10px", marginLeft: "20px" }}><FontAwesomeIcon onClick={() => {
-          api.apiCallerWithToken("http://localhost:8080/api/code/delete", { code: d.code }, 200).then(this.remove(index))
+          api.apiCallerWithToken(link+"code/delete", { code: d.code }, 200).then(this.remove(index))
         }} style={{ color: "#white" }} icon={faTimes} size="1x" /></td>
       </tr>
     );
@@ -61,7 +61,7 @@ class PromoCode extends Component {
     );
   }
   componentDidMount() {
-    api.apiCallerWithoutToken("http://localhost:8080/api/code/fetch", {}, 200).then(
+    api.apiCallerWithoutToken(link+"code/fetch", {}, 200).then(
       (e) => {
         if (e.promos !== []) {
           this.setState({ promos: e.promos });

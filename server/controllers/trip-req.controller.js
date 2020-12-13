@@ -69,11 +69,11 @@ exports.fetchTripReq = async (req, res, next) => {
         let whereTripReqQuery = ' WHERE';
         for (let i = 0; i < keys.length; i++) {
             if (params[keys[i]] !== undefined) {
-                if (whereTripQuery != ' WHERE') { whereTripQuery += ' AND'; }
-                whereTripQuery += ' ' + keys[i] + ' = ';
-                if (kType[i]) { whereTripQuery += '"'; }
-                whereTripQuery += params[keys[i]];
-                if (kType[i]) { whereTripQuery += '"'; }
+                if (whereTripReqQuery != ' WHERE') { whereTripReqQuery += ' AND'; }
+                whereTripReqQuery += ' ' + keys[i] + ' = ';
+                if (kType[i]) { whereTripReqQuery += '"'; }
+                whereTripReqQuery += params[keys[i]];
+                if (kType[i]) { whereTripReqQuery += '"'; }
             }
         }
 
@@ -151,8 +151,8 @@ exports.editTripReq = async (req, res, next) => {
             }
         }
 
-        if (updateTripReqQuery != 'UPDATE trip_request SET') {
-            await db.query(updateTripReqQuery);
+        if (updateTripReqQuery != 'UPDATE trip_request SET' ) {
+            await db.query(updateTripReqQuery + ' WHERE id = ' + params.id);
         }
 
         res.json({

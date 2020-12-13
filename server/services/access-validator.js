@@ -82,6 +82,9 @@ exports.validateUserAccess = (req, res, next) => {
       if (accessGranted) {
         next();
       } else {
+        console.log(req.body.user.id)
+console.log(req.body.user.type)
+console.log(accessList)
         throw new customError.ForbiddenAccessError("Forbidden access to resource.");
       }
     } else {

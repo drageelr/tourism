@@ -41,7 +41,6 @@ function NavLinks(props) {
 class AppNavbar extends Component {
     state = {
         isOpen: false,
-        link: "https:localhost:3000/searchhhhhh"
     }
 
     toggle = () => {

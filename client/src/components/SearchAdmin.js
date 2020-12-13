@@ -6,7 +6,7 @@ import {
 } from 'reactstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faPlus, faEye } from "@fortawesome/free-solid-svg-icons";
-
+var link = require('./name.js');
 var api = require('./auth/api.js');
 class SearchAdmin extends Component {
     state = {

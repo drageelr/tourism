@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes, faBell } from "@fortawesome/free-solid-svg-icons";
 import Modal from 'react-modal';
 var api = require('./auth/api');
-
+var link = require('./name.js');
 Modal.setAppElement(document.getElementById('root'));
 class CreatePromoCode extends Component {
   // Can Add Constructor
@@ -41,7 +41,7 @@ class CreatePromoCode extends Component {
       discountPercentage: this.state.discountPercentage,
     }
 
-    api.apiCallerWithToken("http://localhost:8080/api/code/create", userData, 200).then((res) => {
+    api.apiCallerWithToken(link+"code/create", userData, 200).then((res) => {
       if (res.statusCode == 200) {
         this.props.history.push("/view-promo/admin");
         console.log(res)
