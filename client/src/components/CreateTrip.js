@@ -66,7 +66,6 @@ class CreateTrip extends Component {
       locationIDs: this.state.locationIDs
     }
 
-    console.log("12121", userData)
     api.apiCallerWithToken("http://localhost:8080/api/trip/create", userData, 200).then(res => {
       if (res.statusCode === 200) {
         this.props.history.push("/home/admin");

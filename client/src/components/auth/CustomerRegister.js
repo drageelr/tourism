@@ -37,10 +37,10 @@ class CustomerRegister extends Component {
         }
         if (this.state.password === this.state.rePassword)
             api.apiCallerWithoutToken('http://localhost:8080/api/account/customer/signup', newUser, 200).then(res => {
-                console.log(res)
+               
                 if (res.statusCode == 200) {
                     this.props.history.push("/login");
-                    console.log(res)
+                   
                 }
                 else {
                     alert("Error")
@@ -50,8 +50,6 @@ class CustomerRegister extends Component {
             alert("Passwords do not Match!")
     }
     render() {
-        const { errors } = this.state;
-        console.log("Here: ", errors);
         return (
             <div className="home-page">
                 <div className="container main">
@@ -64,7 +62,6 @@ class CustomerRegister extends Component {
                                 placeholder="First Name"
                                 onChange={this.onChange}
                                 value={this.state.firstName}
-                                error={errors.firstName}
                                 id="firstName"
                             />
                         </FormGroup>
@@ -74,7 +71,6 @@ class CustomerRegister extends Component {
                                 placeholder="Last Name"
                                 onChange={this.onChange}
                                 value={this.state.lastName}
-                                error={errors.lastName}
                                 id="lastName"
                             />
 
@@ -85,7 +81,6 @@ class CustomerRegister extends Component {
                                 placeholder="Enter your email address"
                                 onChange={this.onChange}
                                 value={this.state.email}
-                                error={errors.email}
                                 id="email"
                             />
                             {/* <span className="red-text">{errors.email}</span> */}
@@ -96,7 +91,6 @@ class CustomerRegister extends Component {
                                 placeholder="Enter your password"
                                 onChange={this.onChange}
                                 value={this.state.password}
-                                error={errors.password}
                                 id="password"
 
                             />
@@ -106,7 +100,6 @@ class CustomerRegister extends Component {
                                 placeholder="Re-enter your password"
                                 onChange={this.onChange}
                                 value={this.state.rePassword}
-                                error={errors.rePassword}
                                 id="rePassword"
                             />
                             <div className="pop-up">

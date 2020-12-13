@@ -28,11 +28,11 @@ class CustomerLogin extends Component {
         }
 
         api.apiCallerWithoutToken("http://localhost:8080/api/auth/customer/login", userData, 200).then(res => {
-            console.log(res)
+            
             if (res.statusCode == 200) {
                 window.localStorage.setItem('token', res.token);
                 this.props.history.push("/home/customer");
-                console.log(res)
+                
             }
             else {
                 alert("Error")

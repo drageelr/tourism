@@ -34,6 +34,9 @@ import EditTrip from './components/EditTrip'
 import CreateTrip from './components/CreateTrip'
 import TripList from './components/TripList'
 import Trip from "./components/Trip"
+import SearchTrip from './components/SearchTrip';
+import SearchTripAdmin from './components/SearchTripAdmin';
+import SearchAdmin from './components/SearchAdmin';
 const  App =()=>{
   return (
     <Router>
@@ -43,11 +46,13 @@ const  App =()=>{
         <Route path="/" component={ AdminAppNavbar } />
         <Route path="/view-response/admin" component={ ViewResponses } />
         <Route path="/trips/customer" component={ Trip } />
-        <Route path="/home/customer" component={ TripList } />
+        <Route path="/search/customer" component={ TripList } />
         <Route path="/edit-trip/admin" component={ EditTrip } />
-        <Route path="/home/admin" component={ ViewAllTripAdmin } />
+        <Route path="/search/admin" component={ ViewAllTripAdmin } />
         <Route path="/view-finances/admin" component={ ViewFinance } />
         <Route path="/register/customer" component={ CustomerRegister } />
+        <Route path="/home/customer" component={ SearchTrip } />
+        <Route path="/home/admin" component={ SearchTripAdmin } />
         <Route path="/register/admin" component={ AdminRegister } />
         <Route exact path="/login/admin" component={ AdminLogin } />
         <Route exact path="/login" component={ CustomerLogin } />
@@ -55,7 +60,8 @@ const  App =()=>{
         <Route exact path="/forgot-password/admin" component={ AdminForgotPassword } />
         <Route exact path="/change-password/customer" component={ CustomerChangePassword } />
         <Route exact path="/change-password/admin" component={ AdminChangePassword } />
-        <Route exact path="/view/admin" component={ ViewAdmin } />
+        <Route exact path="/view/admin" component={ SearchAdmin } />
+        <Route exact path="/searchview/admin" component={ ViewAdmin } />
         <Route exact path="/add-user/admin" component={ AddUser } />
         <Route exact path="/register-trip/customer" component={ RegisterTrip } />
         <Route exact path="/create-trip/admin" component={ CreateTrip } />

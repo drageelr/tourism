@@ -34,16 +34,23 @@ class RegisterTrip extends Component {
   };
   onSubmit = (e) => {
     e.preventDefault();
-        const userData = {
+        const orgObj = {
+          
           tripID: this.state.tripID,
-          mobile: this.state.mobile,
           code: this.state.code,
           numberOfPeople: this.state.numberOfPeople,
-        }
 
-        api.apiCallerWithToken("http://localhost:8080/api/trip-req/create", userData,200).then( (res)=>
+      };
+      let copyObj = {};
+      let keysToCopy = Object.keys(orgObj);
+      for (let k of keysToCopy) {
+          if (orgObj[k] !== "" && orgObj[k] !== 0) {
+              copyObj[k] = orgObj[k];
+          }
+      }
+
+        api.apiCallerWithToken("http://localhost:8080/api/trip-req/create", copyObj,200).then( (res)=>
         {if (res.statusCode == 200) {
-          window.localStorage.setItem('token', res.token);
           this.props.history.push("/home/customer");
           console.log(res)
       }

@@ -15,17 +15,12 @@ class ViewResponses extends Component {
         acceptTrip: this.acceptTrip,
         currentObj: {}
     }
-    componentDidMount = () => {
-        if (this.props.auth) {
-            this.props.history.push("/home/admin");
-        }
-    }
     acceptTrip = (item) => {
-        api.apiCallerWithoutToken("http://localhost:8080/api/trip-req/edit", { id: this.state.currentObj.id, accepted: 1 }, 200).then(res => this.setState({ [this.state.currentObj.accepted]: 1 }))
+        api.apiCallerWithToken("http://localhost:8080/api/trip-req/edit", { id: this.state.currentObj.id, accepted: 1 }, 200).then(res => this.setState({ [this.state.currentObj.accepted]: 1 }))
     }
 
     rejectTrip = (item) => {
-        api.apiCallerWithoutToken("http://localhost:8080/api/trip-req/edit", { id: this.state.currentObj.id, accepted: -1 }, 200).then(res => this.setState({ [this.state.currentObj.accepted]: -1 }))
+        api.apiCallerWithToken("http://localhost:8080/api/trip-req/edit", { id: this.state.currentObj.id, accepted: -1 }, 200).then(res => this.setState({ [this.state.currentObj.accepted]: -1 }))
     }
     if = (e) => {
         if (e.accepted === 1)
@@ -45,12 +40,12 @@ class ViewResponses extends Component {
     };
     componentDidMount() {
 
-        api.apiCallerWithoutToken("http://localhost:8080/api/trip-req/fetch-customer", {
-            tripID: window.location.href.substring(window.location.href.lastIndexOf('=') + 1)
+        api.apiCallerWithToken("http://localhost:8080/api/trip-req/fetch-customer", {
+            tripID: 12
         }, 200).then(
             (e) => {
-                if (e.trips !== []) {
-                    this.setState({ trips: e.tripReqs });
+                console.log(e)
+                if (e.tripReqs !== []) {
                     this.render()
                 }
             });

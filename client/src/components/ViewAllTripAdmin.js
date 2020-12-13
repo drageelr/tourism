@@ -8,18 +8,36 @@ import { faPen, faPlus, faEye } from "@fortawesome/free-solid-svg-icons";
 var api = require('./auth/api.js');
 class ViewAllTripAdmin extends Component {
     state = {
-        trips: [{ id: 1, name: "l", price: 1, capacity: 0, startDate: new Date(), endDate: new Date }],
+        trips: [{ id: 1, name: "l", price: 1, capacity: 0, startDate: "01-01-1999", endDate: "01-01-1999" }],
         currentObj: {},
-        today: new Date()
+        today: new Date(),
+        id: this.props.location.state.id,
+        name: this.props.location.state.name,
+        price: this.props.location.state.price,
+        capacity: this.props.location.state.capacity
+    }
+    date= (dateStr)=>{
+        console.log(dateStr)
+        let dateSplit = dateStr.split("-");
+        let day = parseInt(dateSplit[0]);
+        console.log(day)
+        let month = parseInt(dateSplit[1]) - 1; // I did this because month when given to the date constructor only accepts 0 - 11 values (where 11 represents December and 0 represents Jan)
+        console.log(month)
+        let year = parseInt(dateSplit[2]);
+        console.log(year)
+        let datee = new Date(Date.UTC(year, month, day + 1));
+        return datee.toDateString()
     }
     display = () => {
+        console.log(this.state.trips)
         const addedTrips = this.state.trips.map((i, index) =>
             <tr>
                 <td className="title-sm-b-s">{i.id}</td>
                 <td className="title-sm-b-s">{i.name}</td>
                 <td className="title-sm-b-s">{i.price}</td>
                 <td className="title-sm-b-s">{i.capacity}</td>
-                <td className="title-sm-b-s"></td>
+                <td className="title-sm-b-s">{this.date(i.startDate)}</td>
+                <td className="title-sm-b-s">{this.date(i.endDate)}</td>
                 <td className="title-sm-b-s"><button><FontAwesomeIcon onClick={() => { this.props.history.push('/edit-trip/admin?id=' + i.id); }} style={{ color: "#2E5984" }} icon={faPen} size="1x" /></button></td>
                 <td className="title-sm-b-s"><button><FontAwesomeIcon onClick={() => { this.props.history.push('/view-response/admin?id=' + i.id); }} style={{ color: "#2E5984" }} icon={faEye} size="1x" /></button></td>
             </tr>
@@ -35,7 +53,6 @@ class ViewAllTripAdmin extends Component {
                     <th className="title-sm-b">Trip start date</th>
                     <th className="title-sm-b">Trip end date</th>
                     <th className="title-sm-b">Edit</th>
-                    <th className="title-sm-b">Delete</th>
                     <th className="title-sm-b">Responses</th>
                 </tr>
                 {addedTrips}
@@ -43,13 +60,40 @@ class ViewAllTripAdmin extends Component {
         );
     }
     componentDidMount() {
-        api.apiCallerWithoutToken("http://localhost:8080/api/trip/fetch", {}, 200).then(
-            (e) => {
-                if (e.trips !== []) {
-                    this.setState({ trips: e.trips });
-                    this.render()
-                }
-            });
+        console.log(
+            this.state.name, this.state.id, typeof this.state.id)
+        const orgObj = {
+            startDate: new Date(),
+            id: this.state.id,
+            name: this.state.name,
+            price: this.state.price,
+            capacity: this.state.capacity
+
+        };
+        let copyObj = {};
+        let keysToCopy = Object.keys(orgObj);
+        for (let k of keysToCopy) {
+            if (orgObj[k] !== "" && orgObj[k] !== 0) {
+                copyObj[k] = orgObj[k];
+            }
+        }
+        
+        api.apiCallerWithoutToken("http://localhost:8080/api/trip/fetch", copyObj
+            , 200).then(
+                (e) => {
+                    console.log(e)
+                    if (e.statusCode == 200) {
+                        if (e.trips !== []) {
+                            this.setState({ trips: e.trips });
+                            this.render()
+                        }
+                    }
+                    else {
+                        alert("Wrong criteria")
+
+                    }
+
+                });
     }
     render() {
         return (

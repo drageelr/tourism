@@ -9,11 +9,30 @@ class TripList extends Component{
         super(props);
         this.state = {
             trips: [],
-            form: ''
+            form: '',
+            id: this.props.location.state.id,
+            name: this.props.location.state.name,
+            price: this.props.location.state.price,
+            capacity: this.props.location.state.capacity
         }
     }
     componentDidMount(){
-        api.apiCallerWithoutToken("http://localhost:8080/api/trip/fetch", {startDate: new Date()}, 200).then(
+        const orgObj = {
+            startDate: new Date(),
+            id: this.state.id,
+            name: this.state.name,
+            price: this.state.price,
+            capacity: this.state.capacity
+
+        };
+        let copyObj = {};
+        let keysToCopy = Object.keys(orgObj);
+        for (let k of keysToCopy) {
+            if (orgObj[k] !== "" && orgObj[k] !== 0) {
+                copyObj[k] = orgObj[k];
+            }
+        }
+        api.apiCallerWithoutToken("http://localhost:8080/api/trip/fetch", copyObj , 200).then(
           (e) => {
             if (e.trips !== []) {
               this.setState({ trips: e.trips });

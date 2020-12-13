@@ -37,6 +37,10 @@ class ViewAdmin extends Component {
             }
         }
         ],
+        id: this.props.location.state.id,
+        email: this.props.location.state.email,
+        firstName: this.props.location.state.firstName,
+        lastName: this.props.location.state.lastName,
     }
 
     display = () => {
@@ -157,9 +161,23 @@ class ViewAdmin extends Component {
         );
     }
     componentDidMount() {
-        api.apiCallerWithToken("http://localhost:8080/api/account/admin/fetch", {}, 200).then(
+        const orgObj = {
+            id: this.state.id,
+            email: this.state.email,
+            firstName: this.state.firstName,
+            lastName: this.state.lastName
+
+        };
+        let copyObj = {};
+        let keysToCopy = Object.keys(orgObj);
+        for (let k of keysToCopy) {
+            if (orgObj[k] !== "" && orgObj[k] !== 0) {
+                copyObj[k] = orgObj[k];
+            }
+        }
+        api.apiCallerWithToken("http://localhost:8080/api/account/admin/fetch", copyObj, 200).then(
             (e) => {
-                console.log(e)
+                console.log("res", e)
                 {
                     this.setState({ admins: e.admins });
                     this.render()

@@ -21,7 +21,6 @@ class Tab extends Component {
         return (
             <Link to={this.state.link} id={this.state.name} className={"tab-".concat(this.state.type)}>
                 <p className="tab-text">{this.state.name}</p>
-                {console.log("l", this.state.startDate, this.state.endDate)}
                 <p className="tab-text-below">From: {this.state.startDate}</p> 
                 <p className="tab-text-below-2">To: {this.state.endDate}</p>
                 <p className="tab-text-below-3">{this.state.Description}</p>
